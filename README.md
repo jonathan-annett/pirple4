@@ -6,6 +6,8 @@ Note - This is a work in progress, and as I'm using ZEDAPP as my editor of choic
 
 this means there will be many evolutions of the code before it is complete. this isn't the only way to use ZEDAPP (https://github.com/zedapp/zed), i just decided to try doing it this way for this project, instead of working locally and then commiting the project once at the end.
 
+(zedapp is written entirely in javascript and uses node-webkit as it's engine which is basically nodejs with a custom version of the chromium project)
+
 
 The Assignment (Scenario):
 
