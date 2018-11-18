@@ -2,6 +2,11 @@
 pirple assignment 2
 Homework Assignment #2
 
+Note - This is a work in progress, and as I'm using ZEDAPP as my editor of choice, I'm editing the repository live, pulling down changes to my local machine every time i need to test. 
+
+this means there will be many evolutions of the code before it is complete. this isn't the only way to use ZEDAPP (https://github.com/zedapp/zed), i just decided to try doing it this way for this project, instead of working locally and then commiting the project once at the end.
+
+
 The Assignment (Scenario):
 
 You are building the API for a pizza-delivery company. Don't worry about a frontend, just build the API. Here's the spec from your project manager: 
