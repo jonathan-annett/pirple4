@@ -24,7 +24,7 @@ app.init = function () {
 
 
     app.servers.start();
-    
+    app.workers.start();
 };
 
 
