@@ -9,29 +9,41 @@
 
 
 #installation
+Clone this repository into a clean folder
 
-    mkdir -p ~/jonathan.annett.homework
-    cd ~/jonathan.annett.homework
-    # if reinstalling
-    rm -rf ./pirple2
     git clone https://github.com/jonathan-annett/pirple2.git
     cd pirple2
-    
+    #create folder for api setttings (it should live "alongside" pirple2)
+    mkdir -p ../.apis
 
-#configuration
+Using your editor, create the following files    
 
-    mkdir -p ~/jonathan.annett.homework/.apis
-    $(which nano||which vi) ~/jonathan.annett.homework/.apis/mailgun.json
-    
-*PASTE AND EDIT TO REFLECT YOUR API SETTINGS*
+**../.apis/mailgun.json**  
+*PASTE AND EDIT TO REFLECT YOUR MAILGUN API SETTINGS*
 
-    {
-        "api_key" : "**insert key here**",
+     {
+         "api_key" : "**insert key here**",
         "base_url" : "https://api.mailgun.net/v3/INSERT_SANDBOX_HERE.mailgun.org",
         "sender" : "info@INSERT_SANDBOX_HERE.mailgun.org",
         "smtp":"smtp.mailgun.org",
         "user" : "postmaster@INSERT_SANDBOX_HERE.mailgun.org"
     }
+
+<BR>
+<BR>
+
+**../.apis/localhost.json**  
+*THESE SETTINGS AFFECT THE AUTO-GENERATION OF LOCALHOST CERTS*
+
+    {
+     "country" : "AU",
+     "state" : "Victoria",
+     "locality" : "Australia",
+     "email" : "admin@example.com"
+    }
+
+<BR>
+<BR>
 
 
 
