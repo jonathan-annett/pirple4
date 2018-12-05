@@ -97,3 +97,59 @@
   OR
 
   * **Code:** 401 UNAUTHORIZED <br />
+
+
+**Sign in**
+----
+  Create a session token
+
+* **URL**
+
+  /token
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `(none)`
+
+* **Data Params (JSON)**
+
+  **email** `valid email address`
+  
+   **password** `valid password`
+  
+    * at least 8 characters
+    * at least 1 upper case character
+    * at least 1 lower case character
+    * at least 1 numeric digit from 0 through 9
+    * at least 1 symbol or space character 
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```JSON
+{ "id":"oQreTQn4X2nJuQZUudeg",
+  "created":"2018-12-04T05:34:34.288Z",
+  "expires":"Tue Dec 04 2018 16:34:34 GMT+1100 (AEDT)3600000"
+}
+```
+    
+    
+    
+    
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+   
+OR
+
+* **Code:** 401 UNAUTHORIZED <br />
+
