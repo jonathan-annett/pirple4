@@ -36,6 +36,7 @@
 ***Documentation***
 ====
 
+***
 <a id="sign_up"></a>
 **Sign up**
 ----
@@ -105,6 +106,7 @@
 
   * **Code:** 401 UNAUTHORIZED <br />
 
+***
 <a id="sign_in"></a>
 **Sign in**
 ----
@@ -161,6 +163,7 @@ OR
 * **Code:** 401 UNAUTHORIZED <br />
 
 
+***
 <a id="sign_out"></a>
 **Sign out**
 ----
@@ -208,6 +211,7 @@ OR
 * **Code:** 401 UNAUTHORIZED <br />
 
 
+***
 <a id="get_user_info"></a>
 **Get User Info**
 ----
@@ -262,6 +266,7 @@ OR
 
 
 
+***
 <a id="update_user_details"></a>
 **Update User Details**
 ----
