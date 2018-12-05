@@ -179,7 +179,7 @@ OR
 
    **Required:**
  
-   `token` - the id returned from Sign In (`/token`) or Sign Up
+   `token` - the id returned from Sign In (`/token`) or Sign Up (`/user`)
 
 * **Data Params (JSON)**
 
