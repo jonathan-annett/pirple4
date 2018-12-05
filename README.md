@@ -225,7 +225,7 @@ OR
   
 * **HTTP Headers**
   
-      `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+    `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
   
 *  **URL Params**
 
