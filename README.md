@@ -18,6 +18,20 @@ Clone this repository into a clean folder
 
 Using your editor, create the following files    
 
+**../.apis/stripe.json**  
+*PASTE AND EDIT TO REFLECT YOUR STRIPE API SETTINGS*
+
+    {
+     "api_key" : "test_your_secret_key_1234",
+     "email" : "admin@example.com",
+     "base_url" : "https://api.stripe.com/v1"
+    }
+
+<BR>
+<BR>
+
+
+
 **../.apis/mailgun.json**  
 *PASTE AND EDIT TO REFLECT YOUR MAILGUN API SETTINGS*
 
