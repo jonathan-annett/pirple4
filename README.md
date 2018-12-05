@@ -5,7 +5,7 @@
 [assignment](assignment.md)
 
 
-#before you begin
+# before you begin
 
 To use this api, you'll need API keys from two external services - mailgun & stripe
 
@@ -14,7 +14,7 @@ If you haven't done so already head on over to [mailgun](https://signup.mailgun.
 To test drive the API you'll need your own set of these keys.
 
 
-#installation
+# installation
 Clone this repository into a clean folder
 
     git clone https://github.com/jonathan-annett/pirple2.git
@@ -22,7 +22,7 @@ Clone this repository into a clean folder
     #create folder for api setttings
     mkdir -p ../.apis
 
-#api configuration files
+# api configuration files
 
 **../.apis/stripe.json**  
 *COPY/PASTE/EDIT TO REFLECT YOUR STRIPE API SETTINGS*
@@ -64,7 +64,7 @@ Clone this repository into a clean folder
 <BR>
 <BR>
 
-#advanced configuration options
+# advanced configuration options
 
 if you want to deploy this api using real SSL certs on a dynamic dns host (you'll need an externally accessible machine or vps do do this) you'll need a no-ip account, and have installed the letsencrypt command line tool "certbot". if you have both of these, you can create the following additional files to take advantage of these features.
 
