@@ -82,7 +82,11 @@
 { 
  "email" : "user@gmail.com", 
  "name" : "A User Name", 
- "street_address" : "4 some street address"
+ "street_address" : "4 some street address",
+ "token" : { "id":"oQreTQn4X2nJuQZUudeg",
+             "created":"2018-12-04T05:34:34.288Z",
+             "expires":"Tue Dec 04 2018 16:34:34 GMT+1100 (AEDT)3600000"
+           }
 }
 ```
     
