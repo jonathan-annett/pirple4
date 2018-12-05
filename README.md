@@ -65,6 +65,7 @@ Clone this repository into a clean folder
 <BR>
 
 #advanced configuration options
+
 if you want to deploy this api using real SSL certs on a dynamic dns host (you'll need an externally accessible machine or vps do do this) you'll need a no-ip account, and have installed the letsencrypt command line tool "certbot". if you have both of these, you can create the following additional files to take advantage of these features.
 
 
