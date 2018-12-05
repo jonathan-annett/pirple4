@@ -28,7 +28,9 @@
     {
         "api_key" : "**insert key here**",
         "base_url" : "https://api.mailgun.net/v3/INSERT_SANDBOX_HERE.mailgun.org",
-        "sender" : "info@INSERT_SANDBOX_HERE.mailgun.org"
+        "sender" : "info@INSERT_SANDBOX_HERE.mailgun.org",
+        "smtp":"smtp.mailgun.org",
+        "user" : "postmaster@INSERT_SANDBOX_HERE.mailgun.org"
     }
 
 
