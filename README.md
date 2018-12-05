@@ -335,3 +335,48 @@ OR
 
   * **Code:** 401 UNAUTHORIZED <br />
     
+
+
+
+***
+<a id="delete_user"></a>
+**Delete User**
+----
+  Delete user account.<br>
+
+* **URL**
+
+  `/user`
+
+* **Method:**
+
+  `DELETE`
+  
+* **HTTP Headers**
+
+    `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+
+  
+*  **URL Params**
+
+   **Required:**
+ 
+  **email** `valid email address` - required, must match token
+
+* **Data Params (JSON)**
+
+
+* **Success Response:**
+
+  * **Code:** 204 <br />
+
+
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br />
+
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    
