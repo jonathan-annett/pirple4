@@ -82,7 +82,7 @@
 { 
  "email" : "user@gmail.com", 
  "name" : "A User Name", 
- "street_addres" : ""
+ "street_address" : "4 some street address"
 }
 ```
     
@@ -92,23 +92,8 @@
  
 * **Error Response:**
 
-  * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : "User doesn't exist" }`
+  * **Code:** 400 BAD REQUEST <br />
 
   OR
 
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "You are unauthorized to make this request." }`
-
-* **Sample Call:**
-
-  ```javascript
-    $.ajax({
-      url: "/users/1",
-      dataType: "json",
-      type : "GET",
-      success : function(r) {
-        console.log(r);
-      }
-    });
-  ```
