@@ -160,7 +160,7 @@ OR
 * **Code:** 401 UNAUTHORIZED <br />
 
 
-
+<a id="sign_out"></a>
 **Sign out**
 ----
   Delete a session token, logging out the user<br />
@@ -207,7 +207,7 @@ OR
 * **Code:** 401 UNAUTHORIZED <br />
 
 
-
+<a id="get_user_info"></a>
 **Get User Info**
 ----
   Get user account details.<br \>
@@ -261,7 +261,7 @@ OR
 
 
 
-
+<a id="update_user_details"></a>
 **Update User Details**
 ----
   Update user account.<br \>
