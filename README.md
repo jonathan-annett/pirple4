@@ -39,8 +39,9 @@
 <a id="sign_up"></a>
 **Sign up**
 ----
-  Create a new user account.<br \>
-  returns the provided user data, and a newly created session token.<br \>
+
+  Create a new user account.<br>
+  returns the provided user data, and a newly created session token.<br>
   note that the password is not returned in the user data.
 
 * **URL**
