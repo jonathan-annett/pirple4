@@ -36,7 +36,7 @@
 ***Documentation***
 ====
 
-
+<a id="sign_up"></a>
 **Sign up**
 ----
   Create a new user account.<br \>
@@ -104,7 +104,7 @@
 
   * **Code:** 401 UNAUTHORIZED <br />
 
-
+<a id="sign_in"></a>
 **Sign in**
 ----
   Create a session token
@@ -179,7 +179,7 @@ OR
 
    **Required:**
  
-   `token` - the id returned from Sign In (`/token`) or Sign Up (`/user`)
+   `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
 
 * **Data Params (JSON)**
 
@@ -225,7 +225,7 @@ OR
   
 * **HTTP Headers**
   
-      `token` - the id returned from Sign In (`/token`) or Sign Up (`/user`)
+      `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
   
 *  **URL Params**
 
@@ -278,7 +278,7 @@ OR
   
 * **HTTP Headers**
 
-`token` - the id returned from Sign In (`/token`) or Sign Up (`/user`)
+    `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
 
   
 *  **URL Params**
