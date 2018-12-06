@@ -5,8 +5,9 @@
 # Sign up
 ### POST /user
 
-  Create a new user account, and a session token.<br>
-[implementation: user.js](user.js)
+  Create a new user account, and a session token.
+ 
+  <br>[implementation: lib/handlers/user.js](user.js)
 
 * **REST endpoint**
 
@@ -50,34 +51,23 @@ see [validation rules](#api-validation-rules)
 
 ***
 # Sign in
-----
-  Create a session token
+### POST /token
 
+  Create and return a session token for an existing user account, using credentials supplied when the account was [created](#sign-up).
+
+<br>[implementation: lib/handlers/token.js](token.js)
 
 * **REST endpoint**
 
 `POST /token`
 
-* **URL**
-
-  `/token`
-
-* **Method:**
-
-  `POST`
-  
-
-* **Data Params (JSON)**
-
-  **email** `valid email address`
-  
-   **password** `valid password`
-  
-    * at least 8 characters
-    * at least 1 upper case character
-    * at least 1 lower case character
-    * at least 1 numeric digit from 0 through 9
-    * at least 1 symbol or space character 
+* **Payload**
+see [validation rules](#api-validation-rules)
+```JSON
+    {  "email" : "...",
+       "password" : "..."
+    }
+```    
 
 
 * **Success Response:**
@@ -93,8 +83,7 @@ see [validation rules](#api-validation-rules)
     
     
     
-    
- 
+
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br />
@@ -112,14 +101,16 @@ could be one of:
 
 ***
 # Sign out
-----
+### DELETE /token
+
   Delete a session token, logging out the user<br />
-  also clears any shopping cart associated with this session token
+  also clears any shopping cart associated with this session token. 
+  token argument is the `id` from [POST /token](#sign-in) or `token.id` from (POST /user)(#sign-up). 
   
-
-* **URL**
-
-  `/token?token=abcdef123456789`
+  
+* **REST endpoint**
+ 
+  `DELETE /token?token=abcdef123456789`
 
 * **Method:**
 
