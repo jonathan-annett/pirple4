@@ -2,9 +2,8 @@
 ====
 
 ***
-<a name=post-user>
+<a name="post-user"></a>
 # Sign up
-</a>
 ----
 
   Create a new user account.<br>
