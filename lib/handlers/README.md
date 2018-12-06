@@ -3,7 +3,8 @@
 
 ***
 # Sign up
-# POST /user
+----
+## POST /user
 ----
 
   Create a new user account.<br>
