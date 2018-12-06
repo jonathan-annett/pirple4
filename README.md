@@ -139,7 +139,7 @@ note that the hostname listed in the above file must be associated with your no-
     * at least 1 symbol or space character 
     
   **street_address** `a valid street address`
-     * at least 1 one line of 3 words
+     * at least 1 line of 3 words
      * at least 1 of the words must be a number
   
 
@@ -373,7 +373,7 @@ OR
     * at least 1 symbol or space character 
     
   **street_address** `a valid street address` - optional
-     * at least 1 one line of 3 words
+     * at least 1 line of 3 words
      * at least 1 of the words must be a number
   
 
