@@ -23,13 +23,13 @@
     }
 ```    
 
-  [**email**](#api-validation-rules) `valid email address`
+  **email** [`valid email address`](#api-validation-rules)
   
-  **name** `full name`
+  **name** [`full name`](#api-validation-rules)
   
-  **password** `valid password`
+  **password** [`valid password`](#api-validation-rules)
   
-  **street_address** `a valid street address`
+  **street_address** [`a valid street address`](#api-validation-rules)
   
 
 * **Success Response:**
