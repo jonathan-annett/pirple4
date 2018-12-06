@@ -3,13 +3,9 @@
 
 ***
 # Sign up
-----
 ## POST /user
-----
 
-  Create a new user account.<br>
-  returns the provided user data, and a newly created session token.<br>
-  note that the password is not returned in the user data.
+  Create a new user account, and a session token.
 
 * **REST endpoint**
 
@@ -24,7 +20,6 @@ see [validation rules](#api-validation-rules)
        "street_address" : "..."
     }
 ```    
-
 
 * **Success Response:**
 
@@ -42,10 +37,6 @@ see [validation rules](#api-validation-rules)
 }
 ```
     
-    
-    
-    
- 
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br />
@@ -53,6 +44,9 @@ see [validation rules](#api-validation-rules)
   OR
 
   * **Code:** 401 UNAUTHORIZED <br />
+
+[implementation](user.js)
+
 
 ***
 # Sign in
