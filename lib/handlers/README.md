@@ -143,6 +143,7 @@ the token is invalid or has already been signed out (deleted)
 * **REST endpoint**
 
   `GET /user?email=user@domain.com`
+  <br>or<br>
   `GET /user`
 
 * if email is supplied, it must match the logged in user
