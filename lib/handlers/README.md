@@ -11,7 +11,7 @@
 
 * **REST endpoint**
 
-  `POST /user HTTP/2`
+# `POST /user`
 
 * **Payload**
 see [validation rules](#api-validation-rules)
@@ -56,6 +56,11 @@ see [validation rules](#api-validation-rules)
 # Sign in
 ----
   Create a session token
+
+
+* **REST endpoint**
+
+`POST /token`
 
 * **URL**
 
