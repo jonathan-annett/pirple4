@@ -71,7 +71,7 @@ Clone this repository into a clean folder
 If you want to deploy this api using real SSL certs on a dynamic dns host, you'll need an externally accessible machine or vps,a [no-ip account](https://www.noip.com/), and you'll need to have installed the [letsencrypt command line tool "certbot"](https://certbot.eff.org/docs/install.html). 
 If you have both of these, you can create the following additional files to take advantage of these features:
 
- * on server startup, the current ip address is sent to the no-ip dynmaic dns updater
+ * on server startup, the current ip address is sent to the no-ip dynamic dns updater
  * lets encrypt ssl certs are automatically generated using a bash script at configuration time
  * lets encrypt ssl certs are automatically loaded on server startup
 
