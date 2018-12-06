@@ -153,11 +153,6 @@ the token is invalid or has already been signed out (deleted)
   
     `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
   
-*  **URL Params**
-
-   **Required:**
- 
-   `email` - must match the email address used to create the token
 
 
 * **Success Response:**
@@ -178,9 +173,6 @@ the token is invalid or has already been signed out (deleted)
  
 * **Error Response:**
 
-  * **Code:** 400 BAD REQUEST <br>
-
-  OR
 
   * **Code:** 401 UNAUTHORIZED <br>
 
