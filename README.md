@@ -118,12 +118,6 @@ note that the hostname listed in the above file must be associated with your no-
 
   `POST`
   
-*  **URL Params**
-
-   **Required:**
- 
-   `(none)`
-
 * **Data Params (JSON)**
 
   **email** `valid email address`
@@ -185,11 +179,6 @@ note that the hostname listed in the above file must be associated with your no-
 
   `POST`
   
-*  **URL Params**
-
-   **Required:**
- 
-   `(none)`
 
 * **Data Params (JSON)**
 
@@ -283,7 +272,7 @@ most probably the token is invalid or has already been signed out (deleted)
 
 * **URL**
 
-  `/user`
+  `/user?email=user@domain.com`
 
 * **Method:**
 
@@ -348,12 +337,6 @@ most probably the token is invalid or has already been signed out (deleted)
 
     `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
 
-  
-*  **URL Params**
-
-   **Required:**
- 
-   `(none)`
 
 * **Data Params (JSON)**
 
@@ -408,7 +391,7 @@ most probably the token is invalid or has already been signed out (deleted)
 
 * **URL**
 
-  `/user`
+  `/user?email=user@domain.com`
 
 * **Method:**
 
@@ -424,8 +407,6 @@ most probably the token is invalid or has already been signed out (deleted)
    **Required:**
  
   **email** `valid email address` - required, must match token
-
-* **Data Params (JSON)**
 
 
 * **Success Response:**
