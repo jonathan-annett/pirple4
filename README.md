@@ -280,8 +280,8 @@ OR
 <a id="get_user_info"></a>
 **Get User Info**
 ----
-  Get user account details.<br \>
-  returns the provided user data.<br \>
+  Get user account details.<br>
+  returns the provided user data.<br>
   note that the password is not returned in the user data.
 
 * **URL**
@@ -322,11 +322,11 @@ OR
  
 * **Error Response:**
 
-  * **Code:** 400 BAD REQUEST <br />
+  * **Code:** 400 BAD REQUEST <br>
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 UNAUTHORIZED <br>
 
 
 
