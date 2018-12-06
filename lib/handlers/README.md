@@ -9,15 +9,17 @@
   returns the provided user data, and a newly created session token.<br>
   note that the password is not returned in the user data.
 
-* **URL**
+* **REST endpoint**
 
-  `/user`
+  `POST /user HTTP/2`
 
-* **Method:**
+* **Payload**
 
-  `POST`
-  
-* **Data Params (JSON)**
+```JSON
+    {  "email" : "<>",
+       "password" : "<>",
+    }
+```    
 
   **email** `valid email address`
   
@@ -65,8 +67,7 @@
   * **Code:** 401 UNAUTHORIZED <br />
 
 ***
-<a id="sign_in"></a>
-**Sign in**
+# Sign in
 ----
   Create a session token
 
@@ -123,8 +124,7 @@ could be one of:
 
 
 ***
-<a id="sign_out"></a>
-**Sign out**
+# Sign out
 ----
   Delete a session token, logging out the user<br />
   also clears any shopping cart associated with this session token
@@ -142,7 +142,7 @@ could be one of:
 
    **Required:**
  
-   `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+   `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
 
 * **Success Response:**
 
@@ -162,8 +162,7 @@ OR
 most probably the token is invalid or has already been signed out (deleted)
 
 ***
-<a id="get_user_info"></a>
-**Get User Info**
+# Get User Info
 ----
   Get user account details.<br>
   returns the provided user data.<br>
@@ -180,7 +179,7 @@ most probably the token is invalid or has already been signed out (deleted)
   
 * **HTTP Headers**
   
-    `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+    `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
   
 *  **URL Params**
 
@@ -217,8 +216,7 @@ most probably the token is invalid or has already been signed out (deleted)
 
 
 ***
-<a id="update_user_details"></a>
-**Update User Details**
+# Update User Details
 ----
   Update user account.<br \>
   returns the updated user data, and a newly created session token.<br \>
@@ -234,7 +232,7 @@ most probably the token is invalid or has already been signed out (deleted)
   
 * **HTTP Headers**
 
-    `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+    `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
 
 
 * **Data Params (JSON)**
@@ -283,8 +281,7 @@ most probably the token is invalid or has already been signed out (deleted)
 
 
 ***
-<a id="delete_user"></a>
-**Delete User**
+# Delete User
 ----
   Delete user account.<br>
 
@@ -298,7 +295,7 @@ most probably the token is invalid or has already been signed out (deleted)
   
 * **HTTP Headers**
 
-    `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+    `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
 
   
 *  **URL Params**
@@ -325,8 +322,7 @@ most probably the token is invalid or has already been signed out (deleted)
  
  
 ***
-<a id="get_menu_items"></a>
-**Get Menu Items**
+# Get Menu Items
 ----
   Retreive a full list of food items available to order from the menu.<br \>
 
@@ -379,8 +375,7 @@ if there are no menu items defined, you will just get an empty array
  
      
 ***
-<a id="get_menu_item"></a>
-**Get Menu Item**
+# Get Menu Item
 ----
   Retreive a specific food item available to order from the menu.<br \>
 
@@ -426,8 +421,7 @@ if there are no menu items defined, you will just get an empty array
 
 
 ***
-<a id="search_menu_items"></a>
-**Search Menu Items**
+# Search Menu Items
 ----
   Filter the list of items available to order from the menu.<br>
 
@@ -469,8 +463,7 @@ if there are no menu items defined mathcing your search, you will just get an em
 
 
 ***
-<a id="add_item_to_cart"></a>
-**Add Menu Item to shopping cart**
+# Add Menu Item to shopping cart
 ----
   add an item to the shopping cart, optionally specifying quantity.<br>
 
@@ -485,7 +478,7 @@ if there are no menu items defined mathcing your search, you will just get an em
 
 * **HTTP Headers**
 
-`token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+`token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
 
 * **Data Params (JSON)**
 
@@ -549,7 +542,7 @@ most probably there is an issue with writing/reading to/from storage
 
 * **HTTP Headers**
 
-`token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+`token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
 
 * **Data Params (JSON)**
 
@@ -604,8 +597,7 @@ most probably there is an issue with writing/reading to/from storage
 
 
 ***
-<a id="delete_cart_item"></a>
-**remove an item from the shopping cart**
+# Delete Cart Item
 ----
  remove a specific item from the shopping cart.<br>
 
@@ -620,7 +612,7 @@ most probably there is an issue with writing/reading to/from storage
 
 * **HTTP Headers**
 
-`token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+`token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
 
 
 * **Success Response:**
