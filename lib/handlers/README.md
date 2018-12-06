@@ -1,14 +1,8 @@
-# pirple2
-
-# **pizza ordering api**
-
-
 ***API Documentation***
 ====
 
 ***
-<a id="sign_up"></a>
-**Sign up**
+# Sign up
 ----
 
   Create a new user account.<br>
