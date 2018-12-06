@@ -422,4 +422,354 @@ most probably the token is invalid or has already been signed out (deleted)
   OR
 
   * **Code:** 401 UNAUTHORIZED <br />
+
+ 
+ 
+***
+<a id="get_menu_items"></a>
+**Get Menu Items**
+----
+  Retreive a full list of food items available to order from the menu.<br \>
+
+* **URL**
+
+  `/menu`
+
+* **Method:**
+
+  `GET`
+  
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```JSON
+[
+    {
+        "description": "Vegan Pizza",
+        "image_url": "https://i.imgur.com/yMu7sjT.jpg",
+        "price": 9.99,
+        "id": "6JiEVO9UNdNBfqWGoHKz"
+    },
+    {
+        "description": "Meat Lovers Pizza",
+        "image_url": "https://i.imgur.com/ouAz8i8.jpg",
+        "price": 9.99,
+        "id": "Jg1lpBcQ8pEY70Oxxl8d"
+    },
+    {
+        "description": "Desert Pizza",
+        "image_url": "https://i.imgur.com/WFqSUbe.jpg",
+        "price": 19.99,
+        "id": "PiBhPQWNNSek0U41aO2E"
+    },
+    {
+        "description": "Hawaiian Pizza",
+        "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
+        "price": 9.99,
+        "id": "oBBofNs316bjZs0d7a70"
+    }
+]
+```
+    
+  
+ * **Error Response:**
+ 
+if there are no menu items defined, you will just get an empty array
+ 
+     
+***
+<a id="get_menu_item"></a>
+**Get Menu Item**
+----
+  Retreive a specific food item available to order from the menu.<br \>
+
+* **URL**
+
+  `/menu?id=6JiEVO9UNdNBfqWGoHKz`
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+ **Required:**
+
+**id** `valid menu id` - required
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```JSON
+[
+    {
+        "description": "Vegan Pizza",
+        "image_url": "https://i.imgur.com/yMu7sjT.jpg",
+        "price": 9.99,
+        "id": "6JiEVO9UNdNBfqWGoHKz"
+    }
+]
+```
+    
+    
+    
+ 
+* **Error Response:**
+
+* **Code:** 404 NOT FOUND <br />
+
+ 
+
+
+
+***
+<a id="search_menu_items"></a>
+**Search Menu Items**
+----
+  Filter the list of items available to order from the menu.<br>
+
+* **URL**
+
+  `/menu?description=hawaii`
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+ **Required:**
+
+**desciption** `search term` - required
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```JSON
+[
+    {
+        "description": "Hawaiian Pizza",
+        "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
+        "price": 9.99,
+        "id": "oBBofNs316bjZs0d7a70"
+    }
+]
+```
+    
+* **Error Response:**
+ 
+if there are no menu items defined mathcing your search, you will just get an empty array
+ 
+     
+
+
+***
+<a id="add_item_to_cart"></a>
+**Add Menu Item to shopping cart**
+----
+  add an item to the shopping cart, optionally specifying quantity.<br>
+
+* **URL**
+
+  `/cart`
+
+* **Method:**
+
+  `POST`
+  
+
+* **HTTP Headers**
+
+`token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+
+* **Data Params (JSON)**
+
+**id** `valid menu item id` - required
+
+**quantity** `how many items to add` - optional, defaults to 1
+
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```JSON
+{
+    items : {
+        "oBBofNs316bjZs0d7a70" : {
+            "description": "Hawaiian Pizza",
+            "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
+            "price": 9.99,
+            "quantity" : 1,
+            "subtotal" : 9.99
+        }
+    },
+    total : 9.99
+}
+```
+    
+* **Error Response:**
+
+* **Code:** 400 BAD REQUEST <br />
+
+the id didn't match a valid menu item
+
+
+OR
+
+* **Code:** 401 UNAUTHORIZED <br />
+
+most probably the token has expired, or this endpoint was called without a token
+ 
+* **Code:** 500 INTERNAL ERROR <br />
+
+most probably there is an issue with writing/reading to/from storage 
+ 
+
+***
+<a id="update_item_quantity"></a>
+**Update quantity of items in shopping cart**
+----
+  update the number of items in the shopping cart.<br>
+
+* **URL**
+
+  `/cart`
+
+* **Method:**
+
+  `PUT`
+  
+
+* **HTTP Headers**
+
+`token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+
+* **Data Params (JSON)**
+
+**id** `valid menu item id` - required
+
+**quantity** `number to set quantity to` - required (supplyinng 0 will remove the item from the cart)
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```JSON
+{
+    items : {
+        "oBBofNs316bjZs0d7a70" : {
+            "description": "Hawaiian Pizza",
+            "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
+            "price": 9.99,
+            "quantity" : 1,
+            "subtotal" : 9.99
+        }
+    },
+    total : 9.99
+}
+```
+    
+* **Error Response:**
+
+* **Code:** 400 BAD REQUEST <br />
+
+the id or quantity wasn't supplied, or was invalid in some way (eg non numeric quantity)
+
+OR
+
+* **Code:** 404 NOT FOUND <br />
+
+the id doesn't match a valid menu item, or is not currently in the shopping cart
+
+OR
+
+
+* **Code:** 401 UNAUTHORIZED <br />
+
+most probably the token has expired, or this endpoint was called without a token
+ 
+* **Code:** 500 INTERNAL ERROR <br />
+
+most probably there is an issue with writing/reading to/from storage 
+ 
+
+
+
+***
+<a id="delete_cart_item"></a>
+**remove an item from the shopping cart**
+----
+ remove a specific item from the shopping cart.<br>
+
+* **URL**
+
+  `/cart?id=oBBofNs316bjZs0d7a70`
+
+* **Method:**
+
+  `DELETE`
+  
+
+* **HTTP Headers**
+
+`token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+returns the new contents of the cart, after the delete.
+```JSON
+{
+    items : {
+        "oBBofNs316bjZs0d7a70" : {
+            "description": "Hawaiian Pizza",
+            "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
+            "price": 9.99,
+            "quantity" : 1,
+            "subtotal" : 9.99
+        }
+    },
+    total : 9.99
+}
+```
+    
+* **Error Response:**
+
+* **Code:** 400 BAD REQUEST <br />
+
+the id or quantity wasn't supplied, or was invalid in some way (eg non numeric quantity)
+
+OR
+
+* **Code:** 404 NOT FOUND <br />
+
+the id doesn't match a valid menu item, or is not currently in the shopping cart
+
+OR
+
+
+* **Code:** 401 UNAUTHORIZED <br />
+
+most probably the token has expired, or this endpoint was called without a token
+ 
+* **Code:** 500 INTERNAL ERROR <br />
+
+most probably there is an issue with writing/reading to/from storage 
+ 
+
+
+
+     
+
     
