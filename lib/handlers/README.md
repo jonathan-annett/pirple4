@@ -3,9 +3,10 @@
 
 ***
 # Sign up
-## POST /user
+### POST /user
 
-  Create a new user account, and a session token.
+  Create a new user account, and a session token.<br>
+[implementation: user.js](user.js)
 
 * **REST endpoint**
 
@@ -45,7 +46,6 @@ see [validation rules](#api-validation-rules)
 
   * **Code:** 401 UNAUTHORIZED <br />
 
-[implementation](user.js)
 
 
 ***
