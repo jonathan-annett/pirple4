@@ -16,26 +16,20 @@
 * **Payload**
 
 ```JSON
-    {  "email" : "<>",
-       "password" : "<>",
+    {  "email" : "...",
+       "name"  : "...",
+       "password" : "...", 
+       "street_address" : "..."
     }
 ```    
 
-  **email** `valid email address`
+  [**email**](#api-validation-rules) `valid email address`
   
   **name** `full name`
   
   **password** `valid password`
   
-    * at least 8 characters
-    * at least 1 upper case character
-    * at least 1 lower case character
-    * at least 1 numeric digit from 0 through 9
-    * at least 1 symbol or space character 
-    
   **street_address** `a valid street address`
-     * at least 1 line of 3 words
-     * at least 1 of the words must be a number
   
 
 * **Success Response:**
@@ -664,3 +658,26 @@ most probably there is an issue with writing/reading to/from storage
      
 
     
+    
+# api validation rules
+    
+**email** `valid email address`
+
+  * a typical email address in the standard `username@host.com` format 
+  
+**name** `full name`
+
+  * at least 2 words that are separated by space(s). eg `Will Smith` is ok, `Beyonce` is not.
+  * numbers are allowed after the first word so `John Smith 3rd` is acceptable as is `John 3 Smith`
+
+**password** `valid password`
+
+  * at least 8 characters
+  * at least 1 upper case character
+  * at least 1 lower case character
+  * at least 1 numeric digit from 0 through 9
+  * at least 1 symbol or space character 
+  
+**street_address** `a valid street address`
+   * at least 1 line of 3 words
+   * at least 1 of the words must be a number
