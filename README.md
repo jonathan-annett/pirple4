@@ -222,10 +222,16 @@ note that the hostname listed in the above file must be associated with your no-
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br />
-   
+
+one or more of the required fields is missing
+
 OR
 
 * **Code:** 401 UNAUTHORIZED <br />
+
+could be one of:
+  * wrong email adddress
+  * incorrect password
 
 
 ***
@@ -238,7 +244,7 @@ OR
 
 * **URL**
 
-  `/token`
+  `/token?token=abcdef123456789`
 
 * **Method:**
 
@@ -250,31 +256,22 @@ OR
  
    `token` - the id returned from [Sign In](#sign_in) (`/token`) or [Sign Up](#sign_up)  (`/user`)
 
-* **Data Params (JSON)**
-
 * **Success Response:**
 
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-{ "id":"oQreTQn4X2nJuQZUudeg",
-  "created":"2018-12-04T05:34:34.288Z",
-  "expires":"Tue Dec 04 2018 16:34:34 GMT+1100 (AEDT)3600000"
-}
-```
+  * **Code:** 204 <br />
+
     
     
-    
-    
- 
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br />
-   
+
+most probably a missing token   
 OR
 
 * **Code:** 401 UNAUTHORIZED <br />
 
+most probably the token is invalid or has already been signed out (deleted)
 
 ***
 <a id="get_user_info"></a>
