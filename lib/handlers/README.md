@@ -105,22 +105,13 @@ could be one of:
 
   Delete a session token, logging out the user<br />
   also clears any shopping cart associated with this session token. 
-  token argument is the `id` from [POST /token](#sign-in) or `token.id` from (POST /user)(#sign-up). 
+  The `token` argument is either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). 
   
-  
+<br>[implementation: lib/handlers/token.js](token.js)
+
 * **REST endpoint**
  
   `DELETE /token?token=abcdef123456789`
-
-* **Method:**
-
-  `DELETE`
-  
-*  **URL Params**
-
-   **Required:**
- 
-   `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
 
 * **Success Response:**
 
@@ -132,29 +123,31 @@ could be one of:
 
   * **Code:** 400 BAD REQUEST <br />
 
-most probably a missing token   
+a missing or empty token argument
 OR
 
 * **Code:** 401 UNAUTHORIZED <br />
 
-most probably the token is invalid or has already been signed out (deleted)
+the token is invalid or has already been signed out (deleted)
 
 ***
 # Get User Info
+### GET /user
 ----
   Get user account details.<br>
   returns the provided user data.<br>
   note that the password is not returned in the user data.
 
-* **URL**
+<br>[implementation: lib/handlers/user.js](user.js)
 
-  `/user?email=user@domain.com`
+* **REST endpoint**
 
-* **Method:**
+  `GET /user?email=user@domain.com`
+  `GET /user`
 
-  `GET`
-  
-  
+* if email is supplied, it must match the logged in user
+* if email is not supplied, the logged in user is implied
+
 * **HTTP Headers**
   
     `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
