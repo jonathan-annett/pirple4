@@ -2,7 +2,7 @@
 ====
 
 ***
-# Sign up
+# Sign up<a name=post-user></a>
 ----
 
   Create a new user account.<br>
@@ -11,7 +11,7 @@
 
 * **REST endpoint**
 
-# `POST /user`
+`POST /user`
 
 * **Payload**
 see [validation rules](#api-validation-rules)
