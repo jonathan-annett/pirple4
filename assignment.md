@@ -6,7 +6,7 @@ The Assignment (Scenario):
 
 You are building the API for a pizza-delivery company. Don't worry about a frontend, just build the API. Here's the spec from your project manager: 
 
-1. New users can be created, their information can be edited, and they can be deleted. We should store their name, email address, and street address.
+1. New users can be [created](lib/handlers/README.md#post-user), their information can be edited, and they can be deleted. We should store their name, email address, and street address.
 
 2. Users can log in and log out by creating or destroying a token.
 
