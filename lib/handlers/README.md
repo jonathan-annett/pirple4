@@ -419,7 +419,6 @@ if there are no menu items defined mathcing your search, you will just get an em
 `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
 
 * **Payload**
-see [validation rules](#api-validation-rules)
 ```JSON
     {  "id" : "...",
        "quantity"  : 1,
@@ -470,29 +469,31 @@ most probably there is an issue with writing/reading to/from storage
  
 
 ***
-<a id="update_item_quantity"></a>
-**Update quantity of items in shopping cart**
+# Update quantity of items in shopping cart
+### PUT /cart
 ----
-  update the number of items in the shopping cart.<br>
-
-* **URL**
-
-  `/cart`
-
-* **Method:**
-
-  `PUT`
+  update the number of items in the shopping cart.
   
+<br>[implementation: lib/handlers/cart.js](cart.js)
+
+* **REST endpoint**
+
+  `POST /cart`
 
 * **HTTP Headers**
 
 `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
 
-* **Data Params (JSON)**
 
-**id** `valid menu item id` - required
+* **Payload**
+```JSON
+    {  "id" : "...",
+       "quantity"  : 1,
+    }
+```    
+* id - valid menu item id
 
-**quantity** `number to set quantity to` - required (supplyinng 0 will remove the item from the cart)
+* quantity - explicitly set how many items with this id there should be in the cart.
 
 
 * **Success Response:**
@@ -542,17 +543,15 @@ most probably there is an issue with writing/reading to/from storage
 
 ***
 # Delete Cart Item
+### DELETE /cart
 ----
  remove a specific item from the shopping cart.<br>
 
-* **URL**
+<br>[implementation: lib/handlers/cart.js](cart.js)
 
-  `/cart?id=oBBofNs316bjZs0d7a70`
+* **REST endpoint**
 
-* **Method:**
-
-  `DELETE`
-  
+  `DELETE /cart?id=oBBofNs316bjZs0d7a70`
 
 * **HTTP Headers**
 
