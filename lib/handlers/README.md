@@ -135,8 +135,8 @@ the token is invalid or has already been signed out (deleted)
 ### GET /user
 ----
   Get user account details.<br>
-  returns the provided user data.<br>
-  note that the password is not returned in the user data.
+  Returns the user's data in JSON format.<br>
+  Note that the password is not returned in the user data.
 
 <br>[implementation: lib/handlers/user.js](user.js)
 
@@ -183,8 +183,8 @@ the token is invalid or has already been signed out (deleted)
 ### PUT /user
 ----
   Update user account.<br>
-  returns the updated user data, and a newly created session token.<br>
-  note that the password is not returned in the user data.
+  Returns the updated user data<br>
+  Note that the password is not returned in the user data.
 
 <br>[implementation: lib/handlers/user.js](user.js)
 
