@@ -151,7 +151,7 @@ the token is invalid or has already been signed out (deleted)
 
 * **HTTP Headers**
   
-    `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
+    `token` - the id returned from [POST /token](#sign-in) or [POST /user](#sign-up)  
   
 
 
@@ -168,55 +168,47 @@ the token is invalid or has already been signed out (deleted)
 ```
     
     
-    
-    
+
  
 * **Error Response:**
 
 
   * **Code:** 401 UNAUTHORIZED <br>
 
-
+* **Code:** 404 NOT FOUND <br>
 
 
 ***
 # Update User Details
+### PUT /user
 ----
-  Update user account.<br \>
-  returns the updated user data, and a newly created session token.<br \>
+  Update user account.<br>
+  returns the updated user data, and a newly created session token.<br>
   note that the password is not returned in the user data.
 
-* **URL**
+<br>[implementation: lib/handlers/user.js](user.js)
 
-  `/user`
+* **REST endpoint**
 
-* **Method:**
+  `PUT /user`
 
-  `PUT`
-  
 * **HTTP Headers**
-
-    `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
-
-
-* **Data Params (JSON)**
-
-  **email** `valid email address` - required, must match token
   
-  **name** `full name` - optional
+    `token` - the id returned from [POST /token](#sign-in) or [POST /user](#sign-up)  
+
+
+* **Payload**
+see [validation rules](#api-validation-rules)
+```JSON
+    {  "email" : "...",
+       "name"  : "...",
+       "password" : "...", 
+       "street_address" : "..."
+    }
+```    
   
-  **password** `valid password` - optional
-  
-    * at least 8 characters
-    * at least 1 upper case character
-    * at least 1 lower case character
-    * at least 1 numeric digit from 0 through 9
-    * at least 1 symbol or space character 
-    
-  **street_address** `a valid street address` - optional
-     * at least 1 line of 3 words
-     * at least 1 of the words must be a number
-  
+* if email is supplied, it must match the logged in user
+* if email is not supplied, the logged in user is implied
 
 * **Success Response:**
 
@@ -231,8 +223,7 @@ the token is invalid or has already been signed out (deleted)
 ```
     
     
-    
- 
+
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br />
@@ -246,27 +237,26 @@ the token is invalid or has already been signed out (deleted)
 
 ***
 # Delete User
+### DELETE /user
 ----
   Delete user account.<br>
 
-* **URL**
 
-  `/user?email=user@domain.com`
+<br>[implementation: lib/handlers/user.js](user.js)
 
-* **Method:**
+* **REST endpoint**
 
-  `DELETE`
-  
+  `DELETE /user?email=user@domain.com`
+  <br>or<br>
+  `DELETE /user`
+
+* if email is supplied, it must match the logged in user
+* if email is not supplied, the logged in user is implied
+
 * **HTTP Headers**
-
-    `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
-
   
-*  **URL Params**
-
-   **Required:**
- 
-  **email** `valid email address` - required, must match token
+    `token` - the id returned from [POST /token](#sign-in) or [POST /user](#sign-up)  
+  
 
 
 * **Success Response:**
@@ -274,7 +264,6 @@ the token is invalid or has already been signed out (deleted)
   * **Code:** 204 <br />
 
 
- 
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br />
