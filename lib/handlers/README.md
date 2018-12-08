@@ -276,17 +276,15 @@ see [validation rules](#api-validation-rules)
  
 ***
 # Get Menu Items
+### GET /menu
 ----
   Retreive a full list of food items available to order from the menu.<br \>
 
-* **URL**
+  <br>[implementation: lib/handlers/menu.js](menu.js)
 
-  `/menu`
+* **REST endpoint**
 
-* **Method:**
-
-  `GET`
-  
+`GET /menu`
 
 * **Success Response:**
 
@@ -329,22 +327,17 @@ if there are no menu items defined, you will just get an empty array
      
 ***
 # Get Menu Item
+### GET /menu?id
 ----
   Retreive a specific food item available to order from the menu.<br \>
 
-* **URL**
+<br>[implementation: lib/handlers/menu.js](menu.js)
 
-  `/menu?id=6JiEVO9UNdNBfqWGoHKz`
+* **REST endpoint**
 
-* **Method:**
+`GET /menu?id=6JiEVO9UNdNBfqWGoHKz`
 
-  `GET`
-  
-*  **URL Params**
-
- **Required:**
-
-**id** `valid menu id` - required
+ * id is a valid menu item id
 
 
 * **Success Response:**
@@ -374,24 +367,18 @@ if there are no menu items defined, you will just get an empty array
 
 
 ***
-# Search Menu Items
+# Filter Menu Items
+###  /menu?description
 ----
   Filter the list of items available to order from the menu.<br>
 
-* **URL**
+<br>[implementation: lib/handlers/menu.js](menu.js)
 
-  `/menu?description=hawaii`
+* **REST endpoint**
 
-* **Method:**
+`GET /menu?description=hawaii`
 
-  `GET`
-  
-*  **URL Params**
-
- **Required:**
-
-**desciption** `search term` - required
-
+ * description - a word (search term) to filter the list on
 
 * **Success Response:**
 
@@ -417,27 +404,31 @@ if there are no menu items defined mathcing your search, you will just get an em
 
 ***
 # Add Menu Item to shopping cart
+### POST /cart
 ----
-  add an item to the shopping cart, optionally specifying quantity.<br>
-
-* **URL**
-
-  `/cart`
-
-* **Method:**
-
-  `POST`
+  add an item to the shopping cart, optionally specifying quantity.
   
+<br>[implementation: lib/handlers/cart.js](cart.js)
+
+* **REST endpoint**
+
+  `POST /cart`
 
 * **HTTP Headers**
 
 `token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
 
-* **Data Params (JSON)**
+* **Payload**
+see [validation rules](#api-validation-rules)
+```JSON
+    {  "id" : "...",
+       "quantity"  : 1,
+    }
+```    
 
-**id** `valid menu item id` - required
+ * id - valid menu item id
 
-**quantity** `how many items to add` - optional, defaults to 1
+ * quantity (optional) - how many items to add to cart, defaults to 1
 
 
 
