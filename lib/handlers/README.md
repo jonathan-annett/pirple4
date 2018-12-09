@@ -62,16 +62,15 @@ Get user account details.
 Returns the user's data in JSON format.  
 Note that the password is not returned in the user data.  
 
- * [implementation: lib/handlers/user.js](user.js)
+  * [implementation: lib/handlers/user.js](user.js)
 
- * **REST endpoint**  
+  * **REST endpoint**  
 `GET /user?email=user@domain.com`  
 or  
 `GET /user`  
 
-  * **HTTP Headers**
-  
-    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+  * **HTTP Headers**  
+`token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
   
 
 
@@ -82,13 +81,74 @@ or
 
 
 
+***
+# Update User Details
+### PUT /user
+----
+Update user account.  
+Returns the updated user data  
+Note that the password is not returned in the user data.  
 
-  Common Name:      Update User Details
+  * [implementation: lib/handlers/user.js](user.js)
+
+  * **REST endpoint**  
+`PUT /user`
+```JSON
+    { "email":"user@domain.com",
+      "name":"Mr Squirrely Squirrel",
+      "password":"monkey123",
+      "street_address" : "45 Squirrel Lane"
+    }
+```    
+
+  * **HTTP Headers**  
+  `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+
+* **Payload**
+see [validation rules](#api-validation-rules)
+  
+* if email is supplied, it must match the logged in user
+* if email is not supplied, the logged in user is implied
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```JSON
+{ 
+ "email" : "user@gmail.com", 
+ "name" : "A User Name", 
+ "street_address" : "4 some street address"
+}
+```
+    
+    
+
+* **Error Response:**
+
+  * **Code:** 400 [BAD REQUEST](#api-validation-rules)
+      * invalid email
+      * invalid name
+      * invalid password 
+      * invalid street_address
+
+  OR
+
+  * **Code:**  401 UNAUTHORIZED
+      * missing token or email does not match token
+    
+
+
+
+
+***
+# Update User Details
+### PUT /user
   Specification:    "New users can be created, their information can be EDITED, and they can be deleted. 
                      We should store their name, email address, and street address."
   Code:             handlers.user.put() in user.js      
   Endpoint:         PUT /user
-  JSON Payload:     {"email":"user@domain.com","name":"Mr Squirrely Squirrel", "password":"monkey123","street_address" : "45 Squirrel Lane"}
+  JSON Payload:     
   Http Headers:     token: current-token-id
   Responses:
                     200,{ email,street_address} 
@@ -223,67 +283,6 @@ see [validation rules](#api-validation-rules)
 
   * **Code:** 401 UNAUTHORIZED
     * the token is invalid or has already been signed out (deleted)
-
-
-***
-# Update User Details
-### PUT /user
-----
-  Update user account.<br>
-  Returns the updated user data<br>
-  Note that the password is not returned in the user data.
-
-<br>[implementation: lib/handlers/user.js](user.js)
-
-* **REST endpoint**
-
-  `PUT /user`
-
-* **HTTP Headers**
-  
-    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). )   
-
-
-* **Payload**
-see [validation rules](#api-validation-rules)
-```JSON
-    {  "email" : "...",
-       "name"  : "...",
-       "password" : "...", 
-       "street_address" : "..."
-    }
-```    
-  
-* if email is supplied, it must match the logged in user
-* if email is not supplied, the logged in user is implied
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-{ 
- "email" : "user@gmail.com", 
- "name" : "A User Name", 
- "street_address" : "4 some street address"
-}
-```
-    
-    
-
-* **Error Response:**
-
-  * **Code:** 400 [BAD REQUEST](#api-validation-rules)
-      * invalid email
-      * invalid name
-      * invalid password 
-      * invalid street_address
-
-  OR
-
-  * **Code:**  401 UNAUTHORIZED
-      * missing token or email does not match token
-    
 
 
 
