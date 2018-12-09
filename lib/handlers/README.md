@@ -140,15 +140,15 @@ see [validation rules](#api-validation-rules)
 
   * **Code:** 400 BAD REQUEST <br />
 
-one or more of the required fields is missing
+    * one or more of the required fields is missing
 
 OR
 
-* **Code:** 401 UNAUTHORIZED <br />
+ * **Code:** 401 UNAUTHORIZED <br />
 
-could be one of:
-  * wrong email adddress
-  * incorrect password
+   * could be one of:
+     * wrong email adddress
+     * incorrect password
 
 
 ***
