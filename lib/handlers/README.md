@@ -35,11 +35,11 @@ Create a new user account, and a session token.
  * **REST endpoint**  
 `POST /user`
 ```JSON
-{ "email":"user@domain.com",
-  "name":"Mr Squirrely Squirrel",
-  "password":"monkey123",
-  "street_address" : "45 Squirrel Lane"
-}
+    { "email":"user@domain.com",
+      "name":"Mr Squirrely Squirrel",
+      "password":"monkey123",
+      "street_address" : "45 Squirrel Lane"
+    }
 ```    
  * **Responses**
     * 200,`{ email,name, street_address, token:{id,email,created,expires,cart_id }}`
