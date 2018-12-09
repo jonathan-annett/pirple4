@@ -28,11 +28,11 @@ Minumum API calls for existing user search for and buy a "vegan" pizza:
 # Sign up
 ### POST /user
 
-  Create a new user account, and a session token.
+Create a new user account, and a session token.  
  
-  * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
+ * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
 
-**REST endpoint** 
+ * **REST endpoint**  
 `POST /user`
 ```JSON
 { "email":"user@domain.com",
@@ -41,7 +41,7 @@ Minumum API calls for existing user search for and buy a "vegan" pizza:
   "street_address" : "45 Squirrel Lane"
 }
 ```    
-  * Responses:
+ * **Responses**
     * 200,`{ email,name, street_address, token:{id,email,created,expires,cart_id }}`
     * 400 - missing/invalid email, password or street address.
     * 403 - user already exists. (or something else that stopped the creation of a new file - disk space or hardware error)
@@ -58,63 +58,31 @@ Minumum API calls for existing user search for and buy a "vegan" pizza:
 # Get User Info
 ### GET /user
 
-  Get user account details.<br>
-  Returns the user's data in JSON format.<br>
-  Note that the password is not returned in the user data.
+Get user account details.  
+Returns the user's data in JSON format.  
+Note that the password is not returned in the user data.  
 
-<br>[implementation: lib/handlers/user.js](user.js)
+ * [implementation: lib/handlers/user.js](user.js)
 
-**REST endpoint**
+ * **REST endpoint**
 
 `GET /user?email=user@domain.com`
 <br>or<br>
 `GET /user`
 
-* if email is supplied, it must match the logged in user
-* if email is not supplied, the logged in user is implied
-
-* **HTTP Headers**
+  * **HTTP Headers**
   
     `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
   
 
 
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-{ 
- "email" : "user@gmail.com", 
- "name" : "A User Name", 
- "street_address" : "4 some street address"
-}
-```
-    
-    
-
- 
-* **Error Response:**
-
-
-  * **Code:** 401 UNAUTHORIZED <br>
-
-* **Code:** 404 NOT FOUND <br>
+  * **Responses**
+    * 200,{ email,name, street_address } - user details
+    * 401 - missing/expired session (token header), or wrong email address
+    * 404 - can't read user details
 
 
 
-
-  Code:             handlers.user.get() in user.js      
-  
-  Endpoint:         GET /user?email=user@domain.com
-                        -or-      
-                    GET /user
-                    
-  Http Headers:     token: current-token-id
-  Responses:
-                    200,{ email,name, street_address } - user details
-                    401 - missing/expired session (token header), or wrong email address
-                    404 - can't read user details
 
   Common Name:      Update User Details
   Specification:    "New users can be created, their information can be EDITED, and they can be deleted. 
