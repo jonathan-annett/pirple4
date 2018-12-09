@@ -3,20 +3,20 @@
 
 Minumum API calls for new user to buy a pizza:
 
-  * [Sign Up | POST /user](#post-user) --> returns session `token`
-  * [Get Menu | GET /menu](#get-menu) --> returns list of menu items `id`s
-  * [Add Menu Item to shopping cart | POST /cart](#post-cart) - use menu item `id` and `token`
-  * [Create order with contents of shopping cart | POST /order](#post-order) supply stripe payment `source`--> returns `order_id`
+  * [Sign Up | POST /user](#post-user) - supply user details,  get session `token`
+  * [Get Menu | GET /menu](#get-menu) - get list of menu items (each with an `id`) 
+  * [Add Menu Item to shopping cart | POST /cart](#post-cart) - supply `id` and `token`, get updated cart with `items` and `total`
+  * [Create order with contents of shopping cart | POST /order](#post-order) supply stripe payment `source`, get `order_id`
   * [Sign Out | DELETE /token](#delete-token)
 
 
 Minumum API calls for existing user search for and buy a "vegan" pizza:
 
 
-* [Sign In | POST /token](#post-token)
-* [Filter Menu Items | GET /menu?description=vegan](#filter-menu-items)
-* [Add Menu Item to shopping cart | POST /cart](#post-cart)
-* [Create order with contents of shopping cart | POST /order](#post-order)
+* [Sign In | POST /token](#post-token) - supply `email` and `password`,  get session `token`
+* [Filter Menu Items | GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id`
+* [Add Menu Item to shopping cart | POST /cart](#post-cart) - supply `id` and `token`, get updated cart with `items` and `total`
+* [Create order with contents of shopping cart | POST /order](#post-order) supply stripe payment `source`, get `order_id`
 * [Sign Out | DELETE /token](#delete-token)
 
 
