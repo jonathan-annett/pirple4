@@ -398,9 +398,50 @@ if there are no menu items defined, you will just get an empty array
  
 if there are no menu items defined mathcing your search, you will just get an empty array
  
-     
 
 
+***
+# Get the logged in user's shopping cart
+### GET /cart
+----
+  Retreive the list of items in the shopping cart.
+  
+<br>[implementation: lib/handlers/cart.js](cart.js)
+
+* **REST endpoint**
+
+  `GET /cart`
+
+* **HTTP Headers**
+
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```JSON
+{
+    items : {
+        "oBBofNs316bjZs0d7a70" : {
+            "description": "Hawaiian Pizza",
+            "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
+            "price": 9.99,
+            "quantity" : 1,
+            "subtotal" : 9.99
+        }
+    },
+    total : 9.99
+}
+```
+    
+* **Error Response:**
+
+* **Code:** 401 UNAUTHORIZED <br />
+
+most probably the token has expired, or this endpoint was called without a token
+ 
 ***
 # Add Menu Item to shopping cart
 ### POST /cart
@@ -420,7 +461,7 @@ if there are no menu items defined mathcing your search, you will just get an em
 * **Payload**
 ```JSON
     {  "id" : "...",
-       "quantity"  : 1,
+       "quantity"  : 1
     }
 ```    
 
@@ -477,7 +518,7 @@ most probably there is an issue with writing/reading to/from storage
 
 * **REST endpoint**
 
-  `POST /cart`
+  `PUT /cart`
 
 * **HTTP Headers**
 
@@ -487,7 +528,7 @@ most probably there is an issue with writing/reading to/from storage
 * **Payload**
 ```JSON
     {  "id" : "...",
-       "quantity"  : 1,
+       "quantity"  : 1
     }
 ```    
 * id - valid menu item id
