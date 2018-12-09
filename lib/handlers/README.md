@@ -92,7 +92,7 @@ Note that the password is not returned in the user data.
   * [implementation: lib/handlers/user.js](user.js)
 
   * **REST endpoint**  
-`PUT /user`  
+`PUT /user`
 ```JSON
     { "email":"user@domain.com",
       "name":"Mr Squirrely Squirrel",
@@ -104,64 +104,22 @@ Note that the password is not returned in the user data.
   * **HTTP Headers**  
   `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
-* **Payload**
-see [validation rules](#api-validation-rules)
-  
-* if email is supplied, it must match the logged in user
-* if email is not supplied, the logged in user is implied
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-{ 
- "email" : "user@gmail.com", 
- "name" : "A User Name", 
- "street_address" : "4 some street address"
-}
-```
-    
-    
-
-* **Error Response:**
-
-  * **Code:** 400 [BAD REQUEST](#api-validation-rules)
-      * invalid email
-      * invalid name
-      * invalid password 
-      * invalid street_address
-
-  OR
-
-  * **Code:**  401 UNAUTHORIZED
-      * missing token or email does not match token
-    
-
-
-
-
-***
-# Update User Details
-### PUT /user
-  Specification:    "New users can be created, their information can be EDITED, and they can be deleted. 
-                     We should store their name, email address, and street address."
-  Code:             handlers.user.put() in user.js      
-  Endpoint:         PUT /user
-  JSON Payload:     
-  Http Headers:     token: current-token-id
-  Responses:
-                    200,{ email,street_address} 
-                    401 - (token invalid/missing/expired/wrong email in token file)
-                    404 - user not found (for admins trying to update another user file)
-                    500 - missing/invalid email, password or street address, or no field to update.
+  * **Responses**
+    * 200,{ email,street_address} 
+    * 401 - (token invalid/missing/expired/wrong email in token file)
+    * 404 - user not found (for admins trying to update another user file)
+    * 500 - missing/invalid email, password or street address, or no field to update.
                     
-  Notes:
+  * **Notes**
      - only those fields supplied will be updated
      - email is not updated, and if suppplied, must match the logged in user
      - if email is not supplied, the logged in user is implied.
      - admins can update other users (by supplying another valid email and only if permissions.admin===true in the logged in user's .data/user/username@dmain.com.json)
      - the password is not returned to the user, and it is stored internally as a hash result
+
+
+
+
 
   Common Name:      Delete User
   Specification:    "New users can be created, their information can be edited, and they can be DELETED."
