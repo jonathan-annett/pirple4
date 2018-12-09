@@ -32,7 +32,8 @@ Minumum API calls for existing user search for and buy a "vegan" pizza:
  
   * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
 
-  * **REST endpoint** `POST /user`
+**REST endpoint** 
+`POST /user`
 ```JSON
 { "email":"user@domain.com",
   "name":"Mr Squirrely Squirrel",
@@ -53,10 +54,56 @@ Minumum API calls for existing user search for and buy a "vegan" pizza:
 
 
 
+***
+# Get User Info
+### GET /user
 
-  Common Name:      Get User Info
-  Specification:    "New users can be created, their information can be EDITED, and they can be deleted. 
-                     We should store their name, email address, and street address."
+  Get user account details.<br>
+  Returns the user's data in JSON format.<br>
+  Note that the password is not returned in the user data.
+
+<br>[implementation: lib/handlers/user.js](user.js)
+
+**REST endpoint**
+
+`GET /user?email=user@domain.com`
+<br>or<br>
+`GET /user`
+
+* if email is supplied, it must match the logged in user
+* if email is not supplied, the logged in user is implied
+
+* **HTTP Headers**
+  
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+  
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+```JSON
+{ 
+ "email" : "user@gmail.com", 
+ "name" : "A User Name", 
+ "street_address" : "4 some street address"
+}
+```
+    
+    
+
+ 
+* **Error Response:**
+
+
+  * **Code:** 401 UNAUTHORIZED <br>
+
+* **Code:** 404 NOT FOUND <br>
+
+
+
+
   Code:             handlers.user.get() in user.js      
   
   Endpoint:         GET /user?email=user@domain.com
@@ -209,53 +256,6 @@ see [validation rules](#api-validation-rules)
 
   * **Code:** 401 UNAUTHORIZED
     * the token is invalid or has already been signed out (deleted)
-
-***
-# Get User Info
-### GET /user
-----
-  Get user account details.<br>
-  Returns the user's data in JSON format.<br>
-  Note that the password is not returned in the user data.
-
-<br>[implementation: lib/handlers/user.js](user.js)
-
-* **REST endpoint**
-
-  `GET /user?email=user@domain.com`
-  <br>or<br>
-  `GET /user`
-
-* if email is supplied, it must match the logged in user
-* if email is not supplied, the logged in user is implied
-
-* **HTTP Headers**
-  
-    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
-  
-
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-{ 
- "email" : "user@gmail.com", 
- "name" : "A User Name", 
- "street_address" : "4 some street address"
-}
-```
-    
-    
-
- 
-* **Error Response:**
-
-
-  * **Code:** 401 UNAUTHORIZED <br>
-
-* **Code:** 404 NOT FOUND <br>
 
 
 ***
