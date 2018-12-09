@@ -63,13 +63,12 @@ Minumum API calls for existing user search for and buy a "vegan" pizza:
     
 * **Error Response:**
 
-  * **Code:** 400 BAD REQUEST
+  * **Code:** 400 [BAD REQUEST](#api-validation-rules)
     * missing/invalid email
-    * missing/invlaid name
+    * missing/invalid name
     * missing/invalid password 
     * missing/invalid street_address
-      see [validation rules](#api-validation-rules)
-
+ 
   OR
 
   * **Code:** 403 FORBIDDEN
@@ -132,8 +131,8 @@ see [validation rules](#api-validation-rules)
     **Content:** 
 ```JSON
 { id:"oQreTQn4X2nJuQZUudeg",
-  "created":"2018-12-04T05:34:34.288Z",
-  "expires":"Tue Dec 04 2018 16:34:34 GMT+1100 (AEDT)3600000"
+  "created": 1544321722771,
+  "expires": 1544321922771
 }
 ```
     
@@ -142,14 +141,12 @@ see [validation rules](#api-validation-rules)
 
 * **Error Response:**
 
-  * **Code:** 400 BAD REQUEST <br />
-
+  * **Code:** 400 BAD REQUEST
     * one or more of the required fields is missing
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
-
+  * **Code:** 401 UNAUTHORIZED
     * could be one of:
       * wrong email adddress
       * incorrect password
@@ -177,14 +174,13 @@ see [validation rules](#api-validation-rules)
     
 * **Error Response:**
 
-  * **Code:** 400 BAD REQUEST <br />
+  * **Code:** 400 BAD REQUEST
+    * a missing or empty token argument
 
-a missing or empty token argument
-OR
+  OR
 
-* **Code:** 401 UNAUTHORIZED <br />
-
-the token is invalid or has already been signed out (deleted)
+  * **Code:** 401 UNAUTHORIZED
+    * the token is invalid or has already been signed out (deleted)
 
 ***
 # Get User Info
@@ -282,11 +278,16 @@ see [validation rules](#api-validation-rules)
 
 * **Error Response:**
 
-  * **Code:** 400 BAD REQUEST <br />
+  * **Code:** 400 [BAD REQUEST](#api-validation-rules)
+      * invalid email
+      * invalid name
+      * invalid password 
+      * invalid street_address
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:**  401 UNAUTHORIZED
+      * missing token or email does not match token
     
 
 
