@@ -194,7 +194,7 @@ the token is invalid or has already been signed out (deleted)
 
 * **HTTP Headers**
   
-    `token` - the id returned from [POST /token](#sign-in) or [POST /user](#sign-up)  
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). )   
 
 
 * **Payload**
@@ -255,8 +255,7 @@ see [validation rules](#api-validation-rules)
 
 * **HTTP Headers**
   
-    `token` - the id returned from [POST /token](#sign-in) or [POST /user](#sign-up)  
-  
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
 
 * **Success Response:**
@@ -416,7 +415,7 @@ if there are no menu items defined mathcing your search, you will just get an em
 
 * **HTTP Headers**
 
-`token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
 * **Payload**
 ```JSON
@@ -482,7 +481,7 @@ most probably there is an issue with writing/reading to/from storage
 
 * **HTTP Headers**
 
-`token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
 
 * **Payload**
@@ -555,7 +554,7 @@ most probably there is an issue with writing/reading to/from storage
 
 * **HTTP Headers**
 
-`token` - the id returned from [Sign In](#sign-in) (`/token`) or [Sign Up](#sign-up)  (`/user`)
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
 
 * **Success Response:**
