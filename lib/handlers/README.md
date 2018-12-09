@@ -23,58 +23,86 @@ Minumum API calls for existing user search for and buy a "vegan" pizza:
 
 
 
+
 ***
 # Sign up
 ### POST /user
 
   Create a new user account, and a session token.
  
-  <br>[implementation: handlers.user.post() in lib/handlers/user.js](user.js)
-  
+  * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
 
-* **REST endpoint**
-
-`POST /user`
-
-* **Payload**
+  * **REST endpoint** `POST /user`
 ```JSON
-    {  "email" : "...",
-       "name"  : "...",
-       "password" : "...", 
-       "street_address" : "..."
-    }
-```    
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-{ 
- "email" : "user@gmail.com", 
- "name" : "A User Name", 
- "street_address" : "4 some street address",
- token : { "id":"oQreTQn4X2nJuQZUudeg",
-             "created": 1544321722771,
-             "expires": 1544321922771
-           }
+{ "email":"user@domain.com",
+  "name":"Mr Squirrely Squirrel",
+  "password":"monkey123",
+  "street_address" : "45 Squirrel Lane"
 }
-```
-    
-* **Error Response:**
-
-  * **Code:** 400 [BAD REQUEST](#api-validation-rules)
-    * missing/invalid email
-    * missing/invalid name
-    * missing/invalid password 
-    * missing/invalid street_address
- 
-  OR
-
-  * **Code:** 403 FORBIDDEN
-   * user alredy exists or some other issue creating the user file
+```    
+  * Responses:
+    * 200,`{ email,name, street_address, token:{id,email,created,expires,cart_id }}`
+    * 400 - missing/invalid email, password or street address.
+    * 403 - user already exists. (or something else that stopped the creation of a new file - disk space or hardware error)
+                          
+  * Notes:
+     - the password is not returned to the user, and it is stored internally as a hash result
+     - as this endpoint automatically calls POST /token to sign in the user, if there was any issue doing that
+     the error code will be something other than 200, ie whatever POST /token returned
+     - any "200 content" response from POST/token is returned as the token field (see 200 response above).
 
 
+
+
+  Common Name:      Get User Info
+  Specification:    "New users can be created, their information can be EDITED, and they can be deleted. 
+                     We should store their name, email address, and street address."
+  Code:             handlers.user.get() in user.js      
+  
+  Endpoint:         GET /user?email=user@domain.com
+                        -or-      
+                    GET /user
+                    
+  Http Headers:     token: current-token-id
+  Responses:
+                    200,{ email,name, street_address } - user details
+                    401 - missing/expired session (token header), or wrong email address
+                    404 - can't read user details
+
+  Common Name:      Update User Details
+  Specification:    "New users can be created, their information can be EDITED, and they can be deleted. 
+                     We should store their name, email address, and street address."
+  Code:             handlers.user.put() in user.js      
+  Endpoint:         PUT /user
+  JSON Payload:     {"email":"user@domain.com","name":"Mr Squirrely Squirrel", "password":"monkey123","street_address" : "45 Squirrel Lane"}
+  Http Headers:     token: current-token-id
+  Responses:
+                    200,{ email,street_address} 
+                    401 - (token invalid/missing/expired/wrong email in token file)
+                    404 - user not found (for admins trying to update another user file)
+                    500 - missing/invalid email, password or street address, or no field to update.
+                    
+  Notes:
+     - only those fields supplied will be updated
+     - email is not updated, and if suppplied, must match the logged in user
+     - if email is not supplied, the logged in user is implied.
+     - admins can update other users (by supplying another valid email and only if permissions.admin===true in the logged in user's .data/user/username@dmain.com.json)
+     - the password is not returned to the user, and it is stored internally as a hash result
+
+  Common Name:      Delete User
+  Specification:    "New users can be created, their information can be edited, and they can be DELETED."
+  Code:             handlers.user.delete() in user.js      
+  
+  Endpoint:         DELETE /user?email=user@domain.com
+                        -or-      
+                    DELETE /user
+                    
+  Http Headers:     token: current-token-id
+  Responses:
+                    204 - user deleted ok
+                    401 - missing/expired session (token header), or wrong email address
+                    404 - can't read user details,
+                    500 - 
 
 
 
