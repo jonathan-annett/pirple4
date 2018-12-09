@@ -151,7 +151,7 @@ the token is invalid or has already been signed out (deleted)
 
 * **HTTP Headers**
   
-    `token` - the id returned from [POST /token](#sign-in) or [POST /user](#sign-up)  
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
   
 
 
