@@ -3,10 +3,10 @@
 
 Minumum API calls for new user to buy a pizza:
 
-  * [Sign Up | POST /user](#post-user)
-  * [Get Menu | GET /menu](#get-menu)
-  * [Add Menu Item to shopping cart | POST /cart](#post-cart)
-  * [Create order with contents of shopping cart | POST /order](#post-order)
+  * [Sign Up | POST /user](#post-user) --> returns session `token`
+  * [Get Menu | GET /menu](#get-menu) --> returns list of menu items `id`s
+  * [Add Menu Item to shopping cart | POST /cart](#post-cart) - use menu item `id` and `token`
+  * [Create order with contents of shopping cart | POST /order](#post-order) supply stripe payment `source`--> returns `order_id`
   * [Sign Out | DELETE /token](#delete-token)
 
 
