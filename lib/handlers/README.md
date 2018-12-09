@@ -92,7 +92,7 @@ Note that the password is not returned in the user data.
   * [implementation: lib/handlers/user.js](user.js)
 
   * **REST endpoint**  
-`PUT /user`
+`PUT /user`  
 ```JSON
     { "email":"user@domain.com",
       "name":"Mr Squirrely Squirrel",
