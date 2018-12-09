@@ -29,9 +29,13 @@ Clone this repository into a clean folder
 
     {
      "api_key" : "test_your_secret_key_1234",
-     "base_url" : "https://api.stripe.com/v1"
+     "base_url" : "https://api.stripe.com/v1",
+     "currency" : "aud",
+     "currency_multiplier" : 100
     }
 
+
+the `currency_multiplier` is used to convert menu prices to the appropiate stripe unit when making payments. eg 100 would mean a price of 9.99 on the menu is charged at 990 currency units with stripe.
 <BR>
 <BR>
 

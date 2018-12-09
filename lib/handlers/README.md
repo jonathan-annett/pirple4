@@ -1,13 +1,36 @@
 ***API Documentation***
 ====
 
+Minumum API calls for new user to buy a pizza:
+
+  * [Sign Up | POST /user](#post-user)
+  * [Get Menu | GET /menu](#get-menu)
+  * [Add Menu Item to shopping cart | POST /cart](#post-cart)
+  * [Create order with contents of shopping cart | POST /order](#post-order)
+  * [Sign Out | DELETE /token](#delete-token)
+
+
+Minumum API calls for existing user search for and buy a "vegan" pizza:
+
+
+* [Sign In | POST /token](#post-token)
+* [Filter Menu Items | GET /menu?description=vegan](#filter-menu-items)
+* [Add Menu Item to shopping cart | POST /cart](#post-cart)
+* [Create order with contents of shopping cart | POST /order](#post-order)
+* [Sign Out | DELETE /token](#delete-token)
+
+
+
+
+
 ***
 # Sign up
 ### POST /user
 
   Create a new user account, and a session token.
  
-  <br>[implementation: lib/handlers/user.js](user.js)
+  <br>[implementation: handlers.user.post() in lib/handlers/user.js](user.js)
+  
 
 * **REST endpoint**
 
@@ -33,8 +56,8 @@ see [validation rules](#api-validation-rules)
  "name" : "A User Name", 
  "street_address" : "4 some street address",
  "token" : { "id":"oQreTQn4X2nJuQZUudeg",
-             "created":"2018-12-04T05:34:34.288Z",
-             "expires":"Tue Dec 04 2018 16:34:34 GMT+1100 (AEDT)3600000"
+             "created": 1544321722771,
+             "expires": 1544321922771
            }
 }
 ```
@@ -45,7 +68,36 @@ see [validation rules](#api-validation-rules)
 
   OR
 
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 403 FORBIDDEN <br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -641,6 +693,53 @@ most probably the token has expired, or this endpoint was called without a token
 
 most probably there is an issue with writing/reading to/from storage 
  
+
+
+
+
+
+
+***
+# Create order with contents of shopping cart
+### POST /order
+----
+ pay for the contents of shopping cart, adding the order to cutomers history, and returning the order no .<br>
+
+<br>[implementation: lib/handlers/order.js](order.js)
+
+* **REST endpoint**
+
+  `POST /order`
+
+* **HTTP Headers**
+
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+
+
+
+* **Payload**
+```JSON
+    {  "stripe" : "tok_visa" }
+```    
+
+OR
+
+```JSON
+    {  "stripe" : {
+          "card" : "4242424242424242",
+          "exp_month" : "12",
+          "exp_year" : "2021",  
+          "cvc" : "123"
+       }
+    }
+```    
+* stripe - either a token string (for testing), or card details - which can be a test card number or actual card details.
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
 
 
 
