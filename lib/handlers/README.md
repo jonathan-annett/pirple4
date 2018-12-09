@@ -64,11 +64,10 @@ Note that the password is not returned in the user data.
 
  * [implementation: lib/handlers/user.js](user.js)
 
- * **REST endpoint**
-
-`GET /user?email=user@domain.com`
-<br>or<br>
-`GET /user`
+ * **REST endpoint**  
+`GET /user?email=user@domain.com`  
+or  
+`GET /user`  
 
   * **HTTP Headers**
   
