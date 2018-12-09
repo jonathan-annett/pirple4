@@ -142,13 +142,13 @@ see [validation rules](#api-validation-rules)
 
     * one or more of the required fields is missing
 
-OR
+  OR
 
- * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 401 UNAUTHORIZED <br />
 
-   * could be one of:
-     * wrong email adddress
-     * incorrect password
+    * could be one of:
+      * wrong email adddress
+      * incorrect password
 
 
 ***
