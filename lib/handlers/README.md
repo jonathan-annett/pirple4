@@ -55,7 +55,7 @@ see [validation rules](#api-validation-rules)
  "email" : "user@gmail.com", 
  "name" : "A User Name", 
  "street_address" : "4 some street address",
- "token" : { "id":"oQreTQn4X2nJuQZUudeg",
+ token : { "id":"oQreTQn4X2nJuQZUudeg",
              "created": 1544321722771,
              "expires": 1544321922771
            }
@@ -127,7 +127,7 @@ see [validation rules](#api-validation-rules)
   * **Code:** 200 <br />
     **Content:** 
 ```JSON
-{ "id":"oQreTQn4X2nJuQZUudeg",
+{ id:"oQreTQn4X2nJuQZUudeg",
   "created":"2018-12-04T05:34:34.288Z",
   "expires":"Tue Dec 04 2018 16:34:34 GMT+1100 (AEDT)3600000"
 }
@@ -347,25 +347,25 @@ see [validation rules](#api-validation-rules)
         "description": "Vegan Pizza",
         "image_url": "https://i.imgur.com/yMu7sjT.jpg",
         "price": 9.99,
-        "id": "6JiEVO9UNdNBfqWGoHKz"
+        id: "6JiEVO9UNdNBfqWGoHKz"
     },
     {
         "description": "Meat Lovers Pizza",
         "image_url": "https://i.imgur.com/ouAz8i8.jpg",
         "price": 9.99,
-        "id": "Jg1lpBcQ8pEY70Oxxl8d"
+        id: "Jg1lpBcQ8pEY70Oxxl8d"
     },
     {
         "description": "Desert Pizza",
         "image_url": "https://i.imgur.com/WFqSUbe.jpg",
         "price": 19.99,
-        "id": "PiBhPQWNNSek0U41aO2E"
+        id: "PiBhPQWNNSek0U41aO2E"
     },
     {
         "description": "Hawaiian Pizza",
         "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
         "price": 9.99,
-        "id": "oBBofNs316bjZs0d7a70"
+        id: "oBBofNs316bjZs0d7a70"
     }
 ]
 ```
@@ -401,7 +401,7 @@ if there are no menu items defined, you will just get an empty array
         "description": "Vegan Pizza",
         "image_url": "https://i.imgur.com/yMu7sjT.jpg",
         "price": 9.99,
-        "id": "6JiEVO9UNdNBfqWGoHKz"
+        id: "6JiEVO9UNdNBfqWGoHKz"
     }
 ]
 ```
@@ -441,7 +441,7 @@ if there are no menu items defined, you will just get an empty array
         "description": "Hawaiian Pizza",
         "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
         "price": 9.99,
-        "id": "oBBofNs316bjZs0d7a70"
+        id: "oBBofNs316bjZs0d7a70"
     }
 ]
 ```
