@@ -37,7 +37,6 @@ Minumum API calls for existing user search for and buy a "vegan" pizza:
 `POST /user`
 
 * **Payload**
-see [validation rules](#api-validation-rules)
 ```JSON
     {  "email" : "...",
        "name"  : "...",
@@ -64,12 +63,17 @@ see [validation rules](#api-validation-rules)
     
 * **Error Response:**
 
-  * **Code:** 400 BAD REQUEST <br />
+  * **Code:** 400 BAD REQUEST
+    * missing/invalid email
+    * missing/invlaid name
+    * missing/invalid password 
+    * missing/invalid street_address
+      see [validation rules](#api-validation-rules)
 
   OR
 
-  * **Code:** 403 FORBIDDEN <br />
-
+  * **Code:** 403 FORBIDDEN
+   * user alredy exists or some other issue creating the user file
 
 
 
