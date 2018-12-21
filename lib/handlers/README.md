@@ -27,7 +27,7 @@ Minimum API calls for existing user search for and buy a "vegan" pizza:
 
 Simultaneously create a new user account, and a new session token.  
 <br>
-The main reason behind forcing the creation of a new session token when a new user is created is to prevent the unfortunate situation of a session token being associated with more than one account. Whilst it's perfectly ok for an account to have multiple session tokens active at any one time ( for example, a user might have their desktop and phone open at the same time), it makes no sense for a single browser session token to be associated with more than one account.
+*The main reason behind forcing the creation of a new session token when a new user is created is to prevent the unfortunate situation of a session token being associated with more than one account. Whilst it's perfectly ok for an account to have multiple session tokens active at any one time ( for example, a user might have their desktop and phone open at the same time), it makes no sense for a single browser session token to be associated with more than one account.*
  
  * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
 
