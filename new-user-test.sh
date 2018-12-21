@@ -45,11 +45,12 @@ MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))
 MENU_DESC=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].description);")
 
 echo we will buy ${MENU_DESC} which has id ${MENU_ID}
-
+JSON='{"id":"${MENU_ID}","quantity":1}'
+echo ${JSON}
 curl -v --header "Content-Type: application/json" \
 --header "token: ${TOKEN}" \
 --request POST \
---data '{"id":"${MENU_ID}","quantity":1}' \
+--data ${JSON} \
 http://localhost:3000/cart > ./test-cart.json 2> curl.err
 
 fi
