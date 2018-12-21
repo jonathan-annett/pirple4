@@ -1,7 +1,27 @@
 #clear data from any previous tests
+mkdir -p .data/menu  && rm -rf .data/menu  && mkdir .data/menu 
 mkdir -p .data/user  && rm -rf .data/user  && mkdir .data/user 
 mkdir -p .data/token && rm -rf .data/token && mkdir .data/token 
 mkdir -p .data/cart  && rm -rf .data/cart  && mkdir .data/cart 
+
+# create a few menu items for test purchases
+curl -v --header "Content-Type: application/json" \
+--request POST \
+--data '{"description":"vegan pizza","image_url" : "https://i.imgur.com/yMu7sjT.jpg","price":9.99}' \
+http://localhost:3000/menu 
+
+curl -v --header "Content-Type: application/json" \
+--request POST \
+--data '{"description": "Meat Lovers Pizza","image_url": "https://i.imgur.com/ouAz8i8.jpg","price": 9.99}' \
+http://localhost:3000/menu 
+
+
+curl -v --header "Content-Type: application/json" \
+--request POST \
+--data '{"description": "Desert Pizza","image_url": "https://i.imgur.com/WFqSUbe.jpg","price": 19.99,id: "PiBhPQWNNSek0U41aO2E"}' \
+http://localhost:3000/menu 
+
+
 
 #create a user file and save the session token
 curl -v --header "Content-Type: application/json" \
