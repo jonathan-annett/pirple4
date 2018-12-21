@@ -28,7 +28,7 @@ menu_item() {
   --header "token: ${TOKEN}" \
   --request POST \
   --data '{"description":"$1","image_url":"$2","price":$3}' \
-  http://localhost:3000/menu > /dev/null
+  http://localhost:3000/menu  
 }
 
 menu_item "vegan pizza" "https://i.imgur.com/yMu7sjT.jpg" 9.99
