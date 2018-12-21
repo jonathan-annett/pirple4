@@ -18,17 +18,20 @@ node -e "var fn=\".data/user/user@domain.com.json\",u=JSON.parse(fs.readFileSync
 
 # create a few menu items for test purchases
 curl -v --header "Content-Type: application/json" \
+--header "token: ${TOKEN}" \
 --request POST \
 --data '{"description":"vegan pizza","image_url":"https://i.imgur.com/yMu7sjT.jpg","price":9.99}' \
 http://localhost:3000/menu
 
 curl -v --header "Content-Type: application/json" \
+--header "token: ${TOKEN}" \
 --request POST \
 --data '{"description": "Meat Lovers Pizza","image_url": "https://i.imgur.com/ouAz8i8.jpg","price": 9.99}' \
 http://localhost:3000/menu
 
 
 curl -v --header "Content-Type: application/json" \
+--header "token: ${TOKEN}" \
 --request POST \
 --data '{"description":"Desert Pizza","image_url":"https://i.imgur.com/WFqSUbe.jpg","price": 19.99}' \
 http://localhost:3000/menu
