@@ -10,6 +10,18 @@ Minimum API calls for new user to buy a pizza:
   * [DELETE /token](#sign-out)
 
 
+
+```bash
+
+
+curl --header "Content-Type: application/json" \
+--request POST \
+--data '{ "email":"user@domain.com","name":"Mr Squirrely Squirrel","password":"monkey123","street_address" : "45 Squirrel Lane"}' \
+http://localhost:3000/api/login
+
+```
+
+
 Minimum API calls for existing user search for and buy a "vegan" pizza:
 
 
