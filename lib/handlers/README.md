@@ -22,7 +22,7 @@ Minimum API calls for existing user search for and buy a "vegan" pizza:
 
 
 
-<H1 style="color:red">/user<H1>
+<span style="color:red">/user<span>
 
 ***
 # Sign up
