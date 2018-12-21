@@ -49,7 +49,7 @@ echo we will buy ${MENU_DESC} which has id ${MENU_ID}
 curl -v --header "Content-Type: application/json" \
 --header "token: ${TOKEN}" \
 --request POST \
---data '{"id":"${MENU_ID}"}' \
+--data '{"id":"${MENU_ID}","quantity":1}' \
 http://localhost:3000/cart > ./test-cart.json 2> curl.err
 
 fi
