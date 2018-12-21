@@ -1,7 +1,7 @@
 ***API Documentation***
 ====
 
-Minumum API calls for new user to buy a pizza:
+Minimum API calls for new user to buy a pizza:
 
   * [Sign Up | POST /user](#post-user) - supply user details,  get session `token`
   * [Get Menu | GET /menu](#get-menu) - get list of menu items (each with an `id`) 
@@ -10,7 +10,7 @@ Minumum API calls for new user to buy a pizza:
   * [Sign Out | DELETE /token](#delete-token)
 
 
-Minumum API calls for existing user search for and buy a "vegan" pizza:
+Minimum API calls for existing user search for and buy a "vegan" pizza:
 
 
 * [Sign In | POST /token](#post-token) - supply `email` and `password`,  get session `token`
