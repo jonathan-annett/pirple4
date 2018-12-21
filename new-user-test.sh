@@ -13,7 +13,8 @@ if grep -q "200 OK" curl.err ; then
 
 TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-user.json\")).token.id);")
 
-echo created new user, will use token $TOKEN
+echo created new user, will use token ${TOKEN}
 
+curl -v --header "token: ${TOKEN}" http://localhost:3000/menu > ./test-menu.json 2> curl.err
 
 fi
