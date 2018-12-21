@@ -13,6 +13,9 @@ http://localhost:3000/user > ./new-user.json 2> curl.err
 
 if grep -q "200 OK" curl.err ; then
 
+# pull in the session token and save it as a bash variable called TOKEN
+TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-user.json\")).token.id);")
+
 #edit the user file to allow menu edit permission
 node -e "var fn=\".data/user/user@domain.com.json\",u=JSON.parse(fs.readFileSync(fn));u.permissions={edit_menu:true};fs.writeFileSync(fn,JSON.stringify(u));"
 
@@ -37,7 +40,6 @@ curl -v --header "Content-Type: application/json" \
 http://localhost:3000/menu
 
 
-TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-user.json\")).token.id);")
 
 echo created new user, will use token ${TOKEN}
 
