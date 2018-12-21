@@ -2,8 +2,7 @@
 
 # **pizza ordering api**
 
-[assignment](assignment.md)
-
+This API is [Homework Assignment #2](assignment.md) for the pirple online course. 
 
 # before you begin
 
