@@ -25,15 +25,15 @@ node -e "var fn=\".data/user/user@domain.com.json\",u=JSON.parse(fs.readFileSync
 
 menu_item() {
   curl --header "Content-Type: application/json" \
-  --header "token: ${TOKEN}" \
+  --header "token: $4" \
   --request POST \
-  --data '{"description":"$1","image_url":"$2","price":$3}' \
+  --data "{\"description\":\"$1\",\"image_url\":\"$2\",\"price\":$3}" \
   http://localhost:3000/menu  
 }
 
-menu_item "vegan pizza" "https://i.imgur.com/yMu7sjT.jpg" 9.99
-menu_item "Meat Lovers Pizza" "https://i.imgur.com/ouAz8i8.jpg" 9.99
-menu_item "Desert Pizza" "https://i.imgur.com/WFqSUbe.jpg" 19.99
+menu_item "vegan pizza" "https://i.imgur.com/yMu7sjT.jpg" 9.99 ${TOKEN}
+menu_item "Meat Lovers Pizza" "https://i.imgur.com/ouAz8i8.jpg" 9.99 ${TOKEN}
+menu_item "Desert Pizza" "https://i.imgur.com/WFqSUbe.jpg" 19.99 ${TOKEN}
 
 
 #get the entire menu as json array
