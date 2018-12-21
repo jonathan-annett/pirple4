@@ -93,6 +93,19 @@ if grep -q "200 OK" curl.err ; then
         --request POST \
         --data '{"stripe":"tok_visa"}' \
         http://localhost:3000/order > ./test-order.json 2> curl.err
+        
+        
+        if grep -q "200 OK" curl.err ; then
+        
+            ORDER=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-order.json\")).order_id);")
+        
+            echo order $ORDER completed ok
+        
+        else
+            
+            echo could not place order
+        
+        fi
     
     fi
 
