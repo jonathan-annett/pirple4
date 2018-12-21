@@ -14,7 +14,7 @@ http://localhost:3000/user > ./new-user.json 2> curl.err
 if grep -q "200 OK" curl.err ; then
 
 #edit the user file to allow menu edit permission
-node -e "var u,fn=\".data/user/user@domain.com.json\";u.permissions={edit_menu:true};fs.writeFileSync(fn,JSON.stringify(u));"
+node -e "var fn=\".data/user/user@domain.com.json\",u=JSON.parse(fs.readFileSync(fn));u.permissions={edit_menu:true};fs.writeFileSync(fn,JSON.stringify(u));"
 
 # create a few menu items for test purchases
 curl -v --header "Content-Type: application/json" \
