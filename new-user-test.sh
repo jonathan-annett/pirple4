@@ -11,7 +11,7 @@ curl -v --header "Content-Type: application/json" \
 --data '{ "email":"user@domain.com","name":"Mr Squirrely Squirrel","password":"monkey123","street_address" : "45 Squirrel Lane"}' \
 http://localhost:3000/user > ./new-user.json 2> curl.err
 
-grep -v -q "200 OK" curl.err && exit -1
+grep -q "200 OK" curl.err || exit -1
 
 # pull in the session token and save it as a bash variable called TOKEN
 TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-user.json\")).token.id);")
