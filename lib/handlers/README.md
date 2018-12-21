@@ -21,9 +21,6 @@ Minimum API calls for existing user search for and buy a "vegan" pizza:
 
 
 
-
-<span style="color:red">/user<span>
-
 ***
 # Sign up
 ### POST /user
@@ -53,6 +50,7 @@ Create a new user account, and a session token.
      - any "200 content" response from POST/token is returned as the token field (see 200 response above).
 
 
+## /user
 
 ***
 # Get User Info
