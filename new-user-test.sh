@@ -21,16 +21,17 @@ echo created new user, will use token ${TOKEN}
 #edit the user file to allow menu edit permission
 node -e "var fn=\".data/user/user@domain.com.json\",u=JSON.parse(fs.readFileSync(fn));u.permissions={edit_menu:true};fs.writeFileSync(fn,JSON.stringify(u));"
 
-# create a few menu items for test purchases
 
+#helper bash function to create a menu item
 menu_item() {
   curl --header "Content-Type: application/json" \
   --header "token: $4" \
   --request POST \
   --data "{\"description\":\"$1\",\"image_url\":\"$2\",\"price\":$3}" \
-  http://localhost:3000/menu  
+  http://localhost:3000/menu  > /dev/null
 }
 
+# create a few menu items for test purchases
 menu_item "vegan pizza" "https://i.imgur.com/yMu7sjT.jpg" 9.99 ${TOKEN}
 menu_item "Meat Lovers Pizza" "https://i.imgur.com/ouAz8i8.jpg" 9.99 ${TOKEN}
 menu_item "Desert Pizza" "https://i.imgur.com/WFqSUbe.jpg" 19.99 ${TOKEN}
@@ -39,11 +40,16 @@ menu_item "Desert Pizza" "https://i.imgur.com/WFqSUbe.jpg" 19.99 ${TOKEN}
 #get the entire menu as json array
 curl -v --header "token: ${TOKEN}" http://localhost:3000/menu > ./test-menu.json 2> curl.err
 
-#we are going to buy the first item
+#we are going to buy the first item on the menu - get it's id and description as bash vars
 MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
 MENU_DESC=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].description);")
 
 echo we will buy ${MENU_DESC} which has id ${MENU_ID}
 
+curl -v --header "Content-Type: application/json" \
+--header "token: ${TOKEN}" \
+--request POST \
+--data '{"id":"${MENU_ID}"}' \
+http://localhost:3000/cart > ./test-cart.json 2> curl.err
 
 fi
