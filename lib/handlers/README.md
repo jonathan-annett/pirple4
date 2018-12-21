@@ -75,7 +75,7 @@ or
 
 
   * **Responses**
-    * 200,{ email,name, street_address } - user details
+    * 200,`{ email,name, street_address }` - user details
     * 401 - missing/expired session (token header), or wrong email address
     * 404 - can't read user details
 
@@ -84,7 +84,7 @@ or
 ***
 # Update User Details
 ### PUT /user
-----
+
 Update user account.  
 Returns the updated user data  
 Note that the password is not returned in the user data.  
@@ -104,13 +104,13 @@ Note that the password is not returned in the user data.
   * **HTTP Headers**  
   `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
-  * **Responses**
-    * 200,{ email,street_address} 
+  * **Responses**  
+    * 200,`{ email,street_address}` 
     * 401 - (token invalid/missing/expired/wrong email in token file)
     * 404 - user not found (for admins trying to update another user file)
     * 500 - missing/invalid email, password or street address, or no field to update.
                     
-  * **Notes**
+  * **Notes**  
      - only those fields supplied will be updated
      - email is not updated, and if suppplied, must match the logged in user
      - if email is not supplied, the logged in user is implied.
@@ -120,45 +120,33 @@ Note that the password is not returned in the user data.
 
 
 
+***
+# Delete User
+### DELETE /user
 
-  Common Name:      Delete User
-  Specification:    "New users can be created, their information can be edited, and they can be DELETED."
-  Code:             handlers.user.delete() in user.js      
-  
-  Endpoint:         DELETE /user?email=user@domain.com
-                        -or-      
-                    DELETE /user
-                    
-  Http Headers:     token: current-token-id
-  Responses:
-                    204 - user deleted ok
-                    401 - missing/expired session (token header), or wrong email address
-                    404 - can't read user details,
-                    500 - 
+Delete user account.
 
 
+  * [implementation: lib/handlers/user.js](user.js)  
 
+  * **REST endpoint**  
+`DELETE /user?email=user@domain.com`  
+or  
+`DELETE /user`  
 
+  * **HTTP Headers**  
+`token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
+  * **Responses*
+    * 204 - user deleted ok
+    * 401 - missing/expired session (token header), or wrong email address
+    * 404 - can't read user details,
+    * 500 - error occurred reading or deleting one of the files
 
+* **Notes**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* if email is supplied, it must match the logged in user
+* if email is not supplied, the logged in user is implied
 
 
 
@@ -168,48 +156,62 @@ Note that the password is not returned in the user data.
 # Sign in
 ### POST /token
 
-  Create and return a session token for an existing user account, using credentials supplied when the account was [created](#sign-up).
+Create and return a session token for an existing user account, using credentials supplied when the account was [created](#sign-up).
 
-<br>[implementation: lib/handlers/token.js](token.js)
+  * [implementation: lib/handlers/token.js](token.js)
 
-* **REST endpoint**
-
+  * **REST endpoint**  
 `POST /token`
-
-* **Payload**
-see [validation rules](#api-validation-rules)
 ```JSON
-    {  "email" : "...",
-       "password" : "..."
+    {
+      "email":"user@domain.com",
+      "password":"monkey123"
     }
-```    
+``` 
+
+  * **HTTP Headers**  
+`token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
 
-* **Success Response:**
+  * **Responses*
+    * 200,`{id,email,created,expires,cart_id }` - session created ok
+    * 400 - missing or invalid email
+    * 401 - user and password does not match an account.
 
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-{ id:"oQreTQn4X2nJuQZUudeg",
-  "created": 1544321722771,
-  "expires": 1544321922771
-}
-```
-    
-    
-    
 
-* **Error Response:**
+***
+# Get Token
+### GET /token
 
-  * **Code:** 400 BAD REQUEST
-    * one or more of the required fields is missing
+return token details
 
-  OR
 
-  * **Code:** 401 UNAUTHORIZED
-    * could be one of:
-      * wrong email adddress
-      * incorrect password
+  Code:             handlers.token.get() in token.js      
+  Endpoint:         GET /token?token=some-valid-token-id
+  Responses:
+                    200,{id,email,created,expires,cart_id } - session details
+                    400 - missing or invalid token_id format
+                    404 - token does not refer to a valid session
+                    401 - session has already expired.
+*/    
+
+
+
+/*
+  Common Name:      Extend Token
+  Code:             handlers.token.put() in token.js      
+  Endpoint:         PUT /token
+  JSON Payload:     {"token":"some-valid-token-id"}
+  Responses:
+                    200,{id,email,created,expires,cart_id } - session expiry extended ok
+                    400 - missing or invalid token_id format
+                    404 - token does not refer to a valid session
+                    401 - session has already expired.
+                    500 - internal error trying to update session file(s)
+*/
+
+
+
 
 
 ***
@@ -244,43 +246,24 @@ see [validation rules](#api-validation-rules)
 
 
 
-***
-# Delete User
-### DELETE /user
-----
-  Delete user account.<br>
+
+/*
+  Common Name:      Sign Out ( also deletes shopping cart)
+  Specification:    "Users can log in and log out by creating or DESTROYING a token."
+  Code:             handlers.token.delete() in token.js      
+  Endpoint:         DELETE /token?token=asdfghj1234567
+  Responses:
+                    204 - session deleted ok
+                    400 - missing or invalid token_id format
+                    404 - token does not refer to a valid session
+                    500 - internal error trying to delete session file(s)
+*/
 
 
-<br>[implementation: lib/handlers/user.js](user.js)
-
-* **REST endpoint**
-
-  `DELETE /user?email=user@domain.com`
-  <br>or<br>
-  `DELETE /user`
-
-* if email is supplied, it must match the logged in user
-* if email is not supplied, the logged in user is implied
-
-* **HTTP Headers**
-  
-    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
 
-* **Success Response:**
-
-  * **Code:** 204 <br />
 
 
-* **Error Response:**
-
-  * **Code:** 400 BAD REQUEST <br />
-
-  OR
-
-  * **Code:** 401 UNAUTHORIZED <br />
-
- 
  
 ***
 # Get Menu Items
