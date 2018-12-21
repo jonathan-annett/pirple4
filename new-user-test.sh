@@ -11,7 +11,7 @@ curl -v --header "Content-Type: application/json" \
 --data '{ "email":"user@domain.com","name":"Mr Squirrely Squirrel","password":"monkey123","street_address" : "45 Squirrel Lane"}' \
 http://localhost:3000/user > ./new-user.json 2> curl.err
 
-if grep -q "200 OK" curl.err ; then
+grep -v -q "200 OK" curl.err && exit -1
 
 # pull in the session token and save it as a bash variable called TOKEN
 TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-user.json\")).token.id);")
@@ -51,5 +51,14 @@ curl -v --header "Content-Type: application/json" \
 --request POST \
 --data "{\"id\":\"${MENU_ID}\"}" \
 http://localhost:3000/cart > ./test-cart.json 2> curl.err
-cat ./test-cart.json
-fi
+
+#pay for the order 
+
+curl -v --header "Content-Type: application/json" \
+--header "token: ${TOKEN}" \
+--request POST \
+--data '{"stripe":"tok_visa"}' \
+http://localhost:3000/order > ./test-order.json 2> curl.err
+
+
+ 
