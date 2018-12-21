@@ -49,8 +49,9 @@ Create a new user account, and a session token.
      the error code will be something other than 200, ie whatever POST /token returned
      - any "200 content" response from POST/token is returned as the token field (see 200 response above).
 
+***
 
-## /user
+# /user
 
 ***
 # Get User Info
