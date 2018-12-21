@@ -18,7 +18,7 @@ http://localhost:3000/menu
 
 curl -v --header "Content-Type: application/json" \
 --request POST \
---data '{"description": "Desert Pizza","image_url": "https://i.imgur.com/WFqSUbe.jpg","price": 19.99,id: "PiBhPQWNNSek0U41aO2E"}' \
+--data '{"description": "Desert Pizza","image_url":"https://i.imgur.com/WFqSUbe.jpg","price": 19.99}' \
 http://localhost:3000/menu 
 
 
