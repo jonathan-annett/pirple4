@@ -1,5 +1,5 @@
 # pirple2
-pirple assignment 2
+
 Homework Assignment #2
 
 The Assignment (Scenario):
