@@ -22,7 +22,7 @@ create_menu() {
 
     curl -v --header "Content-Type: application/json" \
     --request POST \
-    --data "{\"email\":\"$1\",\"name\":\"$2\",\"password\":\"$3\",\"street_address\" : \"$4\"}" \
+    --data "{\"email\":\"admin-mc-admin-face@some-domain.com\",\"name\":\"Super User\",\"password\":\"Secret1243!@\",\"street_address\" : \"1 server place\"}" \
     http://localhost:3000/user > ./admin-user.json 2> curl.err
     if grep -q "200 OK" curl.err ; then
         ADMIN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./admin-user.json\")).token.id);")
