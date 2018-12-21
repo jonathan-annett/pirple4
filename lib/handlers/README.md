@@ -47,8 +47,7 @@ Simultaneously create a new user account, and a new session token.
                           
   * Notes:
      - the password is not returned to the user, and it is stored internally as a hash result
-     - as this endpoint automatically calls POST /token to sign in the user, if there was any issue doing that
-     the error code will be something other than 200, ie whatever POST /token returned
+     - as this endpoint automatically calls [POST /token](#sign-in) to sign in the user, if there was any issue doing that the error code will be something other than 200, ie whatever POST /token returned
      - any "200 content" response from POST/token is returned as the token field (see 200 response above).
 
 ***
