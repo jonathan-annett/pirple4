@@ -290,7 +290,7 @@ return token details
 ----
   Retreive a full list of food items available to order from the menu.<br \>
 
-  <br>[implementation: lib/handlers/menu.js](menu.js)
+  <br>[implementation: lib/handlers/pizza_menu.js](menu.js)
 
 * **REST endpoint**
 
@@ -341,7 +341,7 @@ if there are no menu items defined, you will just get an empty array
 ----
   Retreive a specific food item available to order from the menu.<br \>
 
-<br>[implementation: lib/handlers/menu.js](menu.js)
+<br>[implementation: lib/handlers/pizza_menu.js](menu.js)
 
 * **REST endpoint**
 
@@ -382,7 +382,7 @@ if there are no menu items defined, you will just get an empty array
 ----
   Filter the list of items available to order from the menu.<br>
 
-<br>[implementation: lib/handlers/menu.js](menu.js)
+<br>[implementation: lib/handlers/pizza_menu.js](menu.js)
 
 * **REST endpoint**
 
