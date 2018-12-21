@@ -25,7 +25,9 @@ Minimum API calls for existing user search for and buy a "vegan" pizza:
 # Sign up
 ### POST /user
 
-Create a new user account, and a session token.  
+Simultaneously create a new user account, and a new session token.  
+<br>
+The main reason behind forcing the creation of a new session token when a new user is created is to prevent the unfortunate situation of a session token being associated with more than one account. Whilst it's perfectly ok for an account to have multiple session tokens active at any one time ( for example, a user might have their desktop and phone open at the same time), it makes no sense for a single browser session token to be associated with more than one account.
  
  * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
 
@@ -48,10 +50,6 @@ Create a new user account, and a session token.
      - as this endpoint automatically calls POST /token to sign in the user, if there was any issue doing that
      the error code will be something other than 200, ie whatever POST /token returned
      - any "200 content" response from POST/token is returned as the token field (see 200 response above).
-
-***
-
-# /user
 
 ***
 # Get User Info
