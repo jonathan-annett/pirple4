@@ -103,6 +103,7 @@ USER_JSON
         ADMIN_TOK=
     else 
        echo could not create user
+       cat curl.err
     fi
     PASSWORD=         
 }
