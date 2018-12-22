@@ -75,7 +75,7 @@ create_menu() {
     # for security reasons, editing of the menu is only allowed by users with "edit_menu" permission
     # in their user profile. to create the menu items, we create a temporary user with this permision
     # in the normal course of events,
-    PASSWORD="Sectre13!"
+    PASSWORD="SecretPa55word!"
     if curl_post user ./admin-user.json << USER_JSON
     {
       "email"    : "admin-mc-admin-face@some-domain.com",
@@ -92,30 +92,39 @@ USER_JSON
         node -e "var fn=\".data/user/admin-mc-admin-face@some-domain.com.json\",u=JSON.parse(fs.readFileSync(fn));u.permissions={edit_menu:true};fs.writeFileSync(fn,JSON.stringify(u));"
         
         #create a bunch of menu items
-        menu_item "vegan pizza" "https://i.imgur.com/yMu7sjT.jpg" 9.99 ${ADMIN_TOK}
-        menu_item "Meat Lovers Pizza" "https://i.imgur.com/ouAz8i8.jpg" 9.99 ${ADMIN_TOK}
-        menu_item "Desert Pizza" "https://i.imgur.com/WFqSUbe.jpg" 19.99 ${ADMIN_TOK}
-        
         
         curl_post menu /dev/null ${ADMIN_TOK} << MENU_JSON
-        {  "description" : "vegan pizza 2", 
+        {  "description" : "Vegan Pizza", 
            "image_url"   : "https://i.imgur.com/yMu7sjT.jpg",
            "price" : 9.99 } 
 MENU_JSON
         
-        
-        
+        curl_post menu /dev/null ${ADMIN_TOK} << MENU_JSON
+        {  "description" : "Meat Lovers Pizza", 
+           "image_url"   : "https://i.imgur.com/ouAz8i8.jpg",
+           "price" : 9.99 } 
+MENU_JSON
+
+
+        curl_post menu /dev/null ${ADMIN_TOK} << MENU_JSON
+        {  "description" : "Desert Pizza", 
+           "image_url"   : "https://i.imgur.com/WFqSUbe.jpg",
+           "price" : 19.99 } 
+MENU_JSON
+
         #trash the temp superuser files
-        #rm .data/token/${ADMIN_TOK}.json
-        #rm .data/user/admin-mc-admin-face@some-domain.com.json
-        #rm ./admin-user.json
+        rm .data/token/${ADMIN_TOK}.json
+        rm .data/user/admin-mc-admin-face@some-domain.com.json
+        rm ./admin-user.json
         
         ADMIN_TOK=
+        PASSWORD=
+        true
     else 
        echo could not create user
        cat curl.err
+       false
     fi
-    PASSWORD=         
 }
 
 #clear data from any previous tests
@@ -125,57 +134,63 @@ reset_data token
 reset_data cart
 reset_data order
 
-create_menu
+if create_menu ; then
 
-#create a user and save the session token
+    #create a user and save the session token
+    
+    if curl_post user ./new-user.json << USER_JSON
+    {
+      "email"    : "user@domain.com",
+      "name"     : "Mr Squirrely Squirrel",
+      "password" : "monkey123",
+      "street_address" : "45 Squirrel Lane" 
+    }
+USER_JSON
 
-curl -v --header "Content-Type: application/json" \
---request POST \
---data '{ "email":"user@domain.com","name":"Mr Squirrely Squirrel","password":"monkey123","street_address" : "45 Squirrel Lane"}' \
-http://localhost:3000/user > ./new-user.json 2> curl.err
-
-if grep -q "200 OK" curl.err ; then
-    
-    # pull in the session token and save it as a bash variable called TOKEN
-    TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-user.json\")).token.id);")
-    
-    #get the entire menu as json array
-    curl -v --header "token: ${TOKEN}" http://localhost:3000/menu > ./test-menu.json 2> curl.err
-    
-    #we are going to buy the first item on the menu - get it's id and description as bash vars
-    MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
-    MENU_DESC=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].description);")
-    
-    echo we will buy ${MENU_DESC} which has id ${MENU_ID}
-    
-    curl -v --header "Content-Type: application/json" \
-    --header "token: ${TOKEN}" \
-    --request POST \
-    --data "{\"id\":\"${MENU_ID}\"}" \
-    http://localhost:3000/cart > ./test-cart.json 2> curl.err
-    
-    if grep -q "xx200 OK" curl.err ; then
-    
-        #pay for the order 
+    then
+        
+        # pull in the session token and save it as a bash variable called TOKEN
+        TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-user.json\")).token.id);")
+        
+        #get the entire menu as json array
+        curl -v --header "token: ${TOKEN}" http://localhost:3000/menu > ./test-menu.json 2> curl.err
+        
+        #we are going to buy the first item on the menu - get it's id and description as bash vars
+        MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
+        MENU_DESC=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].description);")
+        
+        echo we will buy ${MENU_DESC} which has id ${MENU_ID}
         
         curl -v --header "Content-Type: application/json" \
         --header "token: ${TOKEN}" \
         --request POST \
-        --data '{"stripe":"tok_visa"}' \
-        http://localhost:3000/order > ./test-order.json 2> curl.err
+        --data "{\"id\":\"${MENU_ID}\"}" \
+        http://localhost:3000/cart > ./test-cart.json 2> curl.err
         
+        if grep -q "xx200 OK" curl.err ; then
         
-        if grep -q "200 OK" curl.err ; then
-        
-            ORDER=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-order.json\")).order_id);")
-        
-            echo order $ORDER completed ok
+            #pay for the order 
             
-            curl -v --request DELETE /token?token=${TOKEN} 
-        
-        else
+            curl -v --header "Content-Type: application/json" \
+            --header "token: ${TOKEN}" \
+            --request POST \
+            --data '{"stripe":"tok_visa"}' \
+            http://localhost:3000/order > ./test-order.json 2> curl.err
             
-            echo could not place order
+            
+            if grep -q "200 OK" curl.err ; then
+            
+                ORDER=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-order.json\")).order_id);")
+            
+                echo order $ORDER completed ok
+                
+                curl -v --request DELETE /token?token=${TOKEN} 
+            
+            else
+                
+                echo could not place order
+            
+            fi
         
         fi
     
