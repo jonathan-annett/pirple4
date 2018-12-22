@@ -38,7 +38,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
 
 ## step 2: get menu array
 
-GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
+GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]  
 *Response*
 ```JSON
 [
