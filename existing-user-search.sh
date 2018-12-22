@@ -48,7 +48,7 @@ ITEM_JSON
             #pay for the order 
             echo placing an order using contents of cart 
             if curl_post order ./test-order.json ${TOKEN} << CART_JSON
-            {"stripe":"tok_visa"}
+            {"stripe": { "number" : "4242424242424242", "exp_month" : 12, "exp_year" : 2021, "cvc" : 123 }}
 CART_JSON
             
             then
