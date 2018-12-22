@@ -528,10 +528,10 @@ return token details
   `GET /token?token=some-valid-token-id`
 
   * **Responses*
-        200,`{id,email,created,expires,cart_id }` - session details
-        400 - missing or invalid token_id format
-        404 - token does not refer to a valid session
-        401 - session has already expired.
+    * 200,`{id,email,created,expires,cart_id }` - session details
+    * 400 - missing or invalid token_id format
+    * 404 - token does not refer to a valid session
+    * 401 - session has already expired.
 
   * [Example](#)
 
@@ -553,11 +553,11 @@ Extends Session Token Expiry
 
       
   * **Responses*
-        200,`{id,email,created,expires,cart_id }` - session expiry extended ok
-        400 - missing or invalid token_id format
-        404 - token does not refer to a valid session
-        401 - session has already expired.
-        500 - internal error trying to update session file(s)
+      * 200,`{id,email,created,expires,cart_id }` - session expiry extended ok
+      * 400 - missing or invalid token_id format
+      * 404 - token does not refer to a valid session
+      * 401 - session has already expired.
+      * 500 - internal error trying to update session file(s)
   * [Example](#)  
   * [implementation: lib/handlers/token.js](token.js#L534)
 
@@ -576,10 +576,10 @@ Extends Session Token Expiry
 
 * ** Responses**
 
-      204 - session deleted ok
-      400 - missing or invalid token_id format
-      404 - token does not refer to a valid session
-      500 - internal error trying to delete session file(s)
+   * 204 - session deleted ok
+   * 400 - missing or invalid token_id format
+   * 404 - token does not refer to a valid session
+   * 500 - internal error trying to delete session file(s)
       
 * [Example](#step-5-logout-user)
   
@@ -600,13 +600,13 @@ Extends Session Token Expiry
  * **Responses**
  
 
-    200,`[{ id, description, price, image_url }, ... ]` - list of one or more items
-    200,`[]` - an empty array means no menu items exist
-    401 - user is not logged in. 
+   * 200,`[{ id, description, price, image_url }, ... ]` - list of one or more items
+   * 200,`[]` - an empty array means no menu items exist
+   * 401 - user is not logged in. 
     
-  * [Example](#step-2-get-menu-array)
+ * [Example](#step-2-get-menu-array)
  
-  * [implementation: lib/handlers/pizza_menu.js](pizza_menu.js#L65)
+ * [implementation: lib/handlers/pizza_menu.js](pizza_menu.js#L65)
 
      
 ***
