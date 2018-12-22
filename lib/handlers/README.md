@@ -1,7 +1,7 @@
 ***API Documentation***
 ====
 
-Sample API calls for new user to buy a pizza:
+Sample API calls for new user to "buy the first pizza on the menu":
 
   * [POST /user](#sign-up) - supply user details,  get session `token`
   * [GET /menu](#get-menu-items) - get list of menu items (each with an `id`) 
@@ -9,7 +9,7 @@ Sample API calls for new user to buy a pizza:
   * [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id`
   * [DELETE /token](#sign-out)
 
-*step 1: create user*
+## step 1: create user
 
 `POST /user`
 ```JSON
