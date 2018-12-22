@@ -36,13 +36,10 @@ USER_JSON
         
         if curl_put user ./update-user.json ${TOKEN} << EDIT_JSON
         {
-          "email" : "someone-else@email-server.com",
-          "street_address" : "82 rodent park" 
+          "password" : "newP@ssw0rd" 
         }
 EDIT_JSON
         then
-            echo edit of alternate account should not be possible
-        else
         
             # log out by deleting token
             echo logging out

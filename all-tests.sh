@@ -18,4 +18,7 @@
 
 source new-user-test.sh $1 && \
 source existing-user-test.sh $1 && \
-source existing-user-search.sh $1
+source existing-user-search.sh $1 && \
+source existing-user-edit.sh $1 && \
+source existing-user-edit2.sh $1 && \
+source existing-user-edit3.sh $1  
