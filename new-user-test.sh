@@ -17,6 +17,8 @@
 # we are going to use the local host on port 3000 for this test
 
 LOCAL_URL=http://localhost:3000
+TEST_EMAIL=$1
+[[ "${TEST_EMAIL}" == "" ]] && TEST_EMAIL=user@domain.com
 
 #helper bash function to remove all files in a given data subfolder
 reset_data() {
@@ -153,7 +155,7 @@ if create_menu ; then
     
     if curl_post user ./new-user.json << USER_JSON
     {
-      "email"    : "user@domain.com",
+      "email"    : "${TEST_EMAIL}",
       "name"     : "Mr Squirrely Squirrel",
       "password" : "monkey123",
       "street_address" : "45 Squirrel Lane" 
