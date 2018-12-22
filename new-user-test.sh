@@ -53,17 +53,30 @@ fi
     fi
 }
 
-#helper bash function to create a menu item
-menu_item() {
-    
- curl_post menu /dev/null $4 << MENU_JSON
-{  "description" : "$1", 
-   "image_url"   : "$2",
-   "price" : $3 } 
-MENU_JSON
+curl_get() {
+URI=$1
+OUT=$2
 
+if [[ "$3" == "" ]] ; then
+  curl -v ${LOCAL_URL}/${URI} > ${OUT} 2> curl.err
+else
+  curl -v --header "token: $3" \
+          ${LOCAL_URL}/${URI} \
+          > ${OUT} 2> curl.err
+fi
+
+    CODE=( $(grep "< HTTP/1" curl.err | cut -d "/" -f 2 ) )
+
+    if [ ${CODE[1]} -ge 200 ] && [ ${CODE[1]} -lt 300 ] ; then
+        true
+    else
+        false
+    fi
 }
 
+
+
+ 
 # helper bash function to populate a sample menu dataset
 # e.g. create food items avaiable to be ordered by a test customer
 # this is not specified as a required functionality of the API, however
@@ -153,7 +166,8 @@ USER_JSON
         TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-user.json\")).token.id);")
         
         #get the entire menu as json array
-        curl -v --header "token: ${TOKEN}" http://localhost:3000/menu > ./test-menu.json 2> curl.err
+        curl_get menu ./test-menu.json ${TOKEN}
+        #curl -v --header "token: ${TOKEN}" http://localhost:3000/menu > ./test-menu.json 2> curl.err
         
         #we are going to buy the first item on the menu - get it's id and description as bash vars
         MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
@@ -161,13 +175,17 @@ USER_JSON
         
         echo we will buy ${MENU_DESC} which has id ${MENU_ID}
         
-        curl -v --header "Content-Type: application/json" \
-        --header "token: ${TOKEN}" \
-        --request POST \
-        --data "{\"id\":\"${MENU_ID}\"}" \
-        http://localhost:3000/cart > ./test-cart.json 2> curl.err
+        #curl -v --header "Content-Type: application/json" \
+        #--header "token: ${TOKEN}" \
+        #--request POST \
+        #--data "{\"id\":\"${MENU_ID}\"}" \
+        #http://localhost:3000/cart > ./test-cart.json 2> curl.err
         
-        if grep -q "xx200 OK" curl.err ; then
+        if curl_post cart ./test-cart.json ${TOKEN} << ITEM_JSON
+        { "id" : "${MENU_ID}", "quantity" : 1 }
+ITEM_JSON
+
+        #if grep -q "200 OK" curl.err ; then
         
             #pay for the order 
             
@@ -178,7 +196,7 @@ USER_JSON
             http://localhost:3000/order > ./test-order.json 2> curl.err
             
             
-            if grep -q "200 OK" curl.err ; then
+            if grep -q "xx200 OK" curl.err ; then
             
                 ORDER=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-order.json\")).order_id);")
             
