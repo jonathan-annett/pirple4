@@ -29,11 +29,11 @@ Sample API calls for new user to "buy the first pizza on the menu":
 `POST /user`
 ```JSON
 {
-      "email"    : "mr-squirrel@gmail.com",
-      "name"     : "Mr Squirrely Squirrel",
-      "password" : "Monkey~123",
-      "street_address" : "45 Squirrel Lane" 
-    }
+  "email"    : "mr-squirrel@gmail.com",
+  "name"     : "Mr Squirrely Squirrel",
+  "password" : "Monkey~123",
+  "street_address" : "45 Squirrel Lane" 
+}
 ```
 *Response*
 ```JSON
