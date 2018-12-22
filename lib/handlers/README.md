@@ -1,7 +1,7 @@
 ***API Documentation***
 ====
 
-Minimum API calls for new user to buy a pizza:
+Sample API calls for new user to buy a pizza:
 
   * [POST /user](#sign-up) - supply user details,  get session `token`
   * [GET /menu](#get-menu-items) - get list of menu items (each with an `id`) 
@@ -9,33 +9,185 @@ Minimum API calls for new user to buy a pizza:
   * [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id`
   * [DELETE /token](#sign-out)
 
+```
+
+step 1: create user
+
+POST /user
+    {
+      "email"    : "mr-squirrel@gmail.com",
+      "name"     : "Mr Squirrely Squirrel",
+      "password" : "Monkey~123",
+      "street_address" : "45 Squirrel Lane" 
+    }
+
+(((Response:)))
+{
+    "name": "Mr Squirrely Squirrel",
+    "email": "mr-squirrel@gmail.com",
+    "street_address": "45 Squirrel Lane",
+    "orders": [],
+    "token": {
+        "id": "2wzGNOSqeGoKDryVRBDg",
+        "email": "mr-squirrel@gmail.com",
+        "created": 1545465879121,
+        "expires": 1545469479121,
+        "cart_id": "ySoVwo6QNS8ODp5f9XU3"
+    }
+}
 
 
-```bash
+step 2: get menu array
 
-#clear data from any previous tests
-mkdir -p .data/user  && rm -rf .data/user  && mkdir .data/user 
-mkdir -p .data/token && rm -rf .data/token && mkdir .data/token 
-mkdir -p .data/cart  && rm -rf .data/cart  && mkdir .data/cart 
+GET /menu ===> HEADERS [token: 2wzGNOSqeGoKDryVRBDg ]
+[
+    {
+        "description": "Meat Lovers Pizza",
+        "image_url": "https://i.imgur.com/ouAz8i8.jpg",
+        "price": 9.99,
+        "id": "2nvwZnDpuIfQPYRWcca3"
+    },
+    {
+        "description": "Vegan Pizza",
+        "image_url": "https://i.imgur.com/yMu7sjT.jpg",
+        "price": 9.99,
+        "id": "3H0xUVvtivSSryI2jkPr"
+    },
+    {
+        "description": "Desert Pizza",
+        "image_url": "https://i.imgur.com/WFqSUbe.jpg",
+        "price": 19.99,
+        "id": "50s4BvFQyc0SPuaQaI4o"
+    }
+]
 
-#create a user file and save the session token
-curl -v --header "Content-Type: application/json" \
---request POST \
---data '{ "email":"user@domain.com","name":"Mr Squirrely Squirrel","password":"monkey123","street_address" : "45 Squirrel Lane"}' \
-http://localhost:3000/user > ./new-user.json 2> curl.err
 
-if [ grep -q "200 OK" curl.err ] ; then
+step 3: add first item in menu to cart
 
-TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-user.json\")).token.id);")
+POST /cart  ===> HEADERS [token: 2wzGNOSqeGoKDryVRBDg ]
+        { "id" : "2nvwZnDpuIfQPYRWcca3", "quantity" : 1 }
 
-echo $TOKEN
+(((Response:)))
+{
+    "items": {
+        "2nvwZnDpuIfQPYRWcca3": {
+            "quantity": 1,
+            "price": 9.99,
+            "description": "Meat Lovers Pizza",
+            "image_url": "https://i.imgur.com/ouAz8i8.jpg",
+            "subtotal": 9.99
+        }
+    },
+    "total": 9.99
+}
 
-fi
+
+step 4: submit shopping cart as an order
+
+POST /order
+            {"stripe":"tok_visa"}
+
+(((Response:)))
+{
+    "when": 1545465879421,
+    "order_id": "ihJceIrJew5IoZWCZqCr",
+    "items": {
+        "2nvwZnDpuIfQPYRWcca3": {
+            "quantity": 1,
+            "price": 9.99,
+            "description": "Meat Lovers Pizza",
+            "image_url": "https://i.imgur.com/ouAz8i8.jpg",
+            "subtotal": 9.99
+        }
+    },
+    "total": 9.99,
+    "stripe": {
+        "id": "ch_1Dk5TSGD93mPalQAIXWCBbdQ",
+        "object": "charge",
+        "amount": 999,
+        "amount_refunded": 0,
+        "application": null,
+        "application_fee": null,
+        "balance_transaction": "txn_1Dk5TSGD93mPalQATJBEutr5",
+        "captured": true,
+        "created": 1545465882,
+        "currency": "aud",
+        "customer": null,
+        "description": null,
+        "destination": null,
+        "dispute": null,
+        "failure_code": null,
+        "failure_message": null,
+        "fraud_details": {},
+        "invoice": null,
+        "livemode": false,
+        "metadata": {},
+        "on_behalf_of": null,
+        "order": null,
+        "outcome": {
+            "network_status": "approved_by_network",
+            "reason": null,
+            "risk_level": "normal",
+            "risk_score": 29,
+            "seller_message": "Payment complete.",
+            "type": "authorized"
+        },
+        "paid": true,
+        "payment_intent": null,
+        "receipt_email": null,
+        "receipt_number": null,
+        "refunded": false,
+        "refunds": {
+            "object": "list",
+            "data": [],
+            "has_more": false,
+            "total_count": 0,
+            "url": "/v1/charges/ch_1Dk5TSGD93mPalQAIXWCBbdQ/refunds"
+        },
+        "review": null,
+        "shipping": null,
+        "source": {
+            "id": "card_1Dk5TSGD93mPalQAsEExlHHY",
+            "object": "card",
+            "address_city": null,
+            "address_country": null,
+            "address_line1": null,
+            "address_line1_check": null,
+            "address_line2": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_zip_check": null,
+            "brand": "Visa",
+            "country": "US",
+            "customer": null,
+            "cvc_check": null,
+            "dynamic_last4": null,
+            "exp_month": 12,
+            "exp_year": 2019,
+            "fingerprint": "3brGbV1fTjRivna7",
+            "funding": "credit",
+            "last4": "4242",
+            "metadata": {},
+            "name": null,
+            "tokenization_method": null
+        },
+        "source_transfer": null,
+        "statement_descriptor": null,
+        "status": "succeeded",
+        "transfer_group": null
+    }
+}
+
+
+step 5: logout user
+
+DELETE /token?token=2wzGNOSqeGoKDryVRBDg
+
 
 ```
 
 
-Minimum API calls for existing user search for and buy a "vegan" pizza:
+Sample API calls for existing user search for and buy a "vegan" pizza:
 
 
 * [POST /token](#sign-in) - supply `email` and `password`,  get session `token`
@@ -44,7 +196,160 @@ Minimum API calls for existing user search for and buy a "vegan" pizza:
 * [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id`
 * [DELETE /token](#sign-out)
 
+```
+step 1: create session token
 
+POST /token
+    {
+      "email"    : "mr-squirrel@gmail.com",
+      "password" : "Monkey~123"
+    }
+
+(((Response:)))
+{
+    "id": "yx3uIYRPe7M4TieTrRnQ",
+    "email": "mr-squirrel@gmail.com",
+    "created": 1545465887874,
+    "expires": 1545469487874,
+    "cart_id": "ilU66hqUpzXKfjmhDBP0"
+}
+
+
+step 2: get menu array
+
+GET /menu?description=vegan
+[
+    {
+        "description": "Vegan Pizza",
+        "image_url": "https://i.imgur.com/yMu7sjT.jpg",
+        "price": 9.99,
+        "id": "3H0xUVvtivSSryI2jkPr"
+    }
+]
+
+
+step 3: add first item in menu to cart
+
+POST /cart
+        { "id" : "3H0xUVvtivSSryI2jkPr", "quantity" : 1 }
+
+(((Response:)))
+{
+    "items": {
+        "3H0xUVvtivSSryI2jkPr": {
+            "quantity": 1,
+            "price": 9.99,
+            "description": "Vegan Pizza",
+            "image_url": "https://i.imgur.com/yMu7sjT.jpg",
+            "subtotal": 9.99
+        }
+    },
+    "total": 9.99
+}
+
+
+step 4: submit shopping cart as an order
+
+POST /order
+            {"stripe": { "number" : "4242424242424242", "exp_month" : 12, "exp_year" : 2021, "cvc" : 123 }}
+
+(((Response:)))
+{
+    "when": 1545465888158,
+    "order_id": "XJcm1kIyypEXpFgFBR4D",
+    "items": {
+        "3H0xUVvtivSSryI2jkPr": {
+            "quantity": 1,
+            "price": 9.99,
+            "description": "Vegan Pizza",
+            "image_url": "https://i.imgur.com/yMu7sjT.jpg",
+            "subtotal": 9.99
+        }
+    },
+    "total": 9.99,
+    "stripe": {
+        "id": "ch_1Dk5TZGD93mPalQALrYSOnAa",
+        "object": "charge",
+        "amount": 999,
+        "amount_refunded": 0,
+        "application": null,
+        "application_fee": null,
+        "balance_transaction": "txn_1Dk5TaGD93mPalQAgOExjxHs",
+        "captured": true,
+        "created": 1545465889,
+        "currency": "aud",
+        "customer": null,
+        "description": null,
+        "destination": null,
+        "dispute": null,
+        "failure_code": null,
+        "failure_message": null,
+        "fraud_details": {},
+        "invoice": null,
+        "livemode": false,
+        "metadata": {},
+        "on_behalf_of": null,
+        "order": null,
+        "outcome": {
+            "network_status": "approved_by_network",
+            "reason": null,
+            "risk_level": "normal",
+            "risk_score": 21,
+            "seller_message": "Payment complete.",
+            "type": "authorized"
+        },
+        "paid": true,
+        "payment_intent": null,
+        "receipt_email": null,
+        "receipt_number": null,
+        "refunded": false,
+        "refunds": {
+            "object": "list",
+            "data": [],
+            "has_more": false,
+            "total_count": 0,
+            "url": "/v1/charges/ch_1Dk5TZGD93mPalQALrYSOnAa/refunds"
+        },
+        "review": null,
+        "shipping": null,
+        "source": {
+            "id": "card_1Dk5TZGD93mPalQAdJWVqujH",
+            "object": "card",
+            "address_city": null,
+            "address_country": null,
+            "address_line1": null,
+            "address_line1_check": null,
+            "address_line2": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_zip_check": null,
+            "brand": "Visa",
+            "country": "US",
+            "customer": null,
+            "cvc_check": "pass",
+            "dynamic_last4": null,
+            "exp_month": 12,
+            "exp_year": 2021,
+            "fingerprint": "3brGbV1fTjRivna7",
+            "funding": "credit",
+            "last4": "4242",
+            "metadata": {},
+            "name": null,
+            "tokenization_method": null
+        },
+        "source_transfer": null,
+        "statement_descriptor": null,
+        "status": "succeeded",
+        "transfer_group": null
+    }
+}
+
+
+step 5: logout user
+
+DELETE /token?token=yx3uIYRPe7M4TieTrRnQ
+
+```
 
 ***
 # Sign up

@@ -14,9 +14,9 @@ You are building the API for a pizza-delivery company. Don't worry about a front
 
 4. A logged-in user should be able to [fill](lib/handlers/README.md#add-menu-item-to-shopping-cart) a shopping [cart](lib/handlers/README.md#get-the-logged-in-users-shopping-cart) with [menu](lib/handlers/README.md#get-menu-item) [items](lib/handlers/README.md#filter-menu-items)
 
-5. A logged-in user should be able to [create an order](lib/handlers/README.md#create-order-with-contents-of-shopping-cart). You should integrate with the Sandbox of Stripe.com to accept their payment. Note: Use the stripe sandbox for your testing. Follow this link and click on the "tokens" tab to see the fake tokens you can use server-side to confirm the integration is working: https://stripe.com/docs/testing#cards
+5. A logged-in user should be able to [create an order](lib/handlers/README.md#create-order-with-contents-of-shopping-cart). You should integrate with the Sandbox of Stripe.com to accept their payment. Note: Use the [stripe sandbox]() for your testing. Follow this link and click on the "tokens" tab to see the fake tokens you can use server-side to confirm the integration is working: https://stripe.com/docs/testing#cards
 
-6. When an order is placed, you should email the user a receipt. You should integrate with the sandbox of Mailgun.com for this. Note: Every Mailgun account comes with a sandbox email account domain (whatever@sandbox123.mailgun.org) that you can send from by default. So, there's no need to setup any DNS for your domain for this task https://documentation.mailgun.com/en/latest/faqs.html#how-do-i-pick-a-domain-name-for-my-mailgun-account
+6. When an order is placed, you should [email the user a receipt.]() You should integrate with the sandbox of Mailgun.com for this. Note: Every Mailgun account comes with a sandbox email account domain (whatever@sandbox123.mailgun.org) that you can send from by default. So, there's no need to setup any DNS for your domain for this task https://documentation.mailgun.com/en/latest/faqs.html#how-do-i-pick-a-domain-name-for-my-mailgun-account
 
 Important Note: If you use external libraries (NPM) to integrate with Stripe or Mailgun, you will not pass this assignment. You must write your API calls from scratch. Look up the "Curl" documentation for both APIs so you can figure out how to craft your API calls. 
 
