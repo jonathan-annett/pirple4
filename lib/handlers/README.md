@@ -623,8 +623,8 @@ Retreive a specific food item available to order from the menu.
     
  * **Responses**
 
-    200,`[{ id, description, price, image_url } ]` - the result
-    404 - menu id does not correspond to a menu item file 
+    200,`[{ id, description, price, image_url } ]` - the result  
+    404 - menu id does not correspond to a menu item file  
     401 - user is not logged in. 
 
  * [Example](#)
@@ -645,7 +645,7 @@ Retreive a specific food item available to order from the menu.
 
  * **Responses**
     200, `[{ id, description, price, image_url }, ... ]` - list of one or more items  
-    200, [] - an empty array can mean no menu items exist, or the search term was not found
+    200, [] - an empty array can mean no menu items exist, or the search term was not found  
     401 - user is not logged in.
 
  * [Example](#step-2-get-filtered-menu-array)
