@@ -21,12 +21,16 @@ Sample [API calls](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-
 Sample [API calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-and-then-buy-it-1) for existing user to search a "vegan" pizza, and then buy it:
 ----
 * 1 [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
+
 * 2 [>>>](#step-2-get-filtered-menu-array) [GET /menu?description=vegan](#filter-menu-items) - substring search for `description`, choose an `id` from the returned array. 
+
 * 3 [>>>](#step-3-add-first-filtered-item-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, place item in cart.
+
 * 4 [>>>](#step-4-submit-shopping-cart-as-an-order-1) [POST /order](#create-order-with-contents-of-shopping-cart) - supply a stripe payment `source` to pay for the cart contents.
+
 * 5 [>>>](#step-5-logout-user-1) [DELETE /token](#sign-out) - having placed an order, the user can now log out. 
 
-*[bash/curl on ubuntu](https://github.com/jonathan-annett/pirple2/blob/master/all-tests.sh) script to do these tests*
+*[bash/curl](https://github.com/jonathan-annett/pirple2/blob/master/all-tests.sh) script (ubuntu) to do these tests*
 
 
 Detailed infomation follows...
