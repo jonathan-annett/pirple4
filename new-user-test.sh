@@ -32,7 +32,7 @@ reset_data() {
 curl_post() {
 URI=$1
 OUT=$2
-if [[ "${OUT}" == "/dev/null" ]]
+if [[ "${OUT}" == "/dev/null" ]]; then
    JSON=./temp.in.json
 else
    JSON="${OUT}".in
