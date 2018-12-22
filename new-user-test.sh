@@ -186,13 +186,12 @@ dump_jsons() {
     echo
     echo $2
     if [[ -e $3.in ]] ;then
-        echo -n ">>>"
         cat $3.in
         rm $3.in
         echo
     fi
-    if [[ -e $3.in ]] ;then
-        echo -n "<<<"
+    if [[ -e $3 ]] ;then
+        echo -n "<< response <<<"
         cat $3
         rm $3
         echo
