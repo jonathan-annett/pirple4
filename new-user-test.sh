@@ -167,6 +167,8 @@ USER_JSON
         
         #get the entire menu as json array
         curl_get menu ./test-menu.json ${TOKEN}
+        
+        cat ./test-menu.json
 
         #we are going to buy the first item on the menu - get it's id and description as bash vars
         MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
@@ -181,7 +183,7 @@ ITEM_JSON
         then
             #pay for the order 
             
-            if curl_post cart ./test-cart.json ${TOKEN} << CART_JSON
+            if curl_post order ./test-order.json ${TOKEN} << CART_JSON
             {"stripe":"tok_visa"}
 CART_JSON
             
