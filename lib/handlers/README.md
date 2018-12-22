@@ -644,7 +644,7 @@ Retreive a specific food item available to order from the menu.
 `GET /menu?description=hawaii` - **description** *a word (or search term) to filter the list on*
 
  * **Responses**
-    200, `[{ id, description, price, image_url }, ... ]` - list of one or more items
+    200, `[{ id, description, price, image_url }, ... ]` - list of one or more items  
     200, [] - an empty array can mean no menu items exist, or the search term was not found
     401 - user is not logged in.
 
