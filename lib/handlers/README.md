@@ -493,6 +493,33 @@ or
 * [implementation: lib/handlers/user.js](user.js#L283) 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ***
 # Sign in
 ### POST /token
@@ -584,6 +611,31 @@ Extends Session Token Expiry
 * [Example](#step-5-logout-user)
   
 * [implementation: lib/handlers/token.js](token.js#L596)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
 ***
 # Get Menu Items
@@ -617,15 +669,15 @@ Retreive a specific food item available to order from the menu.
 
 
 
-* **REST endpoint**
+ * **REST endpoint**
 
 `GET /menu?id=6JiEVO9UNdNBfqWGoHKz` - **id** *a valid menu item id*
     
  * **Responses**
 
-    200,`[{ id, description, price, image_url } ]` - the result  
-    404 - menu id does not correspond to a menu item file  
-    401 - user is not logged in. 
+   * 200,`[{ id, description, price, image_url } ]` - the result  
+   * 404 - menu id does not correspond to a menu item file  
+   * 401 - user is not logged in. 
 
  * [Example](#)
 
@@ -644,9 +696,9 @@ Retreive a specific food item available to order from the menu.
 `GET /menu?description=hawaii` - **description** *a word (or search term) to filter the list on*
 
  * **Responses**
-    200, `[{ id, description, price, image_url }, ... ]` - list of one or more items  
-    200, [] - an empty array can mean no menu items exist, or the search term was not found  
-    401 - user is not logged in.
+   * 200, `[{ id, description, price, image_url }, ... ]` - list of one or more items  
+   * 200, [] - an empty array can mean no menu items exist, or the search term was not found  
+   * 401 - user is not logged in.
 
  * [Example](#step-2-get-filtered-menu-array)
 
@@ -657,10 +709,9 @@ Retreive a specific food item available to order from the menu.
 ***
 # Get the logged in user's shopping cart
 ### GET /cart
-----
+
   Retreive the list of items in the shopping cart.
   
-<br>[implementation: lib/handlers/cart.js](cart.js)
 
 * **REST endpoint**
 
@@ -671,230 +722,111 @@ Retreive a specific food item available to order from the menu.
     `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
 
-* **Success Response:**
+* **Responses**
 
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-{
-    items : {
-        "oBBofNs316bjZs0d7a70" : {
-            "description": "Hawaiian Pizza",
-            "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
-            "price": 9.99,
-            "quantity" : 1,
-            "subtotal" : 9.99
-        }
-    },
-    total : 9.99
-}
-```
-    
-* **Error Response:**
+   * 200, `{ items : { id : {quantity,price,subtotal,description,image_url}}, total}` 
+   * 401 - user is not logged in. 
 
-* **Code:** 401 UNAUTHORIZED <br />
+* [Example](#)
 
-most probably the token has expired, or this endpoint was called without a token
+* [implementation: lib/handlers/cart.js](cart.js#L63)
+
+
  
 ***
 # Add Menu Item to shopping cart
 ### POST /cart
-----
+
   add an item to the shopping cart, optionally specifying quantity.
   
-<br>[implementation: lib/handlers/cart.js](cart.js)
-
-* **REST endpoint**
+ * **REST endpoint**
 
   `POST /cart`
+  
+ * **JSON body** `{id,quantity}` 
+    * id - valid menu item id
+    * quantity (optional) - how many items to add to cart, defaults to 1
 
-* **HTTP Headers**
+ * **HTTP Headers**
 
     `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
-* **Payload**
-```JSON
-    {  "id" : "...",
-       "quantity"  : 1
-    }
-```    
 
- * id - valid menu item id
+* **Responses**
 
- * quantity (optional) - how many items to add to cart, defaults to 1
+  * 200, `{items:{id:{quantity,price,subtotal,description,image_url}},total}` 
+  * 400 - missing/invalid id, or invalid quantity
+  * 401 - user is not logged in. 
+  * 500 - problem reading menu item or writing cart item to disk
 
+* [Example](#step-3-add-first-filtered-item-to-cart)
 
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-{
-    items : {
-        "oBBofNs316bjZs0d7a70" : {
-            "description": "Hawaiian Pizza",
-            "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
-            "price": 9.99,
-            "quantity" : 1,
-            "subtotal" : 9.99
-        }
-    },
-    total : 9.99
-}
-```
-    
-* **Error Response:**
-
-* **Code:** 400 BAD REQUEST <br />
-
-the id didn't match a valid menu item
-
-
-OR
-
-* **Code:** 401 UNAUTHORIZED <br />
-
-most probably the token has expired, or this endpoint was called without a token
+* [implementation: lib/handlers/cart.js](cart.js#L104)
  
-* **Code:** 500 INTERNAL ERROR <br />
-
-most probably there is an issue with writing/reading to/from storage 
  
-
 ***
 # Update quantity of items in shopping cart
 ### PUT /cart
-----
+
   update the number of items in the shopping cart.
   
-<br>[implementation: lib/handlers/cart.js](cart.js)
-
 * **REST endpoint**
 
   `PUT /cart`
 
+* **JSON body** `{id,quantity}` 
+  * id - valid menu item id
+  * quantity - set how many items with this id there should be in the cart.
+
+
 * **HTTP Headers**
 
     `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
 
-* **Payload**
-```JSON
-    {  "id" : "...",
-       "quantity"  : 1
-    }
-```    
-* id - valid menu item id
+* **Responses**
 
-* quantity - explicitly set how many items with this id there should be in the cart.
-
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-{
-    items : {
-        "oBBofNs316bjZs0d7a70" : {
-            "description": "Hawaiian Pizza",
-            "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
-            "price": 9.99,
-            "quantity" : 1,
-            "subtotal" : 9.99
-        }
-    },
-    total : 9.99
-}
-```
+    * 200, `{items:{id:{quantity,price,subtotal,description,image_url}},total}`
+    * 400 - missing/invalid id or quantity
+    * 401 - user is not logged in. 
+    * 404 - item with that id not in shopping cart
+    * 500 - problem reading menu item or writing cart item to disk
     
-* **Error Response:**
+* [Example](#)
 
-* **Code:** 400 BAD REQUEST <br />
-
-the id or quantity wasn't supplied, or was invalid in some way (eg non numeric quantity)
-
-OR
-
-* **Code:** 404 NOT FOUND <br />
-
-the id doesn't match a valid menu item, or is not currently in the shopping cart
-
-OR
-
-
-* **Code:** 401 UNAUTHORIZED <br />
-
-most probably the token has expired, or this endpoint was called without a token
- 
-* **Code:** 500 INTERNAL ERROR <br />
-
-most probably there is an issue with writing/reading to/from storage 
- 
-
-
+* [implementation: lib/handlers/cart.js](cart.js#L201)
 
 ***
 # Delete Cart Item
 ### DELETE /cart
-----
- remove a specific item from the shopping cart.<br>
 
-<br>[implementation: lib/handlers/cart.js](cart.js)
+ remove a specific item from the shopping cart.  
 
 * **REST endpoint**
 
   `DELETE /cart?id=oBBofNs316bjZs0d7a70`
 
-* **HTTP Headers**
+* **HTTP Headers** 
 
     `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
+  * **Responses**
+    * 200, `{items:{id:{quantity,price,subtotal,description,image_url}},total}`
+    * 400 - missing/invalid id
+    * 401 - user is not logged in. 
+    * 404 - item with that id not in shopping cart
+    * 500 - problem reading menu item or writing cart item to disk
 
-* **Success Response:**
+* [Example](#)
 
-  * **Code:** 200 <br />
-    **Content:** 
-returns the new contents of the cart, after the delete.
-```JSON
-{
-    items : {
-        "oBBofNs316bjZs0d7a70" : {
-            "description": "Hawaiian Pizza",
-            "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
-            "price": 9.99,
-            "quantity" : 1,
-            "subtotal" : 9.99
-        }
-    },
-    total : 9.99
-}
-```
-    
-* **Error Response:**
-
-* **Code:** 400 BAD REQUEST <br />
-
-the id or quantity wasn't supplied, or was invalid in some way (eg non numeric quantity)
-
-OR
-
-* **Code:** 404 NOT FOUND <br />
-
-the id doesn't match a valid menu item, or is not currently in the shopping cart
-
-OR
+* [implementation: lib/handlers/cart.js](cart.js#L302)
 
 
-* **Code:** 401 UNAUTHORIZED <br />
 
-most probably the token has expired, or this endpoint was called without a token
- 
-* **Code:** 500 INTERNAL ERROR <br />
 
-most probably there is an issue with writing/reading to/from storage 
- 
+
+
+
 
 
 
