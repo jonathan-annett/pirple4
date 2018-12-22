@@ -1,22 +1,30 @@
-***API Documentation - Sample Code Call Summary***
+***"Pizza Ordering API" Documentation***
 ====
+
+
 
 Sample [API calls](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1) for new user to "buy the first pizza on the menu":
 ----
-  * [>>>](#step-1-create-user) [POST /user](#sign-up) - supply user details,  get session `token` 
-  * [>>>](#step-2-get-menu-array) [GET /menu](#get-menu-items) - get list of menu items (each with an `id`) 
-  * [>>>](#step-3-add-first-item-in-menu-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total` 
-  * [>>>](#step-4-submit-shopping-cart-as-an-order) [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` 
-  * [>>>](#step-5-logout-user) [DELETE /token](#sign-out)
+
+  * 1 [>>>](#step-1-create-user) [POST /user](#sign-up) - supply user details,  get a session `token` 
+
+  * 2 [>>>](#step-2-get-menu-array) [GET /menu](#get-menu-items) - get an array of menu items (each with an `id`) 
+
+  * 3 [>>>](#step-3-add-first-item-in-menu-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - using a menu item's `id` and the session `token`, place an item in the shopping cart, geting back the itemized cart contents, including the `items` and `total` cost
+
+  * 4 [>>>](#step-4-submit-shopping-cart-as-an-order) [POST /order](#create-order-with-contents-of-shopping-cart) - suppling a stripe payment `source`, authorized payment and get back the order's `order_id`. an email will be dispatched to the user's email address. 
+  * 5 [>>>](#step-5-logout-user) [DELETE /token](#sign-out) - having placed their order, the user can now log out. 
   
+
+
 
 Sample [API calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-and-then-buy-it-1) for existing user to search a "vegan" pizza, and then buy it:
 ----
-* [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
-* [>>>](#step-2-get-filtered-menu-array) [GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id` 
-* [>>>](#step-3-add-first-filtered-item-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total` 
-* [>>>](#step-4-submit-shopping-cart-as-an-order-1) [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` 
-* [>>>](#step-5-logout-user-1) [DELETE /token](#sign-out)
+* 1 [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
+* 2 [>>>](#step-2-get-filtered-menu-array) [GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id` 
+* 3 [>>>](#step-3-add-first-filtered-item-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total` 
+* 4 [>>>](#step-4-submit-shopping-cart-as-an-order-1) [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` 
+* 5 [>>>](#step-5-logout-user-1) [DELETE /token](#sign-out) - having placed their order, the user can now log out. 
 
 *[bash/curl on ubuntu](https://github.com/jonathan-annett/pirple2/blob/master/all-tests.sh) script to do these tests*
 
@@ -693,9 +701,7 @@ Retreive a specific food item available to order from the menu.
  
  * **REST endpoint**
 
-`GET /menu?description=hawaii` 
-
-   * **description** a word (or search term) to filter the list on
+`GET /menu?description=hawaii` - **description** *a word (or search term) to filter the list on*
 
  * **Responses**
    * 200, `[{ id, description, price, image_url }, ... ]` - list of one or more items  
@@ -835,52 +841,85 @@ Retreive a specific food item available to order from the menu.
 
 
 
+
+
+
+
+
+
+
+
+
 ***
 # Create order with contents of shopping cart
 ### POST /order
-----
- pay for the contents of shopping cart, adding the order to cutomers history, and returning the order no .<br>
 
-<br>[implementation: lib/handlers/order.js](order.js)
+ pay for the contents of shopping cart, adding the order to cutomers history, and returning the order no .
 
 * **REST endpoint**
 
   `POST /order`
+  
+* **JSON body** `{ stripe }` or `{stripe:{number,exp_month,exp_year,cvc}}`
+      * stripe - valid stripe test token, or credit card details
+
 
 * **HTTP Headers**
 
     `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
 
+  * **Responses**
+    * 200, `{ order_id, items : {}, total, stripe : {} }` - item
+    * 400 - stripe payment source is invalid 
+    * 404 - no shopping cart or shopping cart is empty
+    * 401 - user is not logged in. 
+    * 406 - payment was not accepted
+    * 500 - stripe payment failed to return payment details
 
-* **Payload**
-```JSON
-    {  "stripe" : "tok_visa" }
-```    
+* [Example](#)
 
-OR
-
-```JSON
-    {  "stripe" : {
-          "card" : "4242424242424242",
-          "exp_month" : "12",
-          "exp_year" : "2021",  
-          "cvc" : "123"
-       }
-    }
-```    
-* stripe - either a token string (for testing), or card details - which can be a test card number or actual card details.
-
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-
-
+* [implementation: lib/handlers/order.js](order.js#L158)
 
      
+***
+# get previous orders
+### GET /order
 
+* **REST endpoint**
+    `GET /order`
+
+* **HTTP Headers**
+
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+
+
+* **Responses**
+   * 200, `[{ order_id, items : {}, total, stripe : {} }]` - items
+   * 404 - no shopping cart or shopping cart is empty
+   * 401 - user is not logged in.   
+  
+  
+  
+***
+# get previous order
+### GET /order?id
+
+* **REST endpoint**
+    `GET /order?id=abcdef234324`
+
+* **HTTP Headers**
+
+    `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+
+
+* **Responses**
+   * 200, `{ order_id, items : {}, total, stripe : {} }` - item
+   * 400 - order_id is invalid 
+   * 404 - no shopping cart or shopping cart is empty
+   * 401 - user is not logged in.   
+  
+    
     
     
 # api validation rules
