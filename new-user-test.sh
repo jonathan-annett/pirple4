@@ -154,7 +154,7 @@ if grep -q "200 OK" curl.err ; then
     --data "{\"id\":\"${MENU_ID}\"}" \
     http://localhost:3000/cart > ./test-cart.json 2> curl.err
     
-    if grep -q "200 OK" curl.err ; then
+    if grep -q "xx200 OK" curl.err ; then
     
         #pay for the order 
         
