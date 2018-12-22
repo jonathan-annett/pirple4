@@ -189,9 +189,11 @@ dump_jsons() {
         cat $3.in
         rm $3.in
         echo
+        if [[ -e $3 ]] ;then
+            echo "(((Response:)))"
+        fi
     fi
     if [[ -e $3 ]] ;then
-        echo -n "<< response <<<"
         cat $3
         rm $3
         echo
