@@ -1,4 +1,4 @@
-***API Documentation***
+***API Documentation - Sample Code Call Summary***
 ====
 
 Sample API calls for new user to "buy the first pizza on the menu":
@@ -20,12 +20,13 @@ Sample API [calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-a
 
 
 
-Sample API calls for new user to "buy the first pizza on the menu":
+Sample API [calls](#) for new user to "buy the first pizza on the menu":
 ----
 
 ## step 1: create user
 
 `POST /user`
+*Posted Body*
 ```JSON
 {
   "email"    : "mr-squirrel@gmail.com",
@@ -34,7 +35,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
   "street_address" : "45 Squirrel Lane" 
 }
 ```
-*Response*
+*200 Response*
 ```JSON
 {
     "name": "Mr Squirrely Squirrel",
@@ -53,7 +54,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
 ## step 2: get menu array
 
 GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]  
-*Response*
+*200 Response*
 ```JSON
 [
     {
@@ -80,10 +81,11 @@ GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
 ## step 3: add first item in menu to cart
 
 `POST /cart` <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
+*Posted Body*
 ```JSON
 { "id" : "0eIZ3cO5KCjd94isKvn7", "quantity" : 1 }
 ```
-*Response*
+*200 Response*
 ```JSON 
 {
     "items": {
@@ -102,10 +104,11 @@ GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
 ## step 4: submit shopping cart as an order
 
 `POST /order` <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
+*Posted Body*
 ```JSON
 {"stripe":"tok_visa"}
 ```
-*Response*
+*200 Response*
 ```JSON 
 {
     "when": 1545470951460,
@@ -201,6 +204,8 @@ GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
 ## step 5: logout user
 
 `DELETE /token?token=6kufSGWMkqgCODYRCjRO`  
+*204 Response*
+
 
 Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ----
@@ -208,13 +213,14 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ## step 1: create session token
 
 `POST /token`
+*Posted Body*
 ```JSON
     {
       "email"    : "mr-squirrel@gmail.com",
       "password" : "Monkey~123"
     }
 ```
-*Response*
+*200 Response*
 ```JSON 
 {
     "id": "hvWP1HnuWu3EOmxczjkW",
@@ -228,7 +234,7 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ## step 2: get filtered menu array
 
 `GET /menu?description=vegan` <=== Headers ====[ `token: hvWP1HnuWu3EOmxczjkW` ]  
-*Response* 
+*200 Response* 
 ```JSON
 [
     {
@@ -243,10 +249,11 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ## step 3: add first filtered item to cart
 
 `POST /cart` <=== Headers ====[ `token: hvWP1HnuWu3EOmxczjkW` ]
+*Posted Body*
 ```JSON
         { "id" : "Sb2goBvqmIObpQkT3gQZ", "quantity" : 1 }
 ```
-*Response*
+*200 Response*
 ```JSON 
 {
     "items": {
@@ -265,10 +272,11 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ## step 4: submit shopping cart as an order
 
 `POST /order` <=== Headers ====[ `token: hvWP1HnuWu3EOmxczjkW` ]
+*Posted Body*
 ```JSON
             {"stripe": { "number" : "4242424242424242", "exp_month" : 12, "exp_year" : 2021, "cvc" : 123 }}
 ```
-*Response*
+*200 Response*
 ```JSON 
 {
     "when": 1545470959140,
@@ -364,6 +372,7 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ## step 5: logout user
 
 `DELETE /token?token=hvWP1HnuWu3EOmxczjkW`
+*204 Response*
 
  
 ***
