@@ -9,6 +9,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
   * [>>>](#step-4-submit-shopping-cart-as-an-order) [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` 
   * [>>>](#step-5-logout-user) [DELETE /token](#sign-out)
   
+*[bash/curl on ubuntu](https://github.com/jonathan-annett/pirple2/blob/master/existing-user-edit3.sh) script to do these tests*
 
 Sample API [calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-and-then-buy-it-1) for existing user to search a "vegan" pizza, and then buy it:
 ----
@@ -20,7 +21,7 @@ Sample API [calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-a
 
 
 
-Sample API [calls](#) for new user to "buy the first pizza on the menu":
+Sample API calls for new user to "buy the first pizza on the menu":
 ----
 
 ## step 1: create user
