@@ -56,7 +56,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
 
 ## step 2: get menu array
 
-GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]  
+`GET /menu` <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]  
 
 *200 Response*
 ```JSON
@@ -386,10 +386,9 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 Simultaneously create a new user account, and a new session token.  
  
  * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
- * **REST endpoint** `POST /user`
+ * **REST endpoint** [`POST /user`](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1)
  * **JSON body** `{ email,name,password,street_address}`
- * [example](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1)
-  
+
  * **Responses**
     * 200,`{ email,name, street_address, token:{id,created,expires,cart_id }}`
     * 400 - missing/invalid email, password or street address.
