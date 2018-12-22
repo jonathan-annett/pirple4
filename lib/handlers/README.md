@@ -10,10 +10,10 @@ Sample [API calls](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-
 
   * 2 [>>>](#step-2-get-menu-array) [GET /menu](#get-menu-items) - get an array of menu items (each with an `id`) 
 
-  * 3 [>>>](#step-3-add-first-item-in-menu-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - using a menu item's `id` and the session `token`, place an item in the shopping cart, geting back the itemized cart contents, including the `items` and `total` cost
+  * 3 [>>>](#step-3-add-first-item-in-menu-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - using a menu item's `id` and the session `token`, place an item in the shopping cart.
 
-  * 4 [>>>](#step-4-submit-shopping-cart-as-an-order) [POST /order](#create-order-with-contents-of-shopping-cart) - suppling a stripe payment `source`, authorized payment and get back the order's `order_id`. an email will be dispatched to the user's email address. 
-  * 5 [>>>](#step-5-logout-user) [DELETE /token](#sign-out) - having placed their order, the user can now log out. 
+  * 4 [>>>](#step-4-submit-shopping-cart-as-an-order) [POST /order](#create-order-with-contents-of-shopping-cart) - using a stripe payment `source`, authorize payment for the shopping cart.
+  * 5 [>>>](#step-5-logout-user) [DELETE /token](#sign-out) - having placed an order, the user can now log out. 
   
 
 
@@ -21,10 +21,10 @@ Sample [API calls](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-
 Sample [API calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-and-then-buy-it-1) for existing user to search a "vegan" pizza, and then buy it:
 ----
 * 1 [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
-* 2 [>>>](#step-2-get-filtered-menu-array) [GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id` 
-* 3 [>>>](#step-3-add-first-filtered-item-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total` 
-* 4 [>>>](#step-4-submit-shopping-cart-as-an-order-1) [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` 
-* 5 [>>>](#step-5-logout-user-1) [DELETE /token](#sign-out) - having placed their order, the user can now log out. 
+* 2 [>>>](#step-2-get-filtered-menu-array) [GET /menu?description=vegan](#filter-menu-items) - substring search for `description`, choose an `id` from the returned array. 
+* 3 [>>>](#step-3-add-first-filtered-item-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, place item in cart.
+* 4 [>>>](#step-4-submit-shopping-cart-as-an-order-1) [POST /order](#create-order-with-contents-of-shopping-cart) - supply a stripe payment `source` to pay for the cart contents.
+* 5 [>>>](#step-5-logout-user-1) [DELETE /token](#sign-out) - having placed an order, the user can now log out. 
 
 *[bash/curl on ubuntu](https://github.com/jonathan-annett/pirple2/blob/master/all-tests.sh) script to do these tests*
 
