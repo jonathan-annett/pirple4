@@ -32,18 +32,19 @@ reset_data() {
 curl_post() {
 URI=$1
 OUT=$2
-
+JSON=$2.in
+cat > ${JSON}
 if [[ "$3" == "" ]] ; then
   curl -v --header "Content-Type: application/json" \
           --request POST \
           ${LOCAL_URL}/${URI} \
-          --data @- > ${OUT} 2> curl.err
+          --data @${JSON} > ${OUT} 2> curl.err
 else
   curl -v --header "Content-Type: application/json" \
           --header "token: $3" \
           --request POST \
           ${LOCAL_URL}/${URI} \
-          --data @- > ${OUT} 2> curl.err
+          --data @${JSON} > ${OUT} 2> curl.err
 fi
 
     CODE=( $(grep "< HTTP/1" curl.err | cut -d "/" -f 2 ) )
