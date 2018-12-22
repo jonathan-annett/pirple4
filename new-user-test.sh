@@ -232,8 +232,14 @@ CART_JSON
                     echo Summary of output from test:
                     echo
                     echo
-                    echo "step 1: create user ---> POST /user"
+                    echo step 1: create user
+                    echo POST /user
+                    echo -n ">>>"
+                    
+                    cat new-user.json.in 
                     echo
+                    echo
+                    echo -n "<<<"
                     cat new-user.json  
                         
                     echo
