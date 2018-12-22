@@ -388,8 +388,7 @@ Simultaneously create a new user account, and a new session token.
 
  * **REST endpoint**  
 `POST /user`
- * **JSON body** 
-    { email,name,password,street_address}
+ * **JSON body** `{ email,name,password,street_address}`
   
  * **Responses**
     * 200,`{ email,name, street_address, token:{id,created,expires,cart_id }}`
