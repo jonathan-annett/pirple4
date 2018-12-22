@@ -386,15 +386,16 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 Simultaneously create a new user account, and a new session token.  
  
  * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
- * **REST endpoint** [`POST /user`](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1)
+ * **REST endpoint** [`POST /user`]
  * **JSON body** `{ email,name,password,street_address}`
 
+  
  * **Responses**
     * 200,`{ email,name, street_address, token:{id,created,expires,cart_id }}`
     * 400 - missing/invalid email, password or street address.
     * 403 - user already exists. (or something else that stopped the creation of a new file - disk space or hardware error)
-                          
-  * Notes:
+ * [Example](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1)                        
+ * Notes:
      - the password is not returned to the user, and it is stored internally as a hash result
      - as this endpoint automatically calls [POST /token](#sign-in) to sign in the user, if there was any issue doing that the error code will be something other than 200, ie whatever POST /token returned
      - any "200 content" response from POST/token is returned as the token field (see 200 response above).
