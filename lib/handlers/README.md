@@ -9,106 +9,107 @@ Sample API calls for new user to buy a pizza:
   * [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id`
   * [DELETE /token](#sign-out)
 
-```
 step 1: create user
 
-POST /user
-    {
+`POST /user`
+```JSON
+{
       "email"    : "mr-squirrel@gmail.com",
       "name"     : "Mr Squirrely Squirrel",
       "password" : "Monkey~123",
       "street_address" : "45 Squirrel Lane" 
     }
-
+```
 (((Response:)))
+```JSON
 {
     "name": "Mr Squirrely Squirrel",
     "email": "mr-squirrel@gmail.com",
     "street_address": "45 Squirrel Lane",
     "orders": [],
     "token": {
-        "id": "Z4wf3vknsMawbS8ONamN",
-        "created": 1545470522924,
-        "expires": 1545474122924,
-        "cart_id": "ryMa8kdEV7iwcbM2t2dm"
+        "id": "6kufSGWMkqgCODYRCjRO",
+        "created": 1545470951121,
+        "expires": 1545474551121,
+        "cart_id": "gmv8OJjaFjQFx7jZNFI2"
     }
 }
-
+```
 
 step 2: get menu array
 
-GET /menu===> Headers [ token: Z4wf3vknsMawbS8ONamN ]
+GET /menu <=== Headers ====[ token: 6kufSGWMkqgCODYRCjRO ]
 [
+    {
+        "description": "Desert Pizza",
+        "image_url": "https://i.imgur.com/WFqSUbe.jpg",
+        "price": 19.99,
+        "id": "0eIZ3cO5KCjd94isKvn7"
+    },
     {
         "description": "Vegan Pizza",
         "image_url": "https://i.imgur.com/yMu7sjT.jpg",
         "price": 9.99,
-        "id": "Is8ZFJg0iUdyE6kNv3WO"
+        "id": "Sb2goBvqmIObpQkT3gQZ"
     },
     {
         "description": "Meat Lovers Pizza",
         "image_url": "https://i.imgur.com/ouAz8i8.jpg",
         "price": 9.99,
-        "id": "TPvDEmGp7IluiFDdcFvO"
-    },
-    {
-        "description": "Desert Pizza",
-        "image_url": "https://i.imgur.com/WFqSUbe.jpg",
-        "price": 19.99,
-        "id": "qvJs7xY8wYjbzPiBfM6B"
+        "id": "x5l623nP6jjdLFq9X6oJ"
     }
 ]
 
 
 step 3: add first item in menu to cart
 
-POST /cart===> Headers [ token: Z4wf3vknsMawbS8ONamN ]
-        { "id" : "Is8ZFJg0iUdyE6kNv3WO", "quantity" : 1 }
+POST /cart <=== Headers ====[ token: 6kufSGWMkqgCODYRCjRO ]
+{ "id" : "0eIZ3cO5KCjd94isKvn7", "quantity" : 1 }
 
 (((Response:)))
 {
     "items": {
-        "Is8ZFJg0iUdyE6kNv3WO": {
+        "0eIZ3cO5KCjd94isKvn7": {
             "quantity": 1,
-            "price": 9.99,
-            "description": "Vegan Pizza",
-            "image_url": "https://i.imgur.com/yMu7sjT.jpg",
-            "subtotal": 9.99
+            "price": 19.99,
+            "description": "Desert Pizza",
+            "image_url": "https://i.imgur.com/WFqSUbe.jpg",
+            "subtotal": 19.99
         }
     },
-    "total": 9.99
+    "total": 19.99
 }
 
 
 step 4: submit shopping cart as an order
 
-POST /order===> Headers [ token: Z4wf3vknsMawbS8ONamN ]
-            {"stripe":"tok_visa"}
+POST /order <=== Headers ====[ token: 6kufSGWMkqgCODYRCjRO ]
+{"stripe":"tok_visa"}
 
 (((Response:)))
 {
-    "when": 1545470523221,
-    "order_id": "pxGeG4fJTkoHG30ERSgo",
+    "when": 1545470951460,
+    "order_id": "XeDs3ZWxSphtSDcjvIox",
     "items": {
-        "Is8ZFJg0iUdyE6kNv3WO": {
+        "0eIZ3cO5KCjd94isKvn7": {
             "quantity": 1,
-            "price": 9.99,
-            "description": "Vegan Pizza",
-            "image_url": "https://i.imgur.com/yMu7sjT.jpg",
-            "subtotal": 9.99
+            "price": 19.99,
+            "description": "Desert Pizza",
+            "image_url": "https://i.imgur.com/WFqSUbe.jpg",
+            "subtotal": 19.99
         }
     },
-    "total": 9.99,
+    "total": 19.99,
     "stripe": {
-        "id": "ch_1Dk6gOGD93mPalQAbal4Du8C",
+        "id": "ch_1Dk6nGGD93mPalQAKRDfKnbP",
         "object": "charge",
-        "amount": 999,
+        "amount": 1998,
         "amount_refunded": 0,
         "application": null,
         "application_fee": null,
-        "balance_transaction": "txn_1Dk6gOGD93mPalQAQuCvlbJh",
+        "balance_transaction": "txn_1Dk6nGGD93mPalQA7vEnv7Qy",
         "captured": true,
-        "created": 1545470528,
+        "created": 1545470954,
         "currency": "aud",
         "customer": null,
         "description": null,
@@ -126,7 +127,7 @@ POST /order===> Headers [ token: Z4wf3vknsMawbS8ONamN ]
             "network_status": "approved_by_network",
             "reason": null,
             "risk_level": "normal",
-            "risk_score": 19,
+            "risk_score": 49,
             "seller_message": "Payment complete.",
             "type": "authorized"
         },
@@ -140,12 +141,12 @@ POST /order===> Headers [ token: Z4wf3vknsMawbS8ONamN ]
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/charges/ch_1Dk6gOGD93mPalQAbal4Du8C/refunds"
+            "url": "/v1/charges/ch_1Dk6nGGD93mPalQAKRDfKnbP/refunds"
         },
         "review": null,
         "shipping": null,
         "source": {
-            "id": "card_1Dk6gOGD93mPalQAgMzjK3rn",
+            "id": "card_1Dk6nGGD93mPalQAfCyRd9b3",
             "object": "card",
             "address_city": null,
             "address_country": null,
@@ -179,7 +180,9 @@ POST /order===> Headers [ token: Z4wf3vknsMawbS8ONamN ]
 
 step 5: logout user
 
-DELETE /token?token=Z4wf3vknsMawbS8ONamN
+DELETE /token?token=6kufSGWMkqgCODYRCjRO
+
+
 
 ```
 
@@ -204,36 +207,36 @@ POST /token
 
 (((Response:)))
 {
-    "id": "yx3uIYRPe7M4TieTrRnQ",
+    "id": "hvWP1HnuWu3EOmxczjkW",
     "email": "mr-squirrel@gmail.com",
-    "created": 1545465887874,
-    "expires": 1545469487874,
-    "cart_id": "ilU66hqUpzXKfjmhDBP0"
+    "created": 1545470958848,
+    "expires": 1545474558848,
+    "cart_id": "8Nw0MNhsEIXRa5s3ircm"
 }
 
 
 step 2: get menu array
 
-GET /menu?description=vegan
+GET /menu?description=vegan <=== Headers ====[ token: hvWP1HnuWu3EOmxczjkW ]
 [
     {
         "description": "Vegan Pizza",
         "image_url": "https://i.imgur.com/yMu7sjT.jpg",
         "price": 9.99,
-        "id": "3H0xUVvtivSSryI2jkPr"
+        "id": "Sb2goBvqmIObpQkT3gQZ"
     }
 ]
 
 
 step 3: add first item in menu to cart
 
-POST /cart
-        { "id" : "3H0xUVvtivSSryI2jkPr", "quantity" : 1 }
+POST /cart <=== Headers ====[ token: hvWP1HnuWu3EOmxczjkW ]
+        { "id" : "Sb2goBvqmIObpQkT3gQZ", "quantity" : 1 }
 
 (((Response:)))
 {
     "items": {
-        "3H0xUVvtivSSryI2jkPr": {
+        "Sb2goBvqmIObpQkT3gQZ": {
             "quantity": 1,
             "price": 9.99,
             "description": "Vegan Pizza",
@@ -247,15 +250,15 @@ POST /cart
 
 step 4: submit shopping cart as an order
 
-POST /order
+POST /order <=== Headers ====[ token: hvWP1HnuWu3EOmxczjkW ]
             {"stripe": { "number" : "4242424242424242", "exp_month" : 12, "exp_year" : 2021, "cvc" : 123 }}
 
 (((Response:)))
 {
-    "when": 1545465888158,
-    "order_id": "XJcm1kIyypEXpFgFBR4D",
+    "when": 1545470959140,
+    "order_id": "mzbJxgDkaYJmg9Ym5SnG",
     "items": {
-        "3H0xUVvtivSSryI2jkPr": {
+        "Sb2goBvqmIObpQkT3gQZ": {
             "quantity": 1,
             "price": 9.99,
             "description": "Vegan Pizza",
@@ -265,15 +268,15 @@ POST /order
     },
     "total": 9.99,
     "stripe": {
-        "id": "ch_1Dk5TZGD93mPalQALrYSOnAa",
+        "id": "ch_1Dk6nNGD93mPalQABrGuMvwu",
         "object": "charge",
         "amount": 999,
         "amount_refunded": 0,
         "application": null,
         "application_fee": null,
-        "balance_transaction": "txn_1Dk5TaGD93mPalQAgOExjxHs",
+        "balance_transaction": "txn_1Dk6nNGD93mPalQAEr2UFETy",
         "captured": true,
-        "created": 1545465889,
+        "created": 1545470961,
         "currency": "aud",
         "customer": null,
         "description": null,
@@ -291,7 +294,7 @@ POST /order
             "network_status": "approved_by_network",
             "reason": null,
             "risk_level": "normal",
-            "risk_score": 21,
+            "risk_score": 31,
             "seller_message": "Payment complete.",
             "type": "authorized"
         },
@@ -305,12 +308,12 @@ POST /order
             "data": [],
             "has_more": false,
             "total_count": 0,
-            "url": "/v1/charges/ch_1Dk5TZGD93mPalQALrYSOnAa/refunds"
+            "url": "/v1/charges/ch_1Dk6nNGD93mPalQABrGuMvwu/refunds"
         },
         "review": null,
         "shipping": null,
         "source": {
-            "id": "card_1Dk5TZGD93mPalQAdJWVqujH",
+            "id": "card_1Dk6nMGD93mPalQAXwc5G75T",
             "object": "card",
             "address_city": null,
             "address_country": null,
@@ -344,7 +347,8 @@ POST /order
 
 step 5: logout user
 
-DELETE /token?token=yx3uIYRPe7M4TieTrRnQ
+DELETE /token?token=hvWP1HnuWu3EOmxczjkW
+
 
 ```
 
