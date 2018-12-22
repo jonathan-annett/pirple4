@@ -193,8 +193,6 @@ USER_JSON
         #get the entire menu as json array
         curl_get menu ./test-menu.json ${TOKEN}
         
-        cat ./test-menu.json
-
         #we are going to buy the first item on the menu - get it's id and description as bash vars
         MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
         MENU_DESC=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].description);")
@@ -223,16 +221,25 @@ CART_JSON
                 then
                     echo logged out ok
                     
-                    echo new-user.json 
+                    echo Summary of output from test:
+                    echo
+                    echo "step 1: create user ---> POST /user"
+                    echo
                     cat new-user.json  
-                    
-                    echo test-menu.json  
+                        
+                    echo
+                    echo "step 2: get menu array ---> GET /menu"
+                    echo
                     cat test-menu.json  
                     
-                    echo test-cart.json  
+                    echo
+                    echo "step 3: add first item in menu to cart ---> POST /cart"
+                    echo
                     cat test-cart.json  
                     
-                    echo test-order.json
+                    echo
+                    echo "step 4: submit shopping cart as an order ---> POST /order"
+                    echo
                     cat test-order.json
  
                     
