@@ -392,6 +392,15 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 `DELETE /token?token=hvWP1HnuWu3EOmxczjkW`  
 *204 Response*
 
+***
+***"Pizza Ordering API" /user endpoint***
+====
+
+ * POST = [Sign up](#sign-up)
+ * GET = [Get User Info](#get-user-info)
+ * PUT = [Update User Details](#update-user-details)
+ * DELETE = [Delete User](#delete-user)
+
  
 ***
 # Sign up
@@ -528,6 +537,9 @@ or
 
 
 
+***
+***"Pizza Ordering API" /token endpoint***
+====
 
 
 
@@ -647,6 +659,9 @@ Extends Session Token Expiry
 
 
 
+***
+***"Pizza Ordering API" /menu endpoint***
+====
 
  
 ***
@@ -716,6 +731,21 @@ Retreive a specific food item available to order from the menu.
 
  * [implementation: lib/handlers/pizza_menu.js](pizza_menu.js#L65)
 
+
+
+
+
+
+
+
+
+
+
+
+
+***
+***"Pizza Ordering API" /cart endpoint***
+====
 
 
 ***
@@ -851,6 +881,9 @@ Retreive a specific food item available to order from the menu.
 
 
 
+***
+***"Pizza Ordering API" /order endpoint***
+====
 
 
 
