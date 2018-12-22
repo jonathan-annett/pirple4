@@ -167,36 +167,22 @@ USER_JSON
         
         #get the entire menu as json array
         curl_get menu ./test-menu.json ${TOKEN}
-        #curl -v --header "token: ${TOKEN}" http://localhost:3000/menu > ./test-menu.json 2> curl.err
-        
+
         #we are going to buy the first item on the menu - get it's id and description as bash vars
         MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
         MENU_DESC=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].description);")
         
         echo we will buy ${MENU_DESC} which has id ${MENU_ID}
         
-        #curl -v --header "Content-Type: application/json" \
-        #--header "token: ${TOKEN}" \
-        #--request POST \
-        #--data "{\"id\":\"${MENU_ID}\"}" \
-        #http://localhost:3000/cart > ./test-cart.json 2> curl.err
-        
         if curl_post cart ./test-cart.json ${TOKEN} << ITEM_JSON
         { "id" : "${MENU_ID}", "quantity" : 1 }
 ITEM_JSON
 
-        #if grep -q "200 OK" curl.err ; then
         then
             #pay for the order 
             
-            curl -v --header "Content-Type: application/json" \
-            --header "token: ${TOKEN}" \
-            --request POST \
-            --data '{"stripe":"tok_visa"}' \
-            http://localhost:3000/order > ./test-order.json 2> curl.err
-            
-            
-            if grep -q "xx200 OK" curl.err ; then
+            if curl_post cart ./test-cart.json ${TOKEN} <<< '{"stripe":"tok_visa"}'
+            then
             
                 ORDER=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-order.json\")).order_id);")
             
