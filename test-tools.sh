@@ -119,7 +119,7 @@ fi
 curl_get() {
 URI=$1
 OUT=$2
-HDRS="${OUT}.hdr"
+HDRS=$2.hdr
 
 if [[ "$3" == "" ]] ; then
   curl -v ${LOCAL_URL}/${URI} > ${OUT} 2> curl.err

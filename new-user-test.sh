@@ -25,25 +25,7 @@ reset_data token
 reset_data cart
 reset_data order
 
-dump_jsons() {
-    echo
-    echo $1
-    echo
-    echo $2
-    if [[ -e $3.in ]] ;then
-        cat $3.in
-        rm $3.in
-        echo
-        if [[ -e $3 ]] ;then
-            echo "(((Response:)))"
-        fi
-    fi
-    if [[ -e $3 ]] ;then
-        node -e "console.log(JSON.stringify(JSON.parse(fs.readFileSync(\"$3\")),undefined,4));"
-        rm $3
-        echo
-    fi
-}
+ 
 
 if create_menu ; then
 
