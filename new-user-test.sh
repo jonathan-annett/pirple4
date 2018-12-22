@@ -193,7 +193,7 @@ CART_JSON
             
                 echo order $ORDER completed ok
                 
-                curl -v --request DELETE /token?token=${TOKEN} 
+                curl -v --request DELETE ${LOCAL_URL}/token?token=${TOKEN} 
             
             else
                 
