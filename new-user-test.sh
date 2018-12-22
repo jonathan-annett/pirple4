@@ -181,7 +181,10 @@ ITEM_JSON
         then
             #pay for the order 
             
-            if curl_post cart ./test-cart.json ${TOKEN} <<< '{"stripe":"tok_visa"}'
+            if curl_post cart ./test-cart.json ${TOKEN} << CART_JSON
+            {"stripe":"tok_visa"}
+CART_JSON
+            
             then
             
                 ORDER=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-order.json\")).order_id);")
