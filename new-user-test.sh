@@ -26,8 +26,8 @@ reset_data() {
 }
 
 
-# bash helper function to post JSON from stdin to curl
-# captures JSON from curl and saves it to a local file
+# bash helper function to post JSON from stdin via curl
+# captures JSON from the POST request and saves it to a local file
 # usage: curl_post uri filename token 
 curl_post() {
 URI=$1
@@ -55,6 +55,10 @@ fi
     fi
 }
 
+# bash helper function to get JSON via curl
+# captures JSON from the GET request and saves it to a local file
+# usage: curl_get uri filename token 
+
 curl_get() {
 URI=$1
 OUT=$2
@@ -76,7 +80,24 @@ fi
     fi
 }
 
+# bash helper function to delete via curl
+# usage: curl_delete uri 
 
+curl_delete() {
+URI=$1
+
+  curl -v --request DELETE \
+          ${LOCAL_URL}/${URI} \
+          2> curl.err
+
+    CODE=( $(grep "< HTTP/1" curl.err | cut -d "/" -f 2 ) )
+
+    if [ ${CODE[1]} -ge 200 ] && [ ${CODE[1]} -lt 300 ] ; then
+        true
+    else
+        false
+    fi
+}
 
  
 # helper bash function to populate a sample menu dataset
@@ -197,7 +218,14 @@ CART_JSON
             
                 echo order $ORDER completed ok
                 
-                curl -v --request DELETE ${LOCAL_URL}/token?token=${TOKEN} 
+                # log out by deleting token
+                if curl_delete token?token=${TOKEN}
+                then
+                    echo logged out ok
+                    
+                else
+                    echo could not log out
+                fi
             
             else
                 
