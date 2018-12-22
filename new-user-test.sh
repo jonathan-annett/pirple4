@@ -43,6 +43,8 @@ fi
         --data @- > ${OUT} 2> curl.err
         
     CODE=( $(grep "< HTTP/1" curl.err | cut -d "/" -f 2 ) )
+    
+    echo code is $CODE
 
     if [ ${CODE[1]} -ge 200 ] && [ ${CODE[1]} -lt 300 ] ; then
         true
