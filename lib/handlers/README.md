@@ -10,7 +10,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
   * [>>>](#step-5-logout-user) [DELETE /token](#sign-out)
   
 
-Sample API calls for existing user to search a "vegan" pizza, and then buy it:
+Sample API [calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-and-then-buy-it-1) for existing user to search a "vegan" pizza, and then buy it:
 ----
 * [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
 * [>>>](#step-2-get-filtered-menu-array) [GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id` 
