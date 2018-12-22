@@ -397,7 +397,7 @@ Simultaneously create a new user account, and a new session token.
     * 400 - missing/invalid email, password or street address.
     * 403 - user already exists. (or something else that stopped the creation of a new file - disk space or hardware error)
  * [Example](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1)
- * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
+ * [implementation: handlers.user.post() in lib/handlers/user.js](user.js#L80)
  * Notes:
      - the password is not returned to the user, and it is stored internally as a hash result
      - as this endpoint automatically calls [POST /token](#sign-in) to sign in the user, if there was any issue doing that the error code will be something other than 200, ie whatever POST /token returned
@@ -426,7 +426,7 @@ or
 
   * [Example](#)
   
-  * [implementation: lib/handlers/user.js](user.js)
+  * [implementation: lib/handlers/user.js](user.js#L161)
 ***
 # Update User Details
 ### PUT /user
@@ -443,21 +443,21 @@ Note that the password is not returned in the user data.
   `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
   * **Responses**  
-    * 200,`{ email,street_address}` 
+    * 200,`{ email,name,street_address}`  
     * 401 - (token invalid/missing/expired/wrong email in token file)
     * 404 - user not found (for admins trying to update another user file)
     * 500 - missing/invalid email, password or street address, or no field to update.
 
   * [Example](#)
   
-  * [implementation: lib/handlers/user.js](user.js)
+  * [implementation: lib/handlers/user.js](user.js#L211)
 
                     
   * **Notes**  
      - only those fields supplied will be updated
      - email is not updated, and if suppplied, must match the logged in user
      - if email is not supplied, the logged in user is implied.
-     - admins can update other users (by supplying another valid email and only if permissions.admin===true in the logged in user's .data/user/username@dmain.com.json)
+     - admins can update other users (by supplying another valid email and only if permissions.admin===true in the logged in user's .data/user/username@domain.com.json)
      - the password is not returned to the user, and it is stored internally as a hash result
 
 
@@ -490,7 +490,7 @@ or
 
 * [Example](#)
 
-* [implementation: lib/handlers/user.js](user.js) 
+* [implementation: lib/handlers/user.js](user.js#L283) 
 
 
 ***
@@ -514,7 +514,7 @@ Create and return a session token for an existing user account, using credential
 
   * [Example](#step-1-create-session-token)
     
-  * [implementation: lib/handlers/token.js](token.js)
+  * [implementation: lib/handlers/token.js](token.js#L360)
 
 
   
@@ -535,7 +535,7 @@ return token details
 
   * [Example](#)
 
-  * [implementation: lib/handlers/token.js](token.js)
+  * [implementation: lib/handlers/token.js](token.js#L485)
 
 ***
 # Extend Session
@@ -546,7 +546,7 @@ Extends Session Token Expiry
   * **REST endpoint** 
   `PUT /token`
 
-  * **JSON body** { token }
+  * **JSON body** `{ token }` - a valid session token
 
   * **HTTP Headers**  
   `token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
@@ -559,7 +559,7 @@ Extends Session Token Expiry
         401 - session has already expired.
         500 - internal error trying to update session file(s)
   * [Example](#)  
-  * [implementation: lib/handlers/token.js](token.js)
+  * [implementation: lib/handlers/token.js](token.js#L534)
 
 
 ***
@@ -569,175 +569,92 @@ Extends Session Token Expiry
   Delete a session token, logging out the user<br />
   also clears any shopping cart associated with this session token. 
   The `token` argument is either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). 
-  
-<br>[implementation: lib/handlers/token.js](token.js)
 
 * **REST endpoint**
  
   `DELETE /token?token=abcdef123456789`
 
-* **Success Response:**
+* ** Responses**
 
-  * **Code:** 204 <br />
-
-    
-    
-* **Error Response:**
-
-  * **Code:** 400 BAD REQUEST
-    * a missing or empty token argument
-
-  OR
-
-  * **Code:** 401 UNAUTHORIZED
-    * the token is invalid or has already been signed out (deleted)
-
-
-
-
-/*
-  Common Name:      Sign Out ( also deletes shopping cart)
-  Specification:    "Users can log in and log out by creating or DESTROYING a token."
-  Code:             handlers.token.delete() in token.js      
-  Endpoint:         DELETE /token?token=asdfghj1234567
-  Responses:
-                    204 - session deleted ok
-                    400 - missing or invalid token_id format
-                    404 - token does not refer to a valid session
-                    500 - internal error trying to delete session file(s)
-*/
-
-
-
-
-
-
+      204 - session deleted ok
+      400 - missing or invalid token_id format
+      404 - token does not refer to a valid session
+      500 - internal error trying to delete session file(s)
+      
+* [Example](#step-5-logout-user)
+  
+* [implementation: lib/handlers/token.js](token.js#L596)
  
 ***
 # Get Menu Items
 ### GET /menu
-----
+
   Retreive a full list of food items available to order from the menu.<br \>
 
-  <br>[implementation: lib/handlers/pizza_menu.js](menu.js)
 
-* **REST endpoint**
+
+ * **REST endpoint**
 
 `GET /menu`
 
-* **Success Response:**
+ * **Responses**
+ 
 
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-[
-    {
-        "description": "Vegan Pizza",
-        "image_url": "https://i.imgur.com/yMu7sjT.jpg",
-        "price": 9.99,
-        id: "6JiEVO9UNdNBfqWGoHKz"
-    },
-    {
-        "description": "Meat Lovers Pizza",
-        "image_url": "https://i.imgur.com/ouAz8i8.jpg",
-        "price": 9.99,
-        id: "Jg1lpBcQ8pEY70Oxxl8d"
-    },
-    {
-        "description": "Desert Pizza",
-        "image_url": "https://i.imgur.com/WFqSUbe.jpg",
-        "price": 19.99,
-        id: "PiBhPQWNNSek0U41aO2E"
-    },
-    {
-        "description": "Hawaiian Pizza",
-        "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
-        "price": 9.99,
-        id: "oBBofNs316bjZs0d7a70"
-    }
-]
-```
+    200,`[{ id, description, price, image_url }, ... ]` - list of one or more items
+    200,`[]` - an empty array means no menu items exist
+    401 - user is not logged in. 
     
-  
- * **Error Response:**
+  * [Example](#step-2-get-menu-array)
  
-if there are no menu items defined, you will just get an empty array
- 
+  * [implementation: lib/handlers/pizza_menu.js](pizza_menu.js#L65)
+
      
 ***
 # Get Menu Item
 ### GET /menu?id
-----
-  Retreive a specific food item available to order from the menu.<br \>
 
-<br>[implementation: lib/handlers/pizza_menu.js](menu.js)
+Retreive a specific food item available to order from the menu. 
+
+
 
 * **REST endpoint**
 
 `GET /menu?id=6JiEVO9UNdNBfqWGoHKz`
-
- * id is a valid menu item id
-
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-[
-    {
-        "description": "Vegan Pizza",
-        "image_url": "https://i.imgur.com/yMu7sjT.jpg",
-        "price": 9.99,
-        id: "6JiEVO9UNdNBfqWGoHKz"
-    }
-]
-```
+    * id is a valid menu item id
     
-    
-    
+ * **Responses**
+
+    200,`[{ id, description, price, image_url } ]` - the result
+    404 - menu id does not correspond to a menu item file 
+    401 - user is not logged in. 
+
+ * [Example](#)
+
+ * [implementation: lib/handlers/pizza_menu.js](pizza_menu.js#L65)
  
-* **Error Response:**
-
-* **Code:** 404 NOT FOUND <br />
-
- 
-
-
 
 ***
 # Filter Menu Items
 ###  /menu?description
-----
-  Filter the list of items available to order from the menu.<br>
 
-<br>[implementation: lib/handlers/pizza_menu.js](menu.js)
+  Filter the list of items available to order from the menu.
 
-* **REST endpoint**
+ 
+ * **REST endpoint**
 
 `GET /menu?description=hawaii`
 
- * description - a word (search term) to filter the list on
+   * description - a word (search term) to filter the list on
 
-* **Success Response:**
+ * **Responses**
+    200, [{ id, description, price, image_url }, ... ] - list of one or more items
+    200, [] - an empty array can mean no menu items exist, or the search term was not found
+    401 - user is not logged in.
 
-  * **Code:** 200 <br />
-    **Content:** 
-```JSON
-[
-    {
-        "description": "Hawaiian Pizza",
-        "image_url": "https://i.imgur.com/hL00qJp.jpg?1",
-        "price": 9.99,
-        id: "oBBofNs316bjZs0d7a70"
-    }
-]
-```
-    
-* **Error Response:**
- 
-if there are no menu items defined mathcing your search, you will just get an empty array
- 
+ * [Example](#step-2-get-filtered-menu-array)
+
+ * [implementation: lib/handlers/pizza_menu.js](pizza_menu.js#L65)
+
 
 
 ***
