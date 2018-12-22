@@ -32,8 +32,13 @@ reset_data() {
 curl_post() {
 URI=$1
 OUT=$2
-JSON=$2.in
+if [[ "${OUT}" == "/dev/null" ]]
+   JSON=./temp.in.json
+else
+   JSON="${OUT}".in
+fi
 cat > ${JSON}
+
 if [[ "$3" == "" ]] ; then
   curl -v --header "Content-Type: application/json" \
           --request POST \
@@ -46,6 +51,8 @@ else
           ${LOCAL_URL}/${URI} \
           --data @${JSON} > ${OUT} 2> curl.err
 fi
+
+    [[ "${OUT}" == "/dev/null" ]] && rm ./temp.in.json
 
     CODE=( $(grep "< HTTP/1" curl.err | cut -d "/" -f 2 ) )
 
