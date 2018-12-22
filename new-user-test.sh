@@ -223,6 +223,19 @@ CART_JSON
                 then
                     echo logged out ok
                     
+                    echo new-user.json 
+                    cat new-user.json  
+                    
+                    echo test-menu.json  
+                    cat test-menu.json  
+                    
+                    echo test-cart.json  
+                    cat test-cart.json  
+                    
+                    echo test-order.json
+                    cat test-order.json
+ 
+                    
                 else
                     echo could not log out
                 fi
