@@ -73,7 +73,7 @@ create_menu() {
     # for security reasons, editing of the menu is only allowed by users with "edit_menu" permission
     # in their user profile. to create the menu items, we create a temporary user with this permision
     # in the normal course of events,
-    PASSWORD="Sectre13%$"
+    PASSWORD="Sectre13!"
     if curl_post user ./admin-user.json << USER_JSON
     {
       "email"    : "admin-mc-admin-face@some-domain.com",
