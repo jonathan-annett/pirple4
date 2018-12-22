@@ -95,9 +95,9 @@ USER_JSON
         menu_item "Desert Pizza" "https://i.imgur.com/WFqSUbe.jpg" 19.99 ${ADMIN_TOK}
         
         #trash the temp superuser files
-        rm .data/token/${ADMIN_TOK}.json
-        rm .data/user/admin-mc-admin-face@some-domain.com.json
-        rm ./admin-user.json
+        #rm .data/token/${ADMIN_TOK}.json
+        #rm .data/user/admin-mc-admin-face@some-domain.com.json
+        #rm ./admin-user.json
         
         ADMIN_TOK=
     else 
