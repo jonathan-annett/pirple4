@@ -19,7 +19,7 @@
 source test-tools.sh $1
 
     #create a new session token for the user using default credentials
-    
+    echo loggin in the test user using test credentials
     if curl_post token ./new-token.json << USER_JSON
     {
       "email"    : "${TEST_EMAIL}",
@@ -33,18 +33,20 @@ USER_JSON
         TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-token.json\")).id);")
         
         #get the entire menu as json array
+        echo fetching menu as JSON array
         curl_get menu ./test-menu.json ${TOKEN}
         
         #we are going to buy the first item on the menu - get it's id and description as bash vars
         MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
-
+        
+        echo adding ${MENU_ID} to cart
         if curl_post cart ./test-cart.json ${TOKEN} << ITEM_JSON
         { "id" : "${MENU_ID}", "quantity" : 1 }
 ITEM_JSON
 
         then
             #pay for the order 
-            
+            echo placing an order using contents of cart 
             if curl_post order ./test-order.json ${TOKEN} << CART_JSON
             {"stripe":"tok_visa"}
 CART_JSON
@@ -56,6 +58,7 @@ CART_JSON
                 echo order $ORDER completed ok
                 
                 # log out by deleting token
+                echo logging out
                 if curl_delete token?token=${TOKEN}
                 then
                     echo logged out ok
