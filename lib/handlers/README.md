@@ -3,22 +3,21 @@
 
 Sample API calls for new user to "buy the first pizza on the menu":
 ----
-  * [POST /user](#sign-up) - supply user details,  get session `token` [example](#step-1-create-user)
-  * [GET /menu](#get-menu-items) - get list of menu items (each with an `id`) [example](#step-2-get-menu-array)
-  * [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total` [example](#step-3-add-first-item-in-menu-to-cart)
-  * [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` [example](#step-4-submit-shopping-cart-as-an-order)
-  * [DELETE /token](#sign-out)
-  * 
+  * [POST /user](#sign-up)[?](#step-1-create-user) - supply user details,  get session `token` 
+  * [GET /menu](#get-menu-items)[?](#step-2-get-menu-array) - get list of menu items (each with an `id`) 
+  * [POST /cart](#add-menu-item-to-shopping-cart)[?](#step-3-add-first-item-in-menu-to-cart) - supply `id` and `token`, get updated cart with `items` and `total` 
+  * [POST /order](#create-order-with-contents-of-shopping-cart)[?](#step-4-submit-shopping-cart-as-an-order) supply stripe payment `source`, get `order_id` 
+  * [DELETE /token](#sign-out)[?](#step-5-logout-user)
   
 
 Sample API calls for existing user search for and buy a "vegan" pizza:
 ----
 
-* [POST /token](#sign-in) - supply `email` and `password`,  get session `token` [example](#step-1-create-session-token)
-* [GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id` [example](#step-2-get-filtered-menu-array)
-* [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total` [example](#step-3-add-first-filtered-item-to-cart)
-* [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` [example](#step-4-submit-shopping-cart-as-an-order)
-* [DELETE /token](#sign-out)
+* [POST /token](#sign-in)[?](#step-1-create-session-token) - supply `email` and `password`,  get session `token` 
+* [GET /menu?description=vegan](#filter-menu-items)[?](#step-2-get-filtered-menu-array) - get menu item containing   `id` 
+* [POST /cart](#add-menu-item-to-shopping-cart)[?](#step-3-add-first-filtered-item-to-cart) - supply `id` and `token`, get updated cart with `items` and `total` 
+* [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` 
+* [DELETE /token](#sign-out)[?](#step-5-logout-user-1)
 
 
 
