@@ -388,15 +388,11 @@ Simultaneously create a new user account, and a new session token.
 
  * **REST endpoint**  
 `POST /user`
-```JSON
-    { "email":"user@domain.com",
-      "name":"Mr Squirrely Squirrel",
-      "password":"monkey123",
-      "street_address" : "45 Squirrel Lane"
-    }
-```    
+ * **JSON body** 
+    { email,name,password,street_address}
+  
  * **Responses**
-    * 200,`{ email,name, street_address, token:{id,email,created,expires,cart_id }}`
+    * 200,`{ email,name, street_address, token:{id,created,expires,cart_id }}`
     * 400 - missing/invalid email, password or street address.
     * 403 - user already exists. (or something else that stopped the creation of a new file - disk space or hardware error)
                           
