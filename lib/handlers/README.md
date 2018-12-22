@@ -38,7 +38,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
   "street_address" : "45 Squirrel Lane" 
 }
 ```
-*200 Response*
+<p style='text-align: right;'>*200 Response*</p>
 ```JSON
 {
     "name": "Mr Squirrely Squirrel",
