@@ -207,7 +207,6 @@ GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
  
 Sample API calls for existing user search for and buy a "vegan" pizza:
 
-```
 ## step 1: create session token
 
 `POST /token`
