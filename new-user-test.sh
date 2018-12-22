@@ -68,10 +68,7 @@ USER_JSON
         
         #we are going to buy the first item on the menu - get it's id and description as bash vars
         MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
-        MENU_DESC=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].description);")
-        
-        echo we will buy ${MENU_DESC} which has id ${MENU_ID}
-        
+         
         if curl_post cart ./test-cart.json ${TOKEN} << ITEM_JSON
         { "id" : "${MENU_ID}", "quantity" : 1 }
 ITEM_JSON
@@ -110,6 +107,14 @@ CART_JSON
             else
                 
                 echo could not place order
+                
+                echo
+                
+                dump_jsons "step 1: create user" "POST /user" new-user.json
+                dump_jsons "step 2: get menu array" "GET /menu" test-menu.json
+                dump_jsons "step 3: add first item in menu to cart" "POST /cart" test-cart.json
+                dump_jsons "step 4: submit shopping cart as an order" "POST /order" test-order.json
+                cat curl.err
             
             fi
         

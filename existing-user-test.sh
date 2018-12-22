@@ -16,85 +16,7 @@
 
 # we are going to use the local host on port 3000 for this test
 
-LOCAL_URL=http://localhost:3000
-TEST_EMAIL=$1
-[[ "${TEST_EMAIL}" == "" ]] && TEST_EMAIL=user@domain.com
-
-
-# bash helper function to post JSON from stdin via curl
-# captures JSON from the POST request and saves it to a local file
-# usage: curl_post uri filename token 
-curl_post() {
-URI=$1
-OUT=$2
-
-if [[ "$3" == "" ]] ; then
-  curl -v --header "Content-Type: application/json" \
-          --request POST \
-          ${LOCAL_URL}/${URI} \
-          --data @- > ${OUT} 2> curl.err
-else
-  curl -v --header "Content-Type: application/json" \
-          --header "token: $3" \
-          --request POST \
-          ${LOCAL_URL}/${URI} \
-          --data @- > ${OUT} 2> curl.err
-fi
-
-    CODE=( $(grep "< HTTP/1" curl.err | cut -d "/" -f 2 ) )
-
-    if [ ${CODE[1]} -ge 200 ] && [ ${CODE[1]} -lt 300 ] ; then
-        true
-    else
-        false
-    fi
-}
-
-# bash helper function to get JSON via curl
-# captures JSON from the GET request and saves it to a local file
-# usage: curl_get uri filename token 
-
-curl_get() {
-URI=$1
-OUT=$2
-
-if [[ "$3" == "" ]] ; then
-  curl -v ${LOCAL_URL}/${URI} > ${OUT} 2> curl.err
-else
-  curl -v --header "token: $3" \
-          ${LOCAL_URL}/${URI} \
-          > ${OUT} 2> curl.err
-fi
-
-    CODE=( $(grep "< HTTP/1" curl.err | cut -d "/" -f 2 ) )
-
-    if [ ${CODE[1]} -ge 200 ] && [ ${CODE[1]} -lt 300 ] ; then
-        true
-    else
-        false
-    fi
-}
-
-# bash helper function to delete via curl
-# usage: curl_delete uri 
-
-curl_delete() {
-URI=$1
-
-  curl -v --request DELETE \
-          ${LOCAL_URL}/${URI} \
-          2> curl.err
-
-    CODE=( $(grep "< HTTP/1" curl.err | cut -d "/" -f 2 ) )
-
-    if [ ${CODE[1]} -ge 200 ] && [ ${CODE[1]} -lt 300 ] ; then
-        true
-    else
-        false
-    fi
-}
-
-
+source test-tools.sh $1
 
     #create a new session token for the user using default credentials
     
@@ -115,10 +37,7 @@ USER_JSON
         
         #we are going to buy the first item on the menu - get it's id and description as bash vars
         MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
-        MENU_DESC=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].description);")
-        
-        echo we will buy ${MENU_DESC} which has id ${MENU_ID}
-        
+
         if curl_post cart ./test-cart.json ${TOKEN} << ITEM_JSON
         { "id" : "${MENU_ID}", "quantity" : 1 }
 ITEM_JSON
@@ -142,38 +61,32 @@ CART_JSON
                     echo logged out ok
                     
                     echo Summary of output from test:
-                    echo
-                    echo
-                    echo "step 1: create session token ---> POST /token"
-                    echo
-                    cat new-token.json  
-                        
-                    echo
-                    echo
-                    echo "step 2: get menu array ---> GET /menu"
-                    echo
-                    cat test-menu.json  
-                    
-                    echo
-                    echo
-                    echo "step 3: add first item in menu to cart ---> POST /cart"
-                    echo
-                    cat test-cart.json  
-                    
-                    echo
-                    echo
-                    echo "step 4: submit shopping cart as an order ---> POST /order"
-                    echo
-                    cat test-order.json
+            
+                    dump_jsons "step 1: create session token" "POST /token" new-token.json
+                    dump_jsons "step 2: get menu array" "GET /menu" test-menu.json
+                    dump_jsons "step 3: add first item in menu to cart" "POST /cart" test-cart.json
+                    dump_jsons "step 4: submit shopping cart as an order" "POST /order" test-order.json
+                    dump_jsons "step 5: logout user" "DELETE /token?token=${TOKEN}"
+
  
                     
                 else
                     echo could not log out
+                    
                 fi
             
             else
                 
                 echo could not place order
+                
+                echo Summary of output from test:
+            
+                dump_jsons "step 1: create session token" "POST /token" new-token.json
+                dump_jsons "step 2: get menu array" "GET /menu" test-menu.json
+                dump_jsons "step 3: add first item in menu to cart" "POST /cart" test-cart.json
+                dump_jsons "step 4: submit shopping cart as an order" "POST /order" test-order.json
+                cat curl.err
+
             
             fi
         
