@@ -66,7 +66,7 @@ CART_JSON
                     echo Summary of output from test:
             
                     dump_jsons "step 1: create session token" "POST /token" new-token.json
-                    dump_jsons "step 2: get menu array" "GET /menu" test-menu.json
+                    dump_jsons "step 2: get menu array" "GET /menu?description=vegan" test-menu.json
                     dump_jsons "step 3: add first item in menu to cart" "POST /cart" test-cart.json
                     dump_jsons "step 4: submit shopping cart as an order" "POST /order" test-order.json
                     dump_jsons "step 5: logout user" "DELETE /token?token=${TOKEN}"
