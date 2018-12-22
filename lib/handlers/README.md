@@ -28,7 +28,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
 
 ## step 1: create user
 
-`POST /user`
+`POST /user`  
 *Posted Body*
 ```JSON
 {
@@ -57,6 +57,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
 ## step 2: get menu array
 
 GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]  
+
 *200 Response*
 ```JSON
 [
