@@ -385,8 +385,8 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 
 Simultaneously create a new user account, and a new session token.  
  
- * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
- * **REST endpoint** [`POST /user`]
+ * **REST endpoint**  
+ [`POST /user`]
  * **JSON body** `{ email,name,password,street_address}`
 
   
@@ -394,7 +394,8 @@ Simultaneously create a new user account, and a new session token.
     * 200,`{ email,name, street_address, token:{id,created,expires,cart_id }}`
     * 400 - missing/invalid email, password or street address.
     * 403 - user already exists. (or something else that stopped the creation of a new file - disk space or hardware error)
- * [Example](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1)                        
+ * [Example](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1)
+ * [implementation: handlers.user.post() in lib/handlers/user.js](user.js)
  * Notes:
      - the password is not returned to the user, and it is stored internally as a hash result
      - as this endpoint automatically calls [POST /token](#sign-in) to sign in the user, if there was any issue doing that the error code will be something other than 200, ie whatever POST /token returned
@@ -408,8 +409,6 @@ Get user account details.
 Returns the user's data in JSON format.  
 Note that the password is not returned in the user data.  
 
-  * [implementation: lib/handlers/user.js](user.js)
-
   * **REST endpoint**  
 `GET /user?email=user@domain.com`  
 or  
@@ -418,15 +417,14 @@ or
   * **HTTP Headers**  
 `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
   
-
-
   * **Responses**
     * 200,`{ email,name, street_address }` - user details
     * 401 - missing/expired session (token header), or wrong email address
     * 404 - can't read user details
 
-
-
+  * [Example](#)
+  
+  * [implementation: lib/handlers/user.js](user.js)
 ***
 # Update User Details
 ### PUT /user
@@ -435,17 +433,9 @@ Update user account.
 Returns the updated user data  
 Note that the password is not returned in the user data.  
 
-  * [implementation: lib/handlers/user.js](user.js)
-
   * **REST endpoint**  
 `PUT /user`
-```JSON
-    { "email":"user@domain.com",
-      "name":"Mr Squirrely Squirrel",
-      "password":"monkey123",
-      "street_address" : "45 Squirrel Lane"
-    }
-```    
+  * **JSON body** `{ email,name,password,street_address}` 
 
   * **HTTP Headers**  
   `token` - The current session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
@@ -455,6 +445,11 @@ Note that the password is not returned in the user data.
     * 401 - (token invalid/missing/expired/wrong email in token file)
     * 404 - user not found (for admins trying to update another user file)
     * 500 - missing/invalid email, password or street address, or no field to update.
+
+  * [Example](#)
+  
+  * [implementation: lib/handlers/user.js](user.js)
+
                     
   * **Notes**  
      - only those fields supplied will be updated
@@ -471,9 +466,6 @@ Note that the password is not returned in the user data.
 ### DELETE /user
 
 Delete user account.
-
-
-  * [implementation: lib/handlers/user.js](user.js)  
 
   * **REST endpoint**  
 `DELETE /user?email=user@domain.com`  
@@ -494,8 +486,9 @@ or
 * if email is supplied, it must match the logged in user
 * if email is not supplied, the logged in user is implied
 
+* [Example](#)
 
-
+* [implementation: lib/handlers/user.js](user.js) 
 
 
 ***
@@ -504,16 +497,9 @@ or
 
 Create and return a session token for an existing user account, using credentials supplied when the account was [created](#sign-up).
 
-  * [implementation: lib/handlers/token.js](token.js)
-
   * **REST endpoint**  
 `POST /token`
-```JSON
-    {
-      "email":"user@domain.com",
-      "password":"monkey123"
-    }
-``` 
+  * **JSON body** `{email,password}`
 
   * **HTTP Headers**  
 `token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
@@ -524,40 +510,54 @@ Create and return a session token for an existing user account, using credential
     * 400 - missing or invalid email
     * 401 - user and password does not match an account.
 
+  * [Example](#step-1-create-session-token)
+    
+  * [implementation: lib/handlers/token.js](token.js)
 
+
+  
 ***
 # Get Token
 ### GET /token
 
 return token details
 
+  * **REST endpoint** 
+  `GET /token?token=some-valid-token-id`
 
-  Code:             handlers.token.get() in token.js      
-  Endpoint:         GET /token?token=some-valid-token-id
-  Responses:
-                    200,{id,email,created,expires,cart_id } - session details
-                    400 - missing or invalid token_id format
-                    404 - token does not refer to a valid session
-                    401 - session has already expired.
-*/    
+  * **Responses*
+        200,`{id,email,created,expires,cart_id }` - session details
+        400 - missing or invalid token_id format
+        404 - token does not refer to a valid session
+        401 - session has already expired.
 
+  * [Example](#)
 
+  * [implementation: lib/handlers/token.js](token.js)
 
-/*
-  Common Name:      Extend Token
-  Code:             handlers.token.put() in token.js      
-  Endpoint:         PUT /token
-  JSON Payload:     {"token":"some-valid-token-id"}
-  Responses:
-                    200,{id,email,created,expires,cart_id } - session expiry extended ok
-                    400 - missing or invalid token_id format
-                    404 - token does not refer to a valid session
-                    401 - session has already expired.
-                    500 - internal error trying to update session file(s)
-*/
+***
+# Extend Session
+### PUT /token
 
+Extends Session Token Expiry
 
+  * **REST endpoint** 
+  `PUT /token`
 
+  * **JSON body** { token }
+
+  * **HTTP Headers**  
+  `token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+
+      
+  * **Responses*
+        200,`{id,email,created,expires,cart_id }` - session expiry extended ok
+        400 - missing or invalid token_id format
+        404 - token does not refer to a valid session
+        401 - session has already expired.
+        500 - internal error trying to update session file(s)
+  * [Example](#)  
+  * [implementation: lib/handlers/token.js](token.js)
 
 
 ***
