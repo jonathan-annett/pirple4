@@ -63,6 +63,44 @@ fi
     fi
 }
 
+# bash helper function to post JSON from stdin via curl
+# captures JSON from the POST request and saves it to a local file
+# usage: curl_post uri filename token 
+curl_put() {
+URI=$1
+OUT=$2
+if [[ "${OUT}" == "/dev/null" ]]; then
+   JSON=./temp.in.json
+else
+   JSON="${OUT}".in
+fi
+cat > ${JSON}
+
+if [[ "$3" == "" ]] ; then
+  curl -v --header "Content-Type: application/json" \
+          --request PUT \
+          ${LOCAL_URL}/${URI} \
+          --data @${JSON} > ${OUT} 2> curl.err
+else
+  curl -v --header "Content-Type: application/json" \
+          --header "token: $3" \
+          --request PUT \
+          ${LOCAL_URL}/${URI} \
+          --data @${JSON} > ${OUT} 2> curl.err
+fi
+
+    [[ "${OUT}" == "/dev/null" ]] && rm ./temp.in.json
+
+    CODE=( $(grep "< HTTP/1" curl.err | cut -d "/" -f 2 ) )
+
+    if [ ${CODE[1]} -ge 200 ] && [ ${CODE[1]} -lt 300 ] ; then
+        true
+    else
+        false
+    fi
+}
+
+
 # bash helper function to get JSON via curl
 # captures JSON from the GET request and saves it to a local file
 # usage: curl_get uri filename token 
