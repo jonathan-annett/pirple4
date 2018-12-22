@@ -34,7 +34,7 @@ USER_JSON
         
         #get the entire menu as json array
         echo search for a vegan menu item, get results as JSON array
-        curl_get menu ./test-menu.json?description=vegan ${TOKEN}
+        curl_get menu?description=vegan ./test-menu.json ${TOKEN}
         
         #we are going to buy the first item on the menu - get it's id and description as bash vars
         MENU_ID=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./test-menu.json\"))[0].id);")
