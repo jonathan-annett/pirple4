@@ -49,7 +49,7 @@ if [[ "$3" == "" ]] ; then
           --data @${JSON} > ${OUT} 2> curl.err
   echo -n "" > ${HDRS}
 else
-  echo -n "===> Headers [ token: $3 ]" > ${HDRS}
+  echo -n " <=== Headers ====[ token: $3 ]" > ${HDRS}
   curl -v --header "Content-Type: application/json" \
           --header "token: $3" \
           --request POST \
@@ -91,7 +91,7 @@ if [[ "$3" == "" ]] ; then
           --data @${JSON} > ${OUT} 2> curl.err
   echo -n "" > ${HDRS}
 else
-  echo -n "===> Headers [ token: $3 ]" > ${HDRS}
+  echo -n " <=== Headers ====[ token: $3 ]" > ${HDRS}
 
   curl -v --header "Content-Type: application/json" \
           --header "token: $3" \
@@ -125,7 +125,8 @@ if [[ "$3" == "" ]] ; then
   curl -v ${LOCAL_URL}/${URI} > ${OUT} 2> curl.err
   echo -n "" > ${HDRS}
 else
-  echo -n "===> Headers [ token: $3 ]" > ${HDRS}
+  echo -n " <=== Headers ====[ token: $3 ]" > ${HDRS}
+
   curl -v --header "token: $3" \
           ${LOCAL_URL}/${URI} \
           > ${OUT} 2> curl.err
