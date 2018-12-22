@@ -12,7 +12,6 @@ Sample API calls for new user to "buy the first pizza on the menu":
 
 Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ----
-
 * [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
 * [>>>](#step-2-get-filtered-menu-array) [GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id` 
 * [>>>](#step-3-add-first-filtered-item-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total` 
@@ -201,10 +200,8 @@ GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
 
 ## step 5: logout user
 
-`DELETE /token?token=6kufSGWMkqgCODYRCjRO`
+`DELETE /token?token=6kufSGWMkqgCODYRCjRO`  
 
-
- 
 Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ----
 
