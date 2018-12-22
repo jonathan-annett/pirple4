@@ -10,7 +10,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
   * [>>>](#step-5-logout-user) [DELETE /token](#sign-out)
   
 
-Sample API calls for existing user to search for, and then buy a "vegan" pizza:
+Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ----
 
 * [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
@@ -21,9 +21,9 @@ Sample API calls for existing user to search for, and then buy a "vegan" pizza:
 
 
 
-
 Sample API calls for new user to "buy the first pizza on the menu":
-----
+====
+
 ## step 1: create user
 
 `POST /user`
@@ -205,7 +205,8 @@ GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
 
 
  
-Sample API calls for existing user search for and buy a "vegan" pizza:
+Sample API calls for existing user to search a "vegan" pizza, and then buy it:
+====
 
 ## step 1: create session token
 
