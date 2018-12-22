@@ -49,11 +49,14 @@ EDIT_JSON
                 
                 echo Summary of output from test:
                 dump_jsons "step 1: create session token" "POST /token" new-token.json
-                dump_jsons "step 2: update street address" "PUT /user" update-user.json
+                dump_jsons "step 2: update password" "PUT /user" update-user.json
                 dump_jsons "step 3: logout user" "DELETE /token?token=${TOKEN}"
             else
                 echo could not log out
+                cat curl.err
             fi
+        else
+            cat curl.err
         fi
 
     fi
