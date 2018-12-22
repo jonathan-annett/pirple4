@@ -16,7 +16,7 @@ Sample API [calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-a
 * [>>>](#step-2-get-filtered-menu-array) [GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id` 
 * [>>>](#step-3-add-first-filtered-item-to-cart) [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total` 
 * [>>>](#step-4-submit-shopping-cart-as-an-order-1) [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` 
-* [>>>](#step-5-logout-user-1) [DELETE /token](#sign-out
+* [>>>](#step-5-logout-user-1) [DELETE /token](#sign-out)
 
 *[bash/curl on ubuntu](https://github.com/jonathan-annett/pirple2/blob/master/all-tests.sh) script to do these tests*
 
