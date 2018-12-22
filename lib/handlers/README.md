@@ -3,7 +3,7 @@
 
 Sample API calls for new user to "buy the first pizza on the menu":
 ----
-  * [POST /user](#sign-up)[?](#step-1-create-user) - supply user details,  get session `token` 
+  * [POST /user](#sign-up)[...](#step-1-create-user) - supply user details,  get session `token` 
   * [GET /menu](#get-menu-items)[?](#step-2-get-menu-array) - get list of menu items (each with an `id`) 
   * [POST /cart](#add-menu-item-to-shopping-cart)[?](#step-3-add-first-item-in-menu-to-cart) - supply `id` and `token`, get updated cart with `items` and `total` 
   * [POST /order](#create-order-with-contents-of-shopping-cart)[?](#step-4-submit-shopping-cart-as-an-order) supply stripe payment `source`, get `order_id` 
