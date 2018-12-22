@@ -34,10 +34,12 @@ URI=$1
 OUT=$2
 if [[ "${OUT}" == "/dev/null" ]]; then
    JSON=./temp.in.json
+   HDRS="/dev/null"
 else
    JSON="${OUT}.in"
+   HDRS="${OUT}.hdr"
 fi
-HDRS="${OUT}.hdr"
+
 cat > ${JSON}
 
 if [[ "$3" == "" ]] ; then
@@ -45,9 +47,9 @@ if [[ "$3" == "" ]] ; then
           --request POST \
           ${LOCAL_URL}/${URI} \
           --data @${JSON} > ${OUT} 2> curl.err
-  [[ -e ${HDRS} ]] && rm ${HDRS}
+  echo -n "" > ${HDRS}
 else
-  echo "===> Headers [ token: $3 ]" > ${HDRS}
+  echo -n "===> Headers [ token: $3 ]" > ${HDRS}
   curl -v --header "Content-Type: application/json" \
           --header "token: $3" \
           --request POST \
@@ -74,10 +76,12 @@ URI=$1
 OUT=$2
 if [[ "${OUT}" == "/dev/null" ]]; then
    JSON=./temp.in.json
+   HDRS="/dev/null"
 else
    JSON="${OUT}.in"
+   HDRS="${OUT}.hdr"
 fi
-HDRS="${OUT}.hdr"
+
 cat > ${JSON}
 
 if [[ "$3" == "" ]] ; then
@@ -85,9 +89,10 @@ if [[ "$3" == "" ]] ; then
           --request PUT \
           ${LOCAL_URL}/${URI} \
           --data @${JSON} > ${OUT} 2> curl.err
-  [[ -e ${HDRS} ]] && rm ${HDRS}
+  echo -n "" > ${HDRS}
 else
-  echo "===> Headers [ token: $3 ]" > ${HDRS}
+  echo -n "===> Headers [ token: $3 ]" > ${HDRS}
+
   curl -v --header "Content-Type: application/json" \
           --header "token: $3" \
           --request PUT \
@@ -118,9 +123,9 @@ HDRS="${OUT}.hdr"
 
 if [[ "$3" == "" ]] ; then
   curl -v ${LOCAL_URL}/${URI} > ${OUT} 2> curl.err
-  [[ -e ${HDRS} ]] && rm ${HDRS}
+  echo -n "" > ${HDRS}
 else
-  echo "===> Headers [ token: $3 ]" > ${HDRS}
+  echo -n "===> Headers [ token: $3 ]" > ${HDRS}
   curl -v --header "token: $3" \
           ${LOCAL_URL}/${URI} \
           > ${OUT} 2> curl.err
@@ -227,7 +232,7 @@ dump_jsons() {
     if [[ -e $3.hdr ]] ; then
         echo -n $2
         cat $3.hdr
-        rn $3.hdr
+        rm $3.hdr
     else
         echo $2
     fi
