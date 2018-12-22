@@ -1,7 +1,7 @@
 ***API Documentation - Sample Code Call Summary***
 ====
 
-Sample API calls for new user to "buy the first pizza on the menu":
+Sample [API calls](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1) for new user to "buy the first pizza on the menu":
 ----
   * [>>>](#step-1-create-user) [POST /user](#sign-up) - supply user details,  get session `token` 
   * [>>>](#step-2-get-menu-array) [GET /menu](#get-menu-items) - get list of menu items (each with an `id`) 
@@ -10,7 +10,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
   * [>>>](#step-5-logout-user) [DELETE /token](#sign-out)
   
 
-Sample API [calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-and-then-buy-it-1) for existing user to search a "vegan" pizza, and then buy it:
+Sample [API calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-and-then-buy-it-1) for existing user to search a "vegan" pizza, and then buy it:
 ----
 * [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
 * [>>>](#step-2-get-filtered-menu-array) [GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id` 
@@ -374,7 +374,7 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 
 ## step 5: logout user
 
-`DELETE /token?token=hvWP1HnuWu3EOmxczjkW`
+`DELETE /token?token=hvWP1HnuWu3EOmxczjkW`  
 *204 Response*
 
  
