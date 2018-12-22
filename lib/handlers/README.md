@@ -9,7 +9,7 @@ Sample API calls for new user to buy a pizza:
   * [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id`
   * [DELETE /token](#sign-out)
 
-step 1: create user
+*step 1: create user*
 
 `POST /user`
 ```JSON
@@ -20,7 +20,7 @@ step 1: create user
       "street_address" : "45 Squirrel Lane" 
     }
 ```
-(((Response:)))
+*Response*
 ```JSON
 {
     "name": "Mr Squirrely Squirrel",
@@ -36,9 +36,11 @@ step 1: create user
 }
 ```
 
-step 2: get menu array
+*step 2: get menu array*
 
-GET /menu <=== Headers ====[ token: 6kufSGWMkqgCODYRCjRO ]
+GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
+*Response*
+```JSON
 [
     {
         "description": "Desert Pizza",
@@ -59,14 +61,16 @@ GET /menu <=== Headers ====[ token: 6kufSGWMkqgCODYRCjRO ]
         "id": "x5l623nP6jjdLFq9X6oJ"
     }
 ]
+```
 
+*step 3: add first item in menu to cart*
 
-step 3: add first item in menu to cart
-
-POST /cart <=== Headers ====[ token: 6kufSGWMkqgCODYRCjRO ]
+`POST /cart` <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
+```JSON
 { "id" : "0eIZ3cO5KCjd94isKvn7", "quantity" : 1 }
-
-(((Response:)))
+```
+*Response*
+```JSON 
 {
     "items": {
         "0eIZ3cO5KCjd94isKvn7": {
@@ -79,14 +83,16 @@ POST /cart <=== Headers ====[ token: 6kufSGWMkqgCODYRCjRO ]
     },
     "total": 19.99
 }
+```
 
+*step 4: submit shopping cart as an order*
 
-step 4: submit shopping cart as an order
-
-POST /order <=== Headers ====[ token: 6kufSGWMkqgCODYRCjRO ]
+`POST /order` <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
+```JSON
 {"stripe":"tok_visa"}
-
-(((Response:)))
+```
+*Response*
+```JSON 
 {
     "when": 1545470951460,
     "order_id": "XeDs3ZWxSphtSDcjvIox",
@@ -176,11 +182,11 @@ POST /order <=== Headers ====[ token: 6kufSGWMkqgCODYRCjRO ]
         "transfer_group": null
     }
 }
+```
 
+*step 5: logout user*
 
-step 5: logout user
-
-DELETE /token?token=6kufSGWMkqgCODYRCjRO
+`DELETE /token?token=6kufSGWMkqgCODYRCjRO`
 
 
 
