@@ -101,7 +101,8 @@ USER_JSON
         rm ./admin-user.json
         
         ADMIN_TOK=
-        
+    else 
+       echo could not create user
     fi
     PASSWORD=         
 }
