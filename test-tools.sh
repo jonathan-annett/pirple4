@@ -233,6 +233,7 @@ dump_jsons() {
         echo -n $2
         cat $3.hdr
         rm $3.hdr
+        echo
     else
         echo $2
     fi
