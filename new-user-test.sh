@@ -32,17 +32,18 @@ URI=$1
 OUT=$2
 
 if [[ "$3" == "" ]] ; then
-  TOKEN=
+  curl -v --header "Content-Type: application/json" \
+          --request POST \
+          ${LOCAL_URL}/${URI} \
+          --data @- > ${OUT} 2> curl.err
 else
-  TOKEN="--header \"token: $3\""
+  curl -v --header "Content-Type: application/json" \
+          --header "token: $4" \
+          --request POST \
+          ${LOCAL_URL}/${URI} \
+          --data @- > ${OUT} 2> curl.err
 fi
-    echo curl -v --header "Content-Type: application/json" ${TOKEN} 
-   
-    curl -v --header "Content-Type: application/json" ${TOKEN} \
-        --request POST \
-        ${LOCAL_URL}/${URI} \
-        --data @- > ${OUT} 2> curl.err
-        
+
     CODE=( $(grep "< HTTP/1" curl.err | cut -d "/" -f 2 ) )
 
     if [ ${CODE[1]} -ge 200 ] && [ ${CODE[1]} -lt 300 ] ; then
