@@ -180,6 +180,25 @@ reset_data token
 reset_data cart
 reset_data order
 
+dump_jsons() {
+    echo
+    echo $1
+    echo
+    echo $2
+    if [[ -e $3.in ]] ;then
+        echo -n ">>>"
+        cat $3.in
+        rm $3.in
+        echo
+    fi
+    if [[ -e $3.in ]] ;then
+        echo -n "<<<"
+        cat $3
+        rm $3
+        echo
+    fi
+}
+
 if create_menu ; then
 
     #create a user and save the session token
@@ -231,36 +250,13 @@ CART_JSON
                     
                     echo Summary of output from test:
                     echo
-                    echo
-                    echo step 1: create user
-                    echo POST /user
-                    echo -n ">>>"
                     
-                    cat new-user.json.in 
-                    echo
-                    echo
-                    echo -n "<<<"
-                    cat new-user.json  
-                        
-                    echo
-                    echo
-                    echo "step 2: get menu array ---> GET /menu"
-                    echo
-                    cat test-menu.json  
-                    
-                    echo
-                    echo
-                    echo "step 3: add first item in menu to cart ---> POST /cart"
-                    echo
-                    cat test-cart.json  
-                    
-                    echo
-                    echo
-                    echo "step 4: submit shopping cart as an order ---> POST /order"
-                    echo
-                    cat test-order.json
- 
-                    
+                    dump_jsons "step 1: create user" "POST /user" new-user.json
+                    dump_jsons "step 2: get menu array" "GET /menu" test-menu.json
+                    dump_jsons "step 3: add first item in menu to cart" "POST /cart" test-cart.json
+                    dump_jsons "step 4: submit shopping cart as an order" "POST /order" test-order.json
+                    dump_jsons "step 5: logout user" "DELETE /token?token=${TOKEN}"
+
                 else
                     echo could not log out
                 fi
