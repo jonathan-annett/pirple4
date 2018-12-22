@@ -2,13 +2,29 @@
 ====
 
 Sample API calls for new user to "buy the first pizza on the menu":
-
+----
   * [POST /user](#sign-up) - supply user details,  get session `token` [example](#step-1-create-user)
   * [GET /menu](#get-menu-items) - get list of menu items (each with an `id`) [example](#step-2-get-menu-array)
   * [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total` [example](#step-3-add-first-item-in-menu-to-cart)
   * [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` [example](#step-4-submit-shopping-cart-as-an-order)
   * [DELETE /token](#sign-out)
+  * 
+  
 
+Sample API calls for existing user search for and buy a "vegan" pizza:
+----
+
+* [POST /token](#sign-in) - supply `email` and `password`,  get session `token` [example](#step-1-create-session-token)
+* [GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id` [example](#step-2-get-filtered-menu-array)
+* [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total` [example](#step-3-add-first-filtered-item-to-cart)
+* [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id` [example](#step-4-submit-shopping-cart-as-an-order)
+* [DELETE /token](#sign-out)
+
+
+
+
+Sample API calls for new user to "buy the first pizza on the menu":
+----
 ## step 1: create user
 
 `POST /user`
@@ -63,7 +79,7 @@ GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
 ]
 ```
 
-*step 3: add first item in menu to cart*
+## step 3: add first item in menu to cart
 
 `POST /cart` <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
 ```JSON
@@ -189,29 +205,21 @@ GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
 `DELETE /token?token=6kufSGWMkqgCODYRCjRO`
 
 
-
-```
-
-
+ 
 Sample API calls for existing user search for and buy a "vegan" pizza:
 
-
-* [POST /token](#sign-in) - supply `email` and `password`,  get session `token`
-* [GET /menu?description=vegan](#filter-menu-items) - get menu item containing   `id`
-* [POST /cart](#add-menu-item-to-shopping-cart) - supply `id` and `token`, get updated cart with `items` and `total`
-* [POST /order](#create-order-with-contents-of-shopping-cart) supply stripe payment `source`, get `order_id`
-* [DELETE /token](#sign-out)
-
 ```
-step 1: create session token
+## step 1: create session token
 
-POST /token
+`POST /token`
+```JSON
     {
       "email"    : "mr-squirrel@gmail.com",
       "password" : "Monkey~123"
     }
-
-(((Response:)))
+```
+*Response*
+```JSON 
 {
     "id": "hvWP1HnuWu3EOmxczjkW",
     "email": "mr-squirrel@gmail.com",
@@ -219,11 +227,12 @@ POST /token
     "expires": 1545474558848,
     "cart_id": "8Nw0MNhsEIXRa5s3ircm"
 }
+```
 
+## step 2: get filtered menu array
 
-step 2: get menu array
-
-GET /menu?description=vegan <=== Headers ====[ token: hvWP1HnuWu3EOmxczjkW ]
+`GET /menu?description=vegan` <=== Headers ====[ `token: hvWP1HnuWu3EOmxczjkW` ]  
+```JSON
 [
     {
         "description": "Vegan Pizza",
@@ -232,14 +241,16 @@ GET /menu?description=vegan <=== Headers ====[ token: hvWP1HnuWu3EOmxczjkW ]
         "id": "Sb2goBvqmIObpQkT3gQZ"
     }
 ]
+```
 
+## step 3: add first filtered item to cart
 
-step 3: add first item in menu to cart
-
-POST /cart <=== Headers ====[ token: hvWP1HnuWu3EOmxczjkW ]
+`POST /cart` <=== Headers ====[ `token: hvWP1HnuWu3EOmxczjkW` ]
+```JSON
         { "id" : "Sb2goBvqmIObpQkT3gQZ", "quantity" : 1 }
-
-(((Response:)))
+```
+*Response*
+```JSON 
 {
     "items": {
         "Sb2goBvqmIObpQkT3gQZ": {
@@ -252,14 +263,16 @@ POST /cart <=== Headers ====[ token: hvWP1HnuWu3EOmxczjkW ]
     },
     "total": 9.99
 }
+```
 
+## step 4: submit shopping cart as an order
 
-step 4: submit shopping cart as an order
-
-POST /order <=== Headers ====[ token: hvWP1HnuWu3EOmxczjkW ]
+`POST /order` <=== Headers ====[ `token: hvWP1HnuWu3EOmxczjkW` ]
+```JSON
             {"stripe": { "number" : "4242424242424242", "exp_month" : 12, "exp_year" : 2021, "cvc" : 123 }}
-
-(((Response:)))
+```
+*Response*
+```JSON 
 {
     "when": 1545470959140,
     "order_id": "mzbJxgDkaYJmg9Ym5SnG",
@@ -349,15 +362,13 @@ POST /order <=== Headers ====[ token: hvWP1HnuWu3EOmxczjkW ]
         "transfer_group": null
     }
 }
-
-
-step 5: logout user
-
-DELETE /token?token=hvWP1HnuWu3EOmxczjkW
-
-
 ```
 
+## step 5: logout user
+
+`DELETE /token?token=hvWP1HnuWu3EOmxczjkW`
+
+ 
 ***
 # Sign up
 ### POST /user
