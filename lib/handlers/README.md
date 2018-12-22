@@ -216,7 +216,7 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 
 ## step 1: create session token
 
-`POST /token`
+`POST /token`  
 *Posted Body*
 ```JSON
     {
