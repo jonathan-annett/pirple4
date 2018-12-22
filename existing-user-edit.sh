@@ -32,8 +32,9 @@ USER_JSON
         # pull in the session token and save it as a bash variable called TOKEN
         TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-token.json\")).id);")
         
+        echo updating users street address
         
-        if curl_put user ./update-user.json << EDIT_JSON
+        if curl_put user ./update-user.json ${TOKEN} << EDIT_JSON
         {
           "street_address" : "82 rodent park" 
         }
