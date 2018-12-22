@@ -22,7 +22,7 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 
 
 Sample API calls for new user to "buy the first pizza on the menu":
-====
+----
 
 ## step 1: create user
 
@@ -206,7 +206,7 @@ GET /menu <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
 
  
 Sample API calls for existing user to search a "vegan" pizza, and then buy it:
-====
+----
 
 ## step 1: create session token
 
