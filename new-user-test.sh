@@ -38,7 +38,7 @@ if [[ "$3" == "" ]] ; then
           --data @- > ${OUT} 2> curl.err
 else
   curl -v --header "Content-Type: application/json" \
-          --header "token: $4" \
+          --header "token: $3" \
           --request POST \
           ${LOCAL_URL}/${URI} \
           --data @- > ${OUT} 2> curl.err
