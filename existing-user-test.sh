@@ -1,5 +1,5 @@
 #
-#  File: new-user-test.sh
+#  File: existing-user-test.sh
 #  Project: Asignment 2 https://github.com/jonathan-annett/pirple2
 #  Synopsis: test script to demonstrate required functionality.
 #
@@ -19,11 +19,6 @@
 LOCAL_URL=http://localhost:3000
 TEST_EMAIL=$1
 [[ "${TEST_EMAIL}" == "" ]] && TEST_EMAIL=user@domain.com
-
-#helper bash function to remove all files in a given data subfolder
-reset_data() {
-   mkdir -p .data/$1  && rm -rf .data/$1 && mkdir .data/$1  
-}
 
 
 # bash helper function to post JSON from stdin via curl
@@ -99,96 +94,21 @@ URI=$1
     fi
 }
 
- 
-# helper bash function to populate a sample menu dataset
-# e.g. create food items avaiable to be ordered by a test customer
-# this is not specified as a required functionality of the API, however
-# in order to demonstate the required functionality, some test data is required.
 
-create_menu() {
+
+    #create a new session token for the user using default credentials
     
-    # create a superuser to give us edit menu privileges in the api
-    # for security reasons, editing of the menu is only allowed by users with "edit_menu" permission
-    # in their user profile. to create the menu items, we create a temporary user with this permision
-    # in the normal course of events,
-    PASSWORD="SecretPa55word!"
-    if curl_post user ./admin-user.json << USER_JSON
-    {
-      "email"    : "admin-mc-admin-face@some-domain.com",
-      "name"     : "Super User",
-      "password" : "${PASSWORD}",
-      "street_address" : "1 server place" 
-    }
-USER_JSON
-            
-    then
-        ADMIN_TOK=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./admin-user.json\")).token.id);")
-    
-        #edit the user file to allow user to create menu items permission
-        node -e "var fn=\".data/user/admin-mc-admin-face@some-domain.com.json\",u=JSON.parse(fs.readFileSync(fn));u.permissions={edit_menu:true};fs.writeFileSync(fn,JSON.stringify(u));"
-        
-        #create a bunch of menu items
-        
-        echo creating sample menu items
-        
-        curl_post menu /dev/null ${ADMIN_TOK} << MENU_JSON
-        {  "description" : "Vegan Pizza", 
-           "image_url"   : "https://i.imgur.com/yMu7sjT.jpg",
-           "price" : 9.99 } 
-MENU_JSON
-        
-        curl_post menu /dev/null ${ADMIN_TOK} << MENU_JSON
-        {  "description" : "Meat Lovers Pizza", 
-           "image_url"   : "https://i.imgur.com/ouAz8i8.jpg",
-           "price" : 9.99 } 
-MENU_JSON
-
-
-        curl_post menu /dev/null ${ADMIN_TOK} << MENU_JSON
-        {  "description" : "Desert Pizza", 
-           "image_url"   : "https://i.imgur.com/WFqSUbe.jpg",
-           "price" : 19.99 } 
-MENU_JSON
-
-        #trash the temp superuser files
-        rm .data/token/${ADMIN_TOK}.json
-        rm .data/user/admin-mc-admin-face@some-domain.com.json
-        rm ./admin-user.json
-        
-        ADMIN_TOK=
-        PASSWORD=
-        true
-    else 
-       echo could not create user
-       cat curl.err
-       false
-    fi
-}
-
-#clear data from any previous tests
-reset_data menu
-reset_data user
-reset_data token
-reset_data cart
-reset_data order
-
-if create_menu ; then
-
-    #create a user and save the session token
-    
-    if curl_post user ./new-user.json << USER_JSON
+    if curl_post token ./new-token.json << USER_JSON
     {
       "email"    : "${TEST_EMAIL}",
-      "name"     : "Mr Squirrely Squirrel",
-      "password" : "Monkey~123",
-      "street_address" : "45 Squirrel Lane" 
+      "password" : "Monkey~123"
     }
 USER_JSON
 
     then
         
         # pull in the session token and save it as a bash variable called TOKEN
-        TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-user.json\")).token.id);")
+        TOKEN=$(node -e "console.log(JSON.parse(fs.readFileSync(\"./new-token.json\")).id);")
         
         #get the entire menu as json array
         curl_get menu ./test-menu.json ${TOKEN}
@@ -224,9 +144,9 @@ CART_JSON
                     echo Summary of output from test:
                     echo
                     echo
-                    echo "step 1: create user ---> POST /user"
+                    echo "step 1: create session token ---> POST /token"
                     echo
-                    cat new-user.json  
+                    cat new-token.json  
                         
                     echo
                     echo
@@ -261,4 +181,3 @@ CART_JSON
     
     fi
 
-fi
