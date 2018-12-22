@@ -194,7 +194,7 @@ dump_jsons() {
         fi
     fi
     if [[ -e $3 ]] ;then
-        cat $3
+        node -e "console.log(JSON.stringify(JSON.parse(fs.readFileSync(\"$3\")),undefined,4));"
         rm $3
         echo
     fi
