@@ -94,7 +94,7 @@ create_menu() {
     if curl_post user ./admin-user.json << USER_JSON
     {
       "email"    : "admin-mc-admin-face@some-domain.com",
-      "name"     :  "Super User",
+      "name"     : "Super User",
       "password" : "${PASSWORD}",
       "street_address" : "1 server place" 
     }
@@ -107,6 +107,8 @@ USER_JSON
         node -e "var fn=\".data/user/admin-mc-admin-face@some-domain.com.json\",u=JSON.parse(fs.readFileSync(fn));u.permissions={edit_menu:true};fs.writeFileSync(fn,JSON.stringify(u));"
         
         #create a bunch of menu items
+        
+        echo creating sample menu items
         
         curl_post menu /dev/null ${ADMIN_TOK} << MENU_JSON
         {  "description" : "Vegan Pizza", 
