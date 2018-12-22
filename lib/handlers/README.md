@@ -253,6 +253,7 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ## step 3: add first filtered item to cart
 
 `POST /cart` <=== Headers ====[ `token: hvWP1HnuWu3EOmxczjkW` ]
+
 *Posted Body*
 ```JSON
         { "id" : "Sb2goBvqmIObpQkT3gQZ", "quantity" : 1 }
@@ -276,6 +277,7 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ## step 4: submit shopping cart as an order
 
 `POST /order` <=== Headers ====[ `token: hvWP1HnuWu3EOmxczjkW` ]
+
 *Posted Body*
 ```JSON
             {"stripe": { "number" : "4242424242424242", "exp_month" : 12, "exp_year" : 2021, "cvc" : 123 }}
