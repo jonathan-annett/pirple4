@@ -1,5 +1,5 @@
 #
-#  File: new-user-test.sh
+#  File: all-tests.sh
 #  Project: Asignment 2 https://github.com/jonathan-annett/pirple2
 #  Synopsis: test script to demonstrate required functionality.
 #
