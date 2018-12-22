@@ -96,7 +96,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
 
 ## step 3: add first item in menu to cart
 
-`POST /cart` <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
+`POST /cart` <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]  
 *Posted Body*
 ```JSON
 { "id" : "0eIZ3cO5KCjd94isKvn7", "quantity" : 1 }
@@ -119,7 +119,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
 
 ## step 4: submit shopping cart as an order
 
-`POST /order` <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]
+`POST /order` <=== Headers ====[ `token: 6kufSGWMkqgCODYRCjRO` ]  
 *Posted Body*
 ```JSON
 {"stripe":"tok_visa"}
