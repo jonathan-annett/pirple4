@@ -694,6 +694,7 @@ Retreive a specific food item available to order from the menu.
  * **REST endpoint**
 
 `GET /menu?description=hawaii` 
+
    * **description** a word (or search term) to filter the list on
 
  * **Responses**
