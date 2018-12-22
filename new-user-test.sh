@@ -96,6 +96,15 @@ USER_JSON
         menu_item "Meat Lovers Pizza" "https://i.imgur.com/ouAz8i8.jpg" 9.99 ${ADMIN_TOK}
         menu_item "Desert Pizza" "https://i.imgur.com/WFqSUbe.jpg" 19.99 ${ADMIN_TOK}
         
+        
+        curl_post menu /dev/null ${ADMIN_TOK} << MENU_JSON
+        {  "description" : "vegan pizza 2", 
+           "image_url"   : "https://i.imgur.com/yMu7sjT.jpg",
+           "price" : 9.99 } 
+MENU_JSON
+        
+        
+        
         #trash the temp superuser files
         #rm .data/token/${ADMIN_TOK}.json
         #rm .data/user/admin-mc-admin-face@some-domain.com.json
