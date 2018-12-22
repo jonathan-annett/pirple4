@@ -36,6 +36,7 @@ if [[ "$3" == "" ]] ; then
 else
   TOKEN="--header \"token: $3\""
 fi
+    echo curl -v --header "Content-Type: application/json" ${TOKEN} 
    
     curl -v --header "Content-Type: application/json" ${TOKEN} \
         --request POST \
