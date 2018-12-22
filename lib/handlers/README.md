@@ -227,7 +227,7 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 
 ## step 2: get filtered menu array
 
-`GET /menu?description=vegan` <=== Headers ====[ `token: hvWP1HnuWu3EOmxczjkW` ]  
+`GET /menu?description=vegan` <=== Headers ====[ `token: hvWP1HnuWu3EOmxczjkW` ] *Response* 
 ```JSON
 [
     {
