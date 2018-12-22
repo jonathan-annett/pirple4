@@ -186,7 +186,7 @@ USER_JSON
 ITEM_JSON
 
         #if grep -q "200 OK" curl.err ; then
-        
+        then
             #pay for the order 
             
             curl -v --header "Content-Type: application/json" \
