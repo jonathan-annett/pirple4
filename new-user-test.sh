@@ -157,7 +157,7 @@ if create_menu ; then
     {
       "email"    : "${TEST_EMAIL}",
       "name"     : "Mr Squirrely Squirrel",
-      "password" : "monkey123",
+      "password" : "Monkey~123",
       "street_address" : "45 Squirrel Lane" 
     }
 USER_JSON
