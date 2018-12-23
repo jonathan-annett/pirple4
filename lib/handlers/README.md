@@ -1,7 +1,8 @@
 ***"Pizza Ordering API" Documentation***
 ====
 
-
+Endpoint Quick Start: [/user](#pizza-ordering-api-user-endpoint) [/token](#pizza-ordering-api-token-endpoint)
+[/menu](#pizza-ordering-api-menu-endpoint) [/cart](#pizza-ordering-api-cart-endpoint) [/order](#pizza-ordering-api-order-endpoint)
 
 Sample [API calls](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1) for new user to "buy the first pizza on the menu":
 ----
