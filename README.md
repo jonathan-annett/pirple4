@@ -6,7 +6,7 @@ This API is [Homework Assignment #2](assignment.md) for the pirple online course
 
 ***TLDR*** for anyone marking this assignment: once you have [installed](#installation) and [configured](#api-configuration-files) the files, please [read the API documentation](/lib/handlers/README.md).  
 
-Also, for your convenience, the assignment text has been converted to md format, with hyperlinks to demonstrated [required functionality](assignment.md).
+Also, for your convenience, the assignment text has been converted to [markdown format](assignment.md), with hyperlinks to the demonstrated required functionality.
 
 # before you begin
 
