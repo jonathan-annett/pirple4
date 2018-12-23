@@ -468,6 +468,7 @@ Sample API calls for existing user to get their info:
 ***"Pizza Ordering API" /user endpoint***
 ====
 
+ Methods  
  * POST = [Sign up](#sign-up)
  * GET = [Get User Info](#get-user-info)
  * PUT = [Update User Details](#update-user-details)
@@ -519,7 +520,7 @@ or
 
   * [Example](#step-2-get-user-details)
   
-  * [implementation: lib/handlers/user.js](user.js#L161)
+  * [implementation: handlers.user.get() in lib/handlers/user.js](user.js#L161)
 ***
 # Update User Details
 ### PUT /user
@@ -543,7 +544,7 @@ Note that the password is not returned in the user data.
 
   * [Example](#)
   
-  * [implementation: lib/handlers/user.js](user.js#L211)
+  * [implementation: handlers.user.put() in lib/handlers/user.js](user.js#L211)
 
                     
   * **Notes**  
@@ -583,7 +584,7 @@ or
 
 * [Example](#)
 
-* [implementation: lib/handlers/user.js](user.js#L283) 
+* [implementation: handlers.user.delete() in lib/handlers/user.js](user.js#L283) 
 
 
 
@@ -613,6 +614,11 @@ or
 ***"Pizza Ordering API" /token endpoint***
 ====
 
+Methods  
+* POST = [Sign in](#sign-in)
+* GET = [Get Token](#get-token)
+* PUT = [Extend Session](#extend-session)
+* DELETE = [Sign out](#sign-out)
 
 
 
@@ -637,7 +643,7 @@ Create and return a session token for an existing user account, using credential
 
   * [Example](#step-1-create-session-token)
     
-  * [implementation: lib/handlers/token.js](token.js#L360)
+  * [implementation: handlers.token.post() in lib/handlers/token.js](token.js#L360)
 
 
   
@@ -658,7 +664,7 @@ return token details
 
   * [Example](#)
 
-  * [implementation: lib/handlers/token.js](token.js#L485)
+  * [implementation: handlers.token.get() in lib/handlers/token.js](token.js#L485)
 
 ***
 # Extend Session
@@ -682,7 +688,7 @@ Extends Session Token Expiry
       * 401 - session has already expired.
       * 500 - internal error trying to update session file(s)
   * [Example](#)  
-  * [implementation: lib/handlers/token.js](token.js#L534)
+  * [implementation: handlers.token.put() in lib/handlers/token.js](token.js#L534)
 
 
 ***
@@ -706,7 +712,7 @@ Extends Session Token Expiry
       
 * [Example](#step-5-logout-user)
   
-* [implementation: lib/handlers/token.js](token.js#L596)
+* [implementation: handlers.token.delete() in lib/handlers/token.js](token.js#L596)
 
 
 
@@ -735,6 +741,13 @@ Extends Session Token Expiry
 ***"Pizza Ordering API" /menu endpoint***
 ====
 
+
+Methods  
+* GET = [Get Menu](#get-menu-items), [Get Menu Item](#get-menu-item), [Filter/Search Menu](#filter-menu-items)
+* POST = [Add Menu Item](#add-menu-item) **requires edit_menu permission**
+* PUT = [Update Menu Item](#update-menu-item) **requires edit_menu permission**
+* DELETE = [Delete Menu Item](#delete-menu-item) **requires edit_menu permission**
+
  
 ***
 # Get Menu Items
@@ -748,6 +761,9 @@ Extends Session Token Expiry
 
 `GET /menu`
 
+* **HTTP Headers**  
+`token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+
  * **Responses**
  
 
@@ -757,7 +773,7 @@ Extends Session Token Expiry
     
  * [Example](#step-2-get-menu-array)
  
- * [implementation: lib/handlers/pizza_menu.js](pizza_menu.js#L65)
+ * [implementation: handlers.menu.get() in lib/handlers/pizza_menu.js](pizza_menu.js#L65)
 
      
 ***
@@ -771,7 +787,11 @@ Retreive a specific food item available to order from the menu.
  * **REST endpoint**
 
 `GET /menu?id=6JiEVO9UNdNBfqWGoHKz` - **id** *a valid menu item id*
-    
+
+**HTTP Headers**  
+`token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+
+
  * **Responses**
 
    * 200,`[{ id, description, price, image_url } ]` - the result  
@@ -780,7 +800,7 @@ Retreive a specific food item available to order from the menu.
 
  * [Example](#)
 
- * [implementation: lib/handlers/pizza_menu.js](pizza_menu.js#L65)
+ * [implementation: handlers.menu.get() in lib/handlers/pizza_menu.js](pizza_menu.js#L65)
  
 
 ***
@@ -794,6 +814,10 @@ Retreive a specific food item available to order from the menu.
 
 `GET /menu?description=hawaii` - **description** *a word (or search term) to filter the list on*
 
+
+ * **HTTP Headers**  
+`token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+
  * **Responses**
    * 200, `[{ id, description, price, image_url }, ... ]` - list of one or more items  
    * 200, [] - an empty array can mean no menu items exist, or the search term was not found  
@@ -801,7 +825,7 @@ Retreive a specific food item available to order from the menu.
 
  * [Example](#step-2-get-filtered-menu-array)
 
- * [implementation: lib/handlers/pizza_menu.js](pizza_menu.js#L65)
+ * [implementation: handlers.menu.get() in lib/handlers/pizza_menu.js](pizza_menu.js#L65)
 
 
 
@@ -810,7 +834,88 @@ Retreive a specific food item available to order from the menu.
 
 
 
+ 
+***
+# Add Menu Item
+### POST /menu
 
+Add a food item to the menu data files
+**this api call requires the logged in user to have /edit_menu/ permissions**
+ 
+ * **REST endpoint**  
+ [`POST /menu`]
+ * **JSON body** `{description,image_url,price}`
+
+ * **HTTP Headers**  
+  `token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+  
+  
+ * **Responses**
+    * 200,`{id,description,image_url,price}`
+    * 400 - missing or invalid description, image_url, price   
+    * 401 - user with edit_menu permissions is not logged in.
+    * 500 - couldn't create the menu item
+
+
+* [Example](#)
+
+* [implementation: handlers.menu.post() in lib/handlers/pizza_menu.js](pizza_menu.js#L145)
+
+
+ 
+***
+# Update Menu Item
+### PUT /menu
+
+Update a food item in the menu data files
+**this api call requires the logged in user to have /edit_menu/ permissions**
+ 
+ * **REST endpoint**  
+ [`POST /menu`]
+ * **JSON body** `{id,description,image_url,price}`
+ 
+ * **HTTP Headers**  
+ `token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+ 
+ 
+  
+ * **Responses**
+    * 200,`{id,description,image_url,price}`
+    * 400 - missing or invalid description, image_url, price   
+    * 401 - user with edit_menu permissions is not logged in.
+    * 404 - menu item does not exist
+    * 500 - couldn't update the menu item
+    
+* [Example](#)
+
+* [implementation: handlers.menu.put() in lib/handlers/pizza_menu.js](pizza_menu.js#L209)
+
+ 
+***
+# Delete Menu Item
+### DELETE /menu
+
+Delete a food item from the menu data files
+**this api call requires the logged in user to have /edit_menu/ permissions**
+ 
+ * **REST endpoint**  
+ [`DELETE /menu?id=172hgd61hxad`]
+
+ * **HTTP Headers**  
+ `token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+ 
+ 
+  
+ * **Responses**
+    * 204 - item deleted 
+    * 404 - menu id does not correspond to a menu item file
+    * 400 - no id specified
+    * 401 - user with edit_menu permissions is not logged in.
+    
+
+* [Example](#)
+
+* [implementation: handlers.menu.post() in lib/handlers/pizza_menu.js](pizza_menu.js#L265)
 
 
 
@@ -818,6 +923,12 @@ Retreive a specific food item available to order from the menu.
 ***
 ***"Pizza Ordering API" /cart endpoint***
 ====
+
+Methods  
+* POST = [Add Menu Item to Cart](#add-menu-item-to-shopping-cart) 
+* GET = [Get Cart](#get-the-logged-in-users-shopping-cart)
+* PUT = [Update Cart Item Quantity](#update-quantity-of-items-in-shopping-cart) 
+* DELETE = [Delete Cart Item](#delete-cart-item) 
 
 
 ***
@@ -843,7 +954,7 @@ Retreive a specific food item available to order from the menu.
 
 * [Example](#)
 
-* [implementation: lib/handlers/cart.js](cart.js#L63)
+* [implementation: handlers.cart.get() in lib/handlers/cart.js](cart.js#L63)
 
 
  
@@ -875,7 +986,7 @@ Retreive a specific food item available to order from the menu.
 
 * [Example](#step-3-add-first-filtered-item-to-cart)
 
-* [implementation: lib/handlers/cart.js](cart.js#L104)
+* [implementation: handlers.cart.post() in lib/handlers/cart.js](cart.js#L104)
  
  
 ***
@@ -908,7 +1019,7 @@ Retreive a specific food item available to order from the menu.
     
 * [Example](#)
 
-* [implementation: lib/handlers/cart.js](cart.js#L201)
+* [implementation: handlers.cart.put() in lib/handlers/cart.js](cart.js#L201)
 
 ***
 # Delete Cart Item
@@ -933,7 +1044,7 @@ Retreive a specific food item available to order from the menu.
 
 * [Example](#)
 
-* [implementation: lib/handlers/cart.js](cart.js#L302)
+* [implementation: handlers.cart.delete() in lib/handlers/cart.js](cart.js#L302)
 
 
 
@@ -957,6 +1068,11 @@ Retreive a specific food item available to order from the menu.
 ***"Pizza Ordering API" /order endpoint***
 ====
 
+Methods  
+* POST = [Take cart to Checkout](#create-order-with-contents-of-shopping-cart) 
+* GET = [Get Orders](#get-previous-orders),[Get an Order](#get-previous-order)
+* PUT = not implemented
+* DELETE = not implemented
 
 
 ***
@@ -988,7 +1104,7 @@ Retreive a specific food item available to order from the menu.
 
 * [Example](#)
 
-* [implementation: lib/handlers/order.js](order.js#L158)
+* [implementation: handlers.order.post() in lib/handlers/order.js](order.js#L158)
 
      
 ***
