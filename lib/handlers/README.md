@@ -456,7 +456,7 @@ Sample API calls for existing user to get their info:
 
 ## step 2: get user details
 
-`GET /user` <=== Headers ====[ `token: nXj95GQRyoHkquD3fWvm` ]
+`GET /user` <=== Headers ====[ `token: nXj95GQRyoHkquD3fWvm` ]  
 *200 Response*
 ```JSON 
 {
