@@ -10,7 +10,7 @@ You are building the API for a pizza-delivery company. Don't worry about a front
 
 2. Users can [log in](lib/handlers/README.md#sign-in) and [log out](lib/handlers/README.md#sign-out) by creating or destroying a token.
 
-3. When a user is logged in, they should be able to GET [all the possible menu](lib/handlers/README.md#get-menu-items) items (these items [can be hardcoded](lib/handlers/README.md#get-menu-items) into the system). 
+3. When a user is logged in, they should be able to GET [all the possible menu](lib/handlers/README.md#get-menu-items) items (these items [can be hardcoded](lib/handlers/README.md#add-menu-item) into the system). 
 
 4. A logged-in user should be able to [fill](lib/handlers/README.md#add-menu-item-to-shopping-cart) a shopping [cart](lib/handlers/README.md#get-the-logged-in-users-shopping-cart) with [menu](lib/handlers/README.md#get-menu-item) [items](lib/handlers/README.md#filter-menu-items)
 
