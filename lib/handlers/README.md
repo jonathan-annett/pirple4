@@ -60,7 +60,7 @@ Sample [API calls](#sample-api-calls-for-existing-user-to-edit-their-info-1) for
 
 
 
-Detailed infomation follows...
+Detailed information follows...
 
 
 ***
