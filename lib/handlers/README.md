@@ -1088,7 +1088,8 @@ Methods
   `POST /order`
   
 * **JSON body** `{ stripe }` or `{stripe:{number,exp_month,exp_year,cvc}}`
-      * stripe - valid stripe test token, or credit card details
+ 
+  * stripe - valid stripe test token, or credit card details
 
 
 * **HTTP Headers**
