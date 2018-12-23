@@ -1204,7 +1204,7 @@ all input validation is handled in lib/helpers/validate.js
 **name** `full name` [code](../helpers/validate.js#L174)
 
   * at least 2 words that are separated by space(s). eg `Will Smith` is ok, `Beyonce` is not.
-  * numbers are allowed after the first word so `John Smith 3rd` is acceptable as is `John 3 Smith`
+  * numbers are allowed in last word so `John Smith 3rd` is acceptable as is `John Smith 3`
 
 **password** `valid password` [code](../helpers/validate.js#L149)
 
