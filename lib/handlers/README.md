@@ -42,6 +42,13 @@ Sample [API calls](#sample-api-calls-for-existing-user-to-get-their-info-1) for 
 
 
 
+Sample [API calls](#sample-api-calls-for-existing-user-to-edit-their-info-1) for existing user to edit their info:
+----
+* 1 [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
+
+* 2 [>>>](#step-2-edit-user-details) [PUT /user](#update-user-info) - update user details. 
+
+
 [bash/curl](https://github.com/jonathan-annett/pirple2/blob/master/all-tests.sh) script (ubuntu) to do these tests* 
 
 
@@ -440,7 +447,7 @@ Sample API calls for existing user to get their info:
 ```JSON 
 {
     "id": "nXj95GQRyoHkquD3fWvm",
-    "email": "jonathan.max.annett@gmail.com",
+    "email": "mr-squirrel@gmail.com",
     "created": 1545523134087,
     "expires": 1545526734087,
     "cart_id": "JU1yoOu8xMTrUn1qwQi5"
@@ -454,8 +461,61 @@ Sample API calls for existing user to get their info:
 ```JSON 
 {
     "name": "Mr Squirrely Squirrel",
-    "email": "jonathan.max.annett@gmail.com",
+    "email": "mr-squirrel@gmail.com",
     "street_address": "82 rodent park",
+    "orders": [
+        "LW7i6UwGPPkh1Fft0OhB",
+        "I4Vcw9Q53akK61wLQwZl",
+        "fvJGHDVRm7imZ6UpENz9"
+    ]
+}
+```
+
+
+
+
+***
+
+Sample API calls for existing user to edit their info:
+----
+
+
+## step 1: create session token
+
+`POST /token`  
+*Posted Body*
+```JSON
+    {
+      "email"    : "mr-squirrel@gmail.com",
+      "password" : "Monkey~123"
+    }
+```
+*200 Response*
+```JSON 
+{
+    "id": "nXj95GQRyoHkquD3fWvm",
+    "email": "jonathan.max.annett@gmail.com",
+    "created": 1545523134087,
+    "expires": 1545526734087,
+    "cart_id": "JU1yoOu8xMTrUn1qwQi5"
+}
+```
+
+## step 2: edit user details
+
+`PUT /user` <=== Headers ====[ `token: nXj95GQRyoHkquD3fWvm` ]
+*Posted Body*
+```JSON
+    {
+      "street_address" : "182 rodent blink park" 
+    }
+```
+*200 Response*
+```JSON 
+{
+    "name": "Mr Squirrely Squirrel",
+    "email": "mr-squirrel@gmail.com",
+    "street_address": "182 rodent blink park",
     "orders": [
         "LW7i6UwGPPkh1Fft0OhB",
         "I4Vcw9Q53akK61wLQwZl",
