@@ -35,5 +35,4 @@ source existing-user-search.sh $1 && \
 source existing-user-edit.sh $1 && \
 source existing-user-edit2.sh $1 && \
 source existing-user-edit3.sh $1 && \
-source existing-user-get-info.sh $1 && \
-source existing-user-edit-info.sh $1
+source existing-user-get-info.sh $1 
