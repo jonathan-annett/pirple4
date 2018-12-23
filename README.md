@@ -94,9 +94,8 @@ If you have both of these, you can create the following additional files to take
     }
     
 
-<BR>
-note that the hostname listed in the above file must be associated with your no-ip account, and you need to have updated the ip once manually using the no-ip website, so it knows it's an active domain. once that's the case, you can run the letsencrypt.sh file from the terminal prompt, and you'll need to enter your password to authorize the generation of the ssl certs. please fully read ***letsencrypt.sh*** before running it, and understand that it will start up a server on port 80 to authenticate that you "own" the domain.
+note that the hostname listed in the above file must be associated with your no-ip account, and you need to have updated the ip once manually using the no-ip website, so it knows it's an active domain. once that's the case, you can run the letsencrypt.sh file from the terminal prompt, and you'll need to enter your password to authorize the generation of the ssl certs. 
+Please fully read ***letsencrypt.sh*** before running it, and understand that it will start up a server on port 80 to authenticate that you "own" the domain.
 
-<BR>
 
 [***API Documentation***](lib/handlers/README.md)
