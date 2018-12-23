@@ -1105,7 +1105,8 @@ Methods
     * 406 - payment was not accepted
     * 500 - stripe payment failed to return payment details
 
-* [Example](#)
+* [Example](#step-4-submit-shopping-cart-as-an-order)
+* [Credit Card Example](#step-4-submit-shopping-cart-as-an-order-1)
 
 * [implementation: handlers.order.post() in lib/handlers/order.js](order.js#L158)
 
