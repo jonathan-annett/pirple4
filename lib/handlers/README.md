@@ -913,7 +913,7 @@ Add a food item to the menu data files.
     * 500 - couldn't create the menu item
 
 
-* [Scripted Example](../test-tools.sh#L223)
+* [Scripted Example](../../test-tools.sh#L223)
 
 * [implementation: handlers.menu.post() in lib/handlers/pizza_menu.js](pizza_menu.js#L145)
 
