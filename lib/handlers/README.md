@@ -696,7 +696,7 @@ Extends Session Token Expiry
 # Sign out
 ### DELETE /token
 
-  Delete a session token, logging out the user<br />
+  Delete a session token, logging out the user  
   also clears any shopping cart associated with this session token. 
   The `token` argument is either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). 
 
@@ -754,7 +754,7 @@ Methods
 # Get Menu Items
 ### GET /menu
 
-  Retreive a full list of food items available to order from the menu.<br \>
+  Retreive a full list of food items available to order from the menu.  
 
 
 
