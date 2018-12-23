@@ -46,7 +46,7 @@ Sample [API calls](#sample-api-calls-for-existing-user-to-edit-their-info-1) for
 ----
 * 1 [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
 
-* 2 [>>>](#step-2-edit-user-details) [PUT /user](#update-user-info) - update user details. 
+* 2 [>>>](#step-2-edit-user-details) [PUT /user](#update-user-details) - update user details. 
 
 
 [bash/curl](https://github.com/jonathan-annett/pirple2/blob/master/all-tests.sh) script (ubuntu) to do these tests* 
@@ -603,7 +603,7 @@ Note that the password is not returned in the user data.
     * 404 - user not found (for admins trying to update another user file)
     * 500 - missing/invalid email, password or street address, or no field to update.
 
-  * [Example](#)
+  * [Example](#step-2-edit-user-details)
   
   * [implementation: handlers.user.put() in lib/handlers/user.js](user.js#L211)
 
