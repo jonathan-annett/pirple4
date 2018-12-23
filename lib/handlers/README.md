@@ -54,6 +54,9 @@ Sample [API calls](#sample-api-calls-for-existing-user-to-get-their-info-1) for 
 
 Detailed infomation follows...
 
+
+***
+
 Sample API calls for new user to "buy the first pizza on the menu":
 ----
 
@@ -241,6 +244,7 @@ Sample API calls for new user to "buy the first pizza on the menu":
 `DELETE /token?token=6kufSGWMkqgCODYRCjRO`  
 *204 Response*
 
+***
 
 Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 ----
@@ -415,7 +419,7 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 
 
 
-
+***
 
 Sample API calls for existing user to get their info:
 ----
