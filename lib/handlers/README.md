@@ -503,7 +503,7 @@ Sample API calls for existing user to edit their info:
 
 ## step 2: edit user details
 
-`PUT /user` <=== Headers ====[ `token: nXj95GQRyoHkquD3fWvm` ]
+`PUT /user` <=== Headers ====[ `token: nXj95GQRyoHkquD3fWvm` ]  
 *Posted Body*
 ```JSON
     {
