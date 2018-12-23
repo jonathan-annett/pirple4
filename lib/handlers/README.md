@@ -942,8 +942,6 @@ Update a food item in the menu data files
     * 404 - menu item does not exist
     * 500 - couldn't update the menu item
     
-* [Example](#)
-
 * [implementation: handlers.menu.put() in lib/handlers/pizza_menu.js](pizza_menu.js#L209)
 
  
@@ -968,9 +966,6 @@ Delete a food item from the menu data files
     * 400 - no id specified
     * 401 - user with edit_menu permissions is not logged in.
     
-
-* [Example](#)
-
 * [implementation: handlers.menu.post() in lib/handlers/pizza_menu.js](pizza_menu.js#L265)
 
 
@@ -1007,8 +1002,6 @@ Methods
 
    * 200, `{ items : { id : {quantity,price,subtotal,description,image_url}}, total}` 
    * 401 - user is not logged in. 
-
-* [Example](#)
 
 * [implementation: handlers.cart.get() in lib/handlers/cart.js](cart.js#L63)
 
@@ -1073,8 +1066,6 @@ Methods
     * 404 - item with that id not in shopping cart
     * 500 - problem reading menu item or writing cart item to disk
     
-* [Example](#)
-
 * [implementation: handlers.cart.put() in lib/handlers/cart.js](cart.js#L201)
 
 ***
@@ -1097,8 +1088,6 @@ Methods
     * 401 - user is not logged in. 
     * 404 - item with that id not in shopping cart
     * 500 - problem reading menu item or writing cart item to disk
-
-* [Example](#)
 
 * [implementation: handlers.cart.delete() in lib/handlers/cart.js](cart.js#L302)
 
@@ -1159,7 +1148,7 @@ Methods
     * 406 - payment was not accepted
     * 500 - stripe payment failed to return payment details
 
-* [Example](#step-4-submit-shopping-cart-as-an-order)
+* [Test Token Example](#step-4-submit-shopping-cart-as-an-order)
 * [Credit Card Example](#step-4-submit-shopping-cart-as-an-order-1)
 
 * [implementation: handlers.order.post() in lib/handlers/order.js](order.js#L158)
