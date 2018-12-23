@@ -679,7 +679,7 @@ Extends Session Token Expiry
   * **JSON body** `{ token }` - a valid session token
 
   * **HTTP Headers**  
-  `token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+  `token` - The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
       
   * **Responses*
@@ -763,7 +763,7 @@ Methods
 `GET /menu`
 
 * **HTTP Headers**  
-`token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+`token` - The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
  * **Responses**
  
@@ -790,7 +790,7 @@ Retreive a specific food item available to order from the menu.
 `GET /menu?id=6JiEVO9UNdNBfqWGoHKz` - **id** *a valid menu item id*
 
 **HTTP Headers**  
-`token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+`token` - The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
 
  * **Responses**
@@ -817,7 +817,7 @@ Retreive a specific food item available to order from the menu.
 
 
  * **HTTP Headers**  
-`token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+`token` - The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
 
  * **Responses**
    * 200, `[{ id, description, price, image_url }, ... ]` - list of one or more items  
@@ -848,7 +848,7 @@ Add a food item to the menu data files
  * **JSON body** `{description,image_url,price}`
 
  * **HTTP Headers**  
-  `token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+  `token` - The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
   
   
  * **Responses**
@@ -876,7 +876,7 @@ Update a food item in the menu data files
  * **JSON body** `{id,description,image_url,price}`
  
  * **HTTP Headers**  
- `token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+ `token` - The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
  
  
   
@@ -903,7 +903,7 @@ Delete a food item from the menu data files
  [`DELETE /menu?id=172hgd61hxad`]
 
  * **HTTP Headers**  
- `token` - *optional* The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
+ `token` - The previous session token ( either `id` from [POST /token](#sign-in), or `token.id` from [POST /user](#sign-up). ) 
  
  
   
