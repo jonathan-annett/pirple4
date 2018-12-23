@@ -1194,17 +1194,19 @@ Methods
     
     
 # api validation rules
+
+all input validation is handled in lib/helpers/validate.js
     
-**email** `valid email address`
+**email** `valid email address` [code](../helpers/validate.js#L58)
 
   * a typical email address in the standard `username@host.com` format 
   
-**name** `full name`
+**name** `full name` [code](../helpers/validate.js#L174)
 
   * at least 2 words that are separated by space(s). eg `Will Smith` is ok, `Beyonce` is not.
   * numbers are allowed after the first word so `John Smith 3rd` is acceptable as is `John 3 Smith`
 
-**password** `valid password`
+**password** `valid password` [code](../helpers/validate.js#L149)
 
   * at least 8 characters
   * at least 1 upper case character
@@ -1212,6 +1214,12 @@ Methods
   * at least 1 numeric digit from 0 through 9
   * at least 1 symbol or space character 
   
-**street_address** `a valid street address`
+**street_address** `a valid street address` [code](../helpers/validate.js#L230)
    * at least 1 line of 3 words
    * at least 1 of the words must be a number
+   
+
+
+
+
+
