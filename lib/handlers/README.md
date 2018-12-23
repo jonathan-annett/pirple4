@@ -840,7 +840,8 @@ Retreive a specific food item available to order from the menu.
 # Add Menu Item
 ### POST /menu
 
-Add a food item to the menu data files
+Add a food item to the menu data files.
+
 **this api call requires the logged in user to have /edit_menu/ permissions**
  
  * **REST endpoint**  
