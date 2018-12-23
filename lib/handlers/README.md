@@ -1081,7 +1081,7 @@ Methods
 # Create order with contents of shopping cart
 ### POST /order
 
- pay for the contents of shopping cart, adding the order to cutomers history, and returning the order no .
+ pay for the contents of shopping cart, adding the order to customers history, and returning the order no .
 
 * **REST endpoint**
 
