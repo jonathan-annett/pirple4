@@ -493,7 +493,7 @@ Sample API calls for existing user to edit their info:
 ```JSON 
 {
     "id": "nXj95GQRyoHkquD3fWvm",
-    "email": "jonathan.max.annett@gmail.com",
+    "email": "mr-squirrel@gmail.com",
     "created": 1545523134087,
     "expires": 1545526734087,
     "cart_id": "JU1yoOu8xMTrUn1qwQi5"
