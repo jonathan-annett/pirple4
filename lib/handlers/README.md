@@ -643,8 +643,6 @@ or
 * if email is supplied, it must match the logged in user
 * if email is not supplied, the logged in user is implied
 
-* [Example](#)
-
 * [implementation: handlers.user.delete() in lib/handlers/user.js](user.js#L283) 
 
 
@@ -723,8 +721,6 @@ return token details
     * 404 - token does not refer to a valid session
     * 401 - session has already expired.
 
-  * [Example](#)
-
   * [implementation: handlers.token.get() in lib/handlers/token.js](token.js#L485)
 
 ***
@@ -748,7 +744,7 @@ Extends Session Token Expiry
       * 404 - token does not refer to a valid session
       * 401 - session has already expired.
       * 500 - internal error trying to update session file(s)
-  * [Example](#)  
+
   * [implementation: handlers.token.put() in lib/handlers/token.js](token.js#L534)
 
 
@@ -859,8 +855,6 @@ Retreive a specific food item available to order from the menu.
    * 404 - menu id does not correspond to a menu item file  
    * 401 - user is not logged in. 
 
- * [Example](#)
-
  * [implementation: handlers.menu.get() in lib/handlers/pizza_menu.js](pizza_menu.js#L65)
  
 
@@ -919,7 +913,7 @@ Add a food item to the menu data files.
     * 500 - couldn't create the menu item
 
 
-* [Example](#)
+* [Scripted Example](../test-tools.sh#L223)
 
 * [implementation: handlers.menu.post() in lib/handlers/pizza_menu.js](pizza_menu.js#L145)
 
