@@ -37,7 +37,7 @@ Sample [API calls](#sample-api-calls-for-existing-user-to-get-their-info-1) for 
 ----
 * 1 [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
 
-* 2 [>>>](#step-2-get-filtered-menu-array) [GET /user](#get-user-details) - get user details. 
+* 2 [>>>](#step-2-get-user-details) [GET /user](#get-user-info) - get user details. 
 
 
 
@@ -489,7 +489,7 @@ Simultaneously create a new user account, and a new session token.
     * 200,`{ email,name, street_address, token:{id,created,expires,cart_id }}`
     * 400 - missing/invalid email, password or street address.
     * 403 - user already exists. (or something else that stopped the creation of a new file - disk space or hardware error)
- * [Example](#sample-api-calls-for-new-user-to-buy-the-first-pizza-on-the-menu-1)
+ * [Example](#step-1-create-user)
  * [implementation: handlers.user.post() in lib/handlers/user.js](user.js#L80)
  * Notes:
      - the password is not returned to the user, and it is stored internally as a hash result
@@ -517,7 +517,7 @@ or
     * 401 - missing/expired session (token header), or wrong email address
     * 404 - can't read user details
 
-  * [Example](#)
+  * [Example](#step-2-get-user-details)
   
   * [implementation: lib/handlers/user.js](user.js#L161)
 ***
