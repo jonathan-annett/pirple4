@@ -30,7 +30,26 @@ Sample [API calls](#sample-api-calls-for-existing-user-to-search-a-vegan-pizza-a
 
 * 5 [>>>](#step-5-logout-user-1) [DELETE /token](#sign-out) - having placed an order, the user can now log out. 
 
-*[bash/curl](https://github.com/jonathan-annett/pirple2/blob/master/all-tests.sh) script (ubuntu) to do these tests*
+
+
+
+Sample [API calls](#sample-api-calls-for-existing-user-to-get-their-info-1) for existing user to get their info:
+----
+* 1 [>>>](#step-1-create-session-token) [POST /token](#sign-in) - supply `email` and `password`,  get session `token` 
+
+* 2 [>>>](#step-2-get-filtered-menu-array) [GET /user](#get-user-details) - get user details. 
+
+
+
+[bash/curl](https://github.com/jonathan-annett/pirple2/blob/master/all-tests.sh) script (ubuntu) to do these tests* 
+
+
+
+
+
+
+
+
 
 
 Detailed infomation follows...
@@ -391,6 +410,55 @@ Sample API calls for existing user to search a "vegan" pizza, and then buy it:
 
 `DELETE /token?token=hvWP1HnuWu3EOmxczjkW`  
 *204 Response*
+
+
+
+
+
+
+
+Sample API calls for existing user to get their info:
+----
+
+
+## step 1: create session token
+
+`POST /token`  
+*Posted Body*
+```JSON
+    {
+      "email"    : "mr-squirrel@gmail.com",
+      "password" : "Monkey~123"
+    }
+```
+*200 Response*
+```JSON 
+{
+    "id": "nXj95GQRyoHkquD3fWvm",
+    "email": "jonathan.max.annett@gmail.com",
+    "created": 1545523134087,
+    "expires": 1545526734087,
+    "cart_id": "JU1yoOu8xMTrUn1qwQi5"
+}
+```
+
+## step 2: get filtered menu array
+
+`GET /user` <=== Headers ====[ `token: nXj95GQRyoHkquD3fWvm` ]
+*200 Response*
+```JSON 
+{
+    "name": "Mr Squirrely Squirrel",
+    "email": "jonathan.max.annett@gmail.com",
+    "street_address": "82 rodent park",
+    "orders": [
+        "LW7i6UwGPPkh1Fft0OhB",
+        "I4Vcw9Q53akK61wLQwZl",
+        "fvJGHDVRm7imZ6UpENz9"
+    ]
+}
+```
+
 
 ***
 ***"Pizza Ordering API" /user endpoint***
