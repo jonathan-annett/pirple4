@@ -41,7 +41,7 @@ parse_json() {
 
 
 # we are going to use the local host on port 3000 for this test
-LOCAL_URL=http://localhost:3000
+LOCAL_URL=http://localhost:3000/api
 TEST_EMAIL=$1
 [[ "${TEST_EMAIL}" == "" ]] && TEST_EMAIL=$(parse_json mailgun testing)
 [[ "${TEST_EMAIL}" == "undefined" ]] && TEST_EMAIL=$(parse_json stripe email)
