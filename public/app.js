@@ -53,7 +53,6 @@ app.helpers.getFormData = function (frmId) {
 ([[["lib/helpers/html_merge.js"]]])(app.helpers);
 
 
-// 
 app.helpers.build_uri = function(path,queryParams,cb){
     var uri = Object.keys(queryParams).reduce(function(uri,key,index){
         return uri+(index===0?'?':'&')+key+'='+encodeURIComponent(queryParams[key]);
