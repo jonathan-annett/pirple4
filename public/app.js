@@ -673,6 +673,5 @@ app.after_submit.sessionCreate = function(token) {
 };
 
 
-
-app.init();
+document.addEventListener("loaded",app.init);
 
