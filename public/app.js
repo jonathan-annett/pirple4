@@ -541,15 +541,17 @@ app.init.interceptButtonLinks = function () {
         
         var templateHandler = app.template_links[uri];
         if (typeof templateHandler === "function") {
-            
-            el.addEventListener("click", function(e){
-                e.preventDefault();
-                e.stopPropagation();
-                var btn = this;
-                templateHandler(function(){
-                   clickHandler.call(btn);
+            clickHandler = app.buttons[uri];
+            if (typeof clickHandler === "function") {
+                el.addEventListener("click", function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var btn = this;
+                    templateHandler(function(){
+                       clickHandler.call(btn);
+                    });
                 });
-            });
+            }
             
         }
          
