@@ -598,7 +598,7 @@ app.displayPizzaMenu=function(cb){
     if (app.getTokenId()) {
         app.api.menu.get(function(code,array){
             if (code===200) {
-                app.templates.menu.list.arrayed(array,cb);
+                app.templates.menu.list(array,cb);
             } else {
                 if (typeof cb==='function') cb();
             }
