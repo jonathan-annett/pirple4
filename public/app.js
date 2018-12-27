@@ -70,19 +70,19 @@ app.helpers.build_uri = function(path,queryParams,cb){
 
 app.helpers.xhr={};
 
-app.helpers.getTokenId=function(cb){
+app.getTokenId=function(cb){
     var token = (typeof app.config.sessionToken === 'object' && app.config.sessionToken.id) ? app.config.sessionToken.id : false;
     return typeof cb==='function' ? cb(token) : token;
 };
 
-app.helpers.getToken=function(cb){
+app.getToken=function(cb){
     var token = (typeof app.config.sessionToken === 'object' && app.config.sessionToken.id) ? app.config.sessionToken : false;
     return typeof cb==='function' ? cb(token) : token;
 };
 
-app.helpers.setToken=function(token,cb){
+app.setToken=function(token,cb){
     app.config.sessionToken = token;
-    return app.helpers.getToken(cb);
+    return app.getToken(cb);
 };
 
 
@@ -90,7 +90,7 @@ app.helpers.setToken=function(token,cb){
 app.helpers.xhr = function (uri,METHOD,headers,cb) {
     var xhr = new XMLHttpRequest();
     xhr.open(METHOD, uri, true);
-    app.helpers.getTokenId(function(tok){if (tok) headers.token=tok;});
+    app.getTokenId(function(tok){if (tok) headers.token=tok;});
     Object.keys(headers).forEach(function(key) {
         xhr.setRequestHeader(key, headers[key]);
     });
@@ -575,7 +575,7 @@ app.init.interceptButtonLinks = function () {
 
 app.logout = function(cb){
     // determine current login status
-    app.helpers.getTokenId(function(tok){
+    app.getTokenId(function(tok){
         
         if (tok) {
             // yes we are logged in - fix that now 
@@ -595,7 +595,7 @@ app.logout = function(cb){
 
 app.displayPizzaMenu=function(cb){
     
-    if (app.helpers.getTokenId()) {
+    if (app.getTokenId()) {
         app.api.menu.get(function(code,array){
             if (code===200) {
                 app.templates.menu.list.arrayed(array,cb);
