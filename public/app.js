@@ -524,7 +524,8 @@ app.init.interceptFormSubmits = function(){
 
 // set 
 app.init.interceptButtonLinks = function () {
-    document.querySelectorAll("li a").forEach(function(el){
+    var list = document.querySelectorAll("li a");
+    list.forEach(function(el){
         
         var buttonId = el.id, uri = el.href, clickHandler = app.buttons[buttonId] || app.buttons[uri];
         
