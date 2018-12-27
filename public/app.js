@@ -260,6 +260,7 @@ app.init.generate_api_stubs = function(paths) {
 // auto generate the template generators
 // creates app.templates.PATH.OPERATION(data,context, cb)
 app.init.generate_templates = function(){
+    
     app.templates = {};
     app.template_links = {};
     var templateCache={};
@@ -289,8 +290,7 @@ app.init.generate_templates = function(){
         // on first call, hit server for the _header html chunk, and extract title format from it.
         // on subsequent calls return the cached title format.
         if (title_template_===undefined) {
-            return app.api.post(
-                "html", 
+            return app.html.post(
                 {path: "_header",variables: {}},
                 {},
             function(code,data){
@@ -373,9 +373,7 @@ app.init.generate_templates = function(){
             } else {
 
                 // request html template for 
-                return app.api.post(
-
-                    "html", {
+                return app.api.html.post({
                     formId: formId,
                     variables: {},
                     handler: path,
@@ -409,7 +407,7 @@ app.init.generate_templates = function(){
             
             if (typeof variables === 'function') { 
                 cb=variables; variables={}; 
-            } 
+            }
 
             if (templateCache[formId]) {
                 
@@ -421,7 +419,7 @@ app.init.generate_templates = function(){
                 
             } else {
                 
-                return app.api.post("html", {
+                return app.api.html.post({
                     formId     : formId,
                     variables  : variables,
                     handler    : path,
@@ -539,7 +537,7 @@ app.init.interceptButtonLinks = function () {
                 });
                 
             } 
-        }        
+        }
         
         var templateHandler = app.template_links[uri];
         if (typeof templateHandler === "function") {
@@ -552,6 +550,7 @@ app.init.interceptButtonLinks = function () {
                    clickHandler.call(btn);
                 });
             });
+            
         }
          
         
