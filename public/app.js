@@ -50,7 +50,7 @@ app.helpers.getFormData = function (frmId) {
     return result;
 };
 
-([[["helpers/html_merge.js"]]])(app.helpers);
+([[["lib/helpers/html_merge.js"]]])(app.helpers);
 
 
 // 
