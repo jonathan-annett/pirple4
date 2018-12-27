@@ -324,6 +324,8 @@ app.init.generate_templates = function(){
                // set the document title
                document.title=title;
                
+               app.init.interceptFormSubmits();
+               
                if (typeof cb==='function') {
                   cb(200,pageInfo.cookedHtml); 
                }
@@ -509,7 +511,7 @@ app.init.interceptFormSubmits = function(){
               // If successful, send to form response processor
               var processor = app.after_submit[formId] || app.after_submit._generic;
               processor(responsePayload , payload, formId);
-              app.init.interceptFormSubmits();
+              
           }
       });
 
