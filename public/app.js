@@ -509,6 +509,7 @@ app.init.interceptFormSubmits = function(){
               // If successful, send to form response processor
               var processor = app.after_submit[formId] || app.after_submit._generic;
               processor(responsePayload , payload, formId);
+              app.init.interceptFormSubmits();
           }
       });
 
