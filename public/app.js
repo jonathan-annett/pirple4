@@ -51,6 +51,8 @@ app.helpers.getFormData = function (frmId) {
 };
 
 ([[["lib/helpers/html_merge.js"]]])(app.helpers);
+([[["lib/helpers/validate_forms.js"]]])(app.helpers);
+app.helpers.validate.default_image_url = "/public/default.png";
 
 
 app.helpers.build_uri = function(path,queryParams,cb){
