@@ -82,7 +82,25 @@ app.getToken=function(cb){
 
 app.setToken=function(token,cb){
     app.config.sessionToken = token;
+    var tokenString = JSON.stringify(token);
+    localStorage.setItem('token',tokenString);
+    if(typeof(token) == 'object'){
+      app.setLoggedInClass(true);
+    } else {
+      app.setLoggedInClass(false);
+    }
     return app.getToken(cb);
+};
+
+
+// Set (or remove) the loggedIn class from the body
+app.setLoggedInClass = function(add){
+  var target = document.querySelector("body");
+  if(add){
+    target.classList.add('loggedIn');
+  } else {
+    target.classList.remove('loggedIn');
+  }
 };
 
 
@@ -227,6 +245,7 @@ app.init = function (){
     app.init.generate_templates();
     app.init.interceptFormSubmits();
     app.init.interceptButtonLinks();
+    app.init.localStorage();
 };
 
 
@@ -569,7 +588,23 @@ app.init.interceptButtonLinks = function () {
 };
 
 
-
+app.init.localStorage = function () {
+    var tokenString = localStorage.getItem('token');
+    if(typeof(tokenString) == 'string'){
+      try{
+        var token = JSON.parse(tokenString);
+        app.config.sessionToken = token;
+        if(typeof(token) == 'object'){
+          app.setLoggedInClass(true);
+        } else {
+          app.setLoggedInClass(false);
+        }
+      }catch(e){
+        app.config.sessionToken = false;
+        app.setLoggedInClass(false);
+      }
+    }
+};
 
 
 
