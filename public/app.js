@@ -444,7 +444,7 @@ app.init.generate_templates = function(){
             make_array_template(formId,path,op);
         }
         
-        app.template_links["/"+linkpath+"/"+op]=app.templates[path][op];
+        app.template_links[linkpath+"/"+op]=app.templates[path][op];
     };
  
     make_template("user",  "create",   "account");
