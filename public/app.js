@@ -16,7 +16,13 @@ app.config = {
 app.api = {};
 app.helpers={};
 
-
+app.helpers.resolve_uri=function(url){
+    if (url.substr(0,document.baseURI.length)===document.baseURI) {
+        return url.substr(document.baseURI.length);         
+    } else {
+        return url;
+    }
+};
 app.helpers.setInput = {
   text     : function(el,value) { el.value = value; },
   checkbox : function(el,value) { if (value) el.checked=true; else el.checked=false;}
@@ -477,7 +483,7 @@ app.init.interceptFormSubmits = function(){
       e.preventDefault();
       
       // pull in formId,path & method from form object.
-      var formId = this.id,path = this.action, method = this.method.toLowerCase();
+      var formId = this.id,path = app.helpers.resolve_uri(this.action), method = this.method.toLowerCase();
       
       // Hide any messages currently shown due to a previous error.
       [ "formError" , "formSuccess"].forEach(function(el) {
@@ -527,7 +533,7 @@ app.init.interceptFormSubmits = function(){
 app.init.interceptButtonLinks = function () {
     document.querySelectorAll("li a").forEach(function(el){
         
-        var buttonId = el.id, uri = el.href.substr(document.baseURI.length), clickHandler = app.buttons[buttonId] || app.buttons[uri];
+        var buttonId = el.id, uri = app.helpers.resolve_uri(el.href), clickHandler = app.buttons[buttonId] || app.buttons[uri];
         
         if (buttonId && typeof uri==="string" && typeof clickHandler==='function') {
             
