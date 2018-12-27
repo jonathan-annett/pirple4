@@ -610,27 +610,27 @@ app.displayPizzaMenu=function(cb){
 app.buttons = {};
 
 // invoked after the account/create page has been loaded dynamically into the contents div
-app.buttons["/account/create"] = function(){
+app.buttons["account/create"] = function(){
    console.log(arguments);
 };
 
 // invoked after the session/create page has been loaded dynamically into the contents div
-app.buttons["/session/create"] = function(){
+app.buttons["session/create"] = function(){
     console.log(arguments);
 };
 
 // invoked after the menu/list page has been loaded dynamically into the contents div
-app.buttons["/menu/list"] = function(){
+app.buttons["menu/list"] = function(){
     console.log(arguments);
 };
 
 // invoked after the cart/view page has been loaded dynamically into the contents div
-app.buttons["/cart/view"] = function(){
+app.buttons["cart/view"] = function(){
     console.log(arguments);
 };
 
 // invoked after the account/edit page has been loaded dynamically into the contents div
-app.buttons["/account/edit"] = function(){
+app.buttons["account/edit"] = function(){
     console.log(arguments);
 };
 
