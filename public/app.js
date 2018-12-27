@@ -217,7 +217,7 @@ app.submitFormData = function (frmId,path,method,cb){
 
 //
 app.init = function (){
-    app.init.generate_api_stubs(["user", "token", "cart", "menu", "order"]);
+    app.init.generate_api_stubs(["user", "token", "cart", "menu", "order","html"]);
     app.init.generate_templates();
     app.init.interceptFormSubmits();
     app.init.interceptButtonLinks();
@@ -235,13 +235,14 @@ app.init.generate_api_stubs = function(paths) {
             return app.api.request(path,data,cb);
         };
     });
+    paths.pop();//html
     paths.forEach(function(path) {
         app.api[path].get = function(params, cb) {
             if (typeof params==='function' ) return app.api.request(path,params);
             return app.api.request(path,undefined,{method:"GET",params:params},cb);
         };
     });
-    paths.pop();
+    paths.pop();//menu
     paths.forEach(function(path) {
         app.api[path].put = function(data, cb) {
             return app.api.request(path,data,{method:"PUT"},cb);
