@@ -319,7 +319,7 @@ app.init.generate_templates = function(){
         get_title_template(function(title_temp){
             
             // render the document title using variables from page
-            app.helpers.mergeVariables(title_temp,pageInfo.variables,{},function(title){
+            app.helpers.mergeVariables(title_temp,pageInfo.variables,function(title){
                
                // set the document title
                document.title=title;
@@ -356,7 +356,7 @@ app.init.generate_templates = function(){
 
           
             var exit_arrayed = function() {
-                app.helpers.mergeVariableArray(templateCache[formId].rawHtml, array, context, '', function(html) {
+                app.helpers.mergeVariableArray(templateCache[formId].rawHtml, array, function(html) {
                     exit_200(
                     formId, {
                         cookedHtml: html,
