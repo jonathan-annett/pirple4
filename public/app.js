@@ -292,7 +292,7 @@ app.init.generate_templates = function(){
         // on subsequent calls return the cached title format.
         if (title_template_===undefined) {
             return app.api.html.post(
-                {path: "_header",variables: {}},
+                {formId: "_header",variables: {}},
             function(code,data){
                  if (code==200) {
                      header_template_ = data.rawHtml;
