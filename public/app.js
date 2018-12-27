@@ -207,7 +207,7 @@ app.submitFormData = function (frmId,path,method,cb){
     
     var fn=app.api[path][method];
     if (typeof fn==='function') {
-       fn(path,payload,function(code,responsePayload){
+       fn(payload,function(code,responsePayload){
           if (typeof cb==='function') {
             cb(code,responsePayload,payload);// note extra param for submitted payload.
           }  
