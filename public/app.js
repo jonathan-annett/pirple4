@@ -494,7 +494,7 @@ app.init.interceptFormSubmits = function(){
       });
       
       // submit the form data using API
-      app.submitFormData(formId,path,method,function(code,responsePayload,payload){
+      app.submitFormData(formId,app.helpers.resolve_uri(path).substr(4),method,function(code,responsePayload,payload){
           // Display an error on the form if needed
           if (code !== 200) {
 
