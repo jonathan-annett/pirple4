@@ -529,29 +529,30 @@ app.init.interceptButtonLinks = function () {
         var buttonId = el.id, uri = el.href.substr(document.baseURI.length), clickHandler = app.buttons[buttonId] || app.buttons[uri];
         
         if (buttonId && typeof uri==="string" && typeof clickHandler==='function') {
+            
             if (uri==="#") {
                 
-                el.addEventListener("click", function(e){
+                return el.addEventListener("click", function(e){
                    e.preventDefault();
                    e.stopPropagation();
                    clickHandler.call(this);
                 });
                 
-            } else {
+            } 
                 
-                var templateHandler = app.template_links[uri];
-                if (typeof templateHandler === "function") {
-                    
-                    el.addEventListener("click", function(e){
-                        e.preventDefault();
-                        e.stopPropagation();
-                        var btn = this;
-                        templateHandler(function(){
-                           clickHandler.call(btn);
-                        });
+            var templateHandler = app.template_links[uri];
+            if (typeof templateHandler === "function") {
+                
+                el.addEventListener("click", function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var btn = this;
+                    templateHandler(function(){
+                       clickHandler.call(btn);
                     });
-                }
+                });
             }
+             
         }
 
     });
