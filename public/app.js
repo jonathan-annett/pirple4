@@ -291,9 +291,8 @@ app.init.generate_templates = function(){
         // on first call, hit server for the _header html chunk, and extract title format from it.
         // on subsequent calls return the cached title format.
         if (title_template_===undefined) {
-            return app.html.post(
+            return app.api.html.post(
                 {path: "_header",variables: {}},
-                {},
             function(code,data){
                  if (code==200) {
                      header_template_ = data.rawHtml;
