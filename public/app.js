@@ -533,7 +533,7 @@ app.init.interceptButtonLinks = function () {
                 return el.addEventListener("click", function(e){
                    e.preventDefault();
                    e.stopPropagation();
-                   clickHandler.call(this);
+                   clickHandler();
                 });
                 
             } 
@@ -546,9 +546,8 @@ app.init.interceptButtonLinks = function () {
                 el.addEventListener("click", function(e){
                     e.preventDefault();
                     e.stopPropagation();
-                    var btn = this;
                     templateHandler(function(){
-                       clickHandler.call(btn);
+                       clickHandler();
                     });
                 });
             }
