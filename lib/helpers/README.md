@@ -1,70 +1,59 @@
 
 # helpers
 
-lib/helpers contains javascript files that are normally loaded by lib/helper.js
+**lib/helpers** contains **javascript** files that are normally loaded by **lib/helper.js**, using a require clause, using whatever convention is appropriate.
 
-these files contain helper functions that are either more substantial than a simple function, or are designated as common code that can be used inside the browser
+*examples of loading submodules*   
 
-to make a lib/helpers/whaterver.js file accessible from node, it needs to export a function that is called once by helpers.js at startup with a single paramter, which is the helpers library itself.
+```javascript
 
-this means functions inside whatever.js has access to other helpers functions if it needs them, and should export functions it needs to be available as a helper by assigning it to a helpers.xxxx key
+// load the valiate sub library
+lib.validate = require('./helpers/validate.js');
 
-eg 
+// merge the stripe sub library
+require('./helpers/stripe.js')(lib,url,https,path,querystring,config);
 
+
+```
+
+**shared browser shared helper modules**
+
+if a javascript file is crafted using this specific format:
 
 ```javascript
 
 module.exports = function (helpers) {
-  
-  
-  helpers.whatever = function () {
-    return helpers.something()+" whatever";
-  }
-  
+
+
 }
 ```
 
-to make these available in the browser, it's important that the first line of the file have no comments before `module.exports = `
+it can be loaded into public/app.js for use in the browser using a line like this:
 
-in public/app.js if you include the line
 
 ```javascript
-([[["lib/helpers/whatever.js"]]])(app.helpers);
+([[["lib/helpers/html_merge.js"]]])(app.helpers);
 ```
-it will be injected into app.js as follows 
 
+which will expand to 
 
 ```javascript
+
 (function (helpers) {
-  
-  
-  helpers.whatever = function () {
-    return helpers.something()+" whatever";
-  }
-  
+
 
 })(app.helpers);
-```
 
-alternatively, if you want to just load whatever is exported by whatever.js, this will work too
+```
+in the browser 
+
+(simple string substition happens in node before the file is first served, and cached for subsequent servings.)
+
+obviously this file can also be loaded in node using the same method:
+
 
 ```javascript
-var whatever = [[["lib/helpers/whatever.js"]]];
-
-```
-it will be injected into app.js as follows 
-
-```javascript
-var whatever = function (helpers) {
-  
-  
-  helpers.whatever = function () {
-    return helpers.something()+" whatever";
-  }
-  
-
-};
+require("./validate_forms")(helpers);
 ```
 
-This merge happens when any .js file is served for the first time by handler/static.js in the handlers.static.get.js() function
-subsequent fetches are cached internally, unless they are changed on disk in the meantime.
+(note that this path is relative to the parent include file - since this example is being loaded by lib/helpers/validate.js, there is no need to specify a path other than ".", as it's stored in the same folder)
