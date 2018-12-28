@@ -386,11 +386,31 @@
                 var token = JSON.parse(tokenString);
                 app.config.sessionToken = token;
                 if (typeof(token) == 'object') {
-                    app.setLoggedInClass(true);
+                    if (token.id) {
+                        // attempt to extend token
+                        app.api.token.put({token:token.id},function(code,token){
+                            if (code==200) {
+                                 // session extended ok - must be logged in
+                                 app.config.sessionToken = token;
+                                 app.setLoggedInClass(true);    
+                            } else {
+                                // session extend faild - can't have been logged in, or has expired
+                                 app.config.sessionToken.id=false;
+                                 app.setLoggedInClass(false);
+                            }
+                            var tokenString = JSON.stringify(app.config.sessionToken);
+                            localStorage.setItem('token',tokenString);
+                        });
+                        
+                    } else {
+                        app.setLoggedInClass(false);
+                    }
                 } else {
+                    // never been logged in
                     app.setLoggedInClass(false);
                 }
             } catch (e) {
+                // corrupt or never been logged in
                 app.config.sessionToken = false;
                 app.setLoggedInClass(false);
             }
