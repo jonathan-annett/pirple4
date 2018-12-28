@@ -57,3 +57,27 @@ require("./validate_forms")(helpers);
 ```
 
 (note that this path is relative to the parent include file - since this example is being loaded by lib/helpers/validate.js, there is no need to specify a path other than ".", as it's stored in the same folder)
+
+another possible way of utilizing this feature is as follows
+
+
+**browser**
+
+```javascript
+var someJavascriptObjectOrFunction = ([[["lib/helpers/somefile.js"]]]);
+```
+
+**node**
+```javascript
+var someJavascriptObjectOrFunction = require("helpers/somefile.js");
+```
+
+**helpers/somefile.js**
+```javascript
+module.exports=function(a,b){ return a+b;};
+```
+*alternatively*
+```javascript
+module.exports={someData:"hello world"};
+```
+
