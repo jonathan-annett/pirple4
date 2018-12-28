@@ -403,11 +403,14 @@
                         });
                         
                     } else {
+                        // been logged in before, but not anymore
                         app.setLoggedInClass(false);
+                        app.templates.token.create({email:token.email});
                     }
                 } else {
                     // never been logged in
                     app.setLoggedInClass(false);
+                    app.templates.user.create();
                 }
             } catch (e) {
                 // corrupt or never been logged in
