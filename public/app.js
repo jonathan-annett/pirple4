@@ -240,7 +240,7 @@ app.submitFormData = function (frmId,path,method,cb){
 
 
 //
-app.init = [[["public/app/app.init.js"]]];
+([[["public/app/app.init.js"]]])();
 
 
 
