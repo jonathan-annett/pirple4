@@ -243,21 +243,40 @@ app.submitFormData = function (frmId,path,method,cb){
 
 
 
-app.logout = function(cb){
+app.logout = function(template,cb){
+    // determine what template to load after logging out
+    var next_template = app.templates.token.deleted;
+    if (typeof template==='function') {
+        cb = template;
+    } else {
+        next_template = app.template_links[template]||next_template;
+    }
+    
     // determine current login status
-    app.getTokenId(function(tok){
+    app.getToken(function(tok){
         
         if (tok) {
-            // yes we are logged in - fix that now 
-            app.api.token.delete({token:tok},function(){
-               app.setToken(false,function(){
-                  // display logged out page
-                  app.templates.token.deleted(cb);
-               });
-            });
+            // user has logged in at least once
+            if (tok.id) {
+                // and is probably still logged in
+                app.api.token.delete({token:tok.id},function(){
+                   
+                   tok.id=false;       
+                   app.setToken(tok,function(){
+                      // display logged out page
+                      next_template(cb);
+                   });
+                   
+                });
+                
+            } else {
+                // user is currently logged out
+                next_template(cb);
+            }
+            
         } else {
-            // redisplay logged out page
-           app.templates.token.deleted(cb); 
+           // never has logged in - show signup page 
+           app.templates.user.create(cb); 
         }
         
     });

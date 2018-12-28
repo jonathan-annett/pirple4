@@ -1,5 +1,5 @@
-    
-    //
+    /* global app */
+     
     app.init = function() {
         app.init.generate_api_stubs(["user", "token", "cart", "menu", "order", "html"]);
         app.init.generate_templates();
@@ -237,7 +237,13 @@
                             templateCache[formId] = pageInfo;
                             exit_200(formId, pageInfo, cb);
                         } else {
-                            exit_err(code, "error: http error " + code, cb);
+                            if ([403, 401].indexOf(code) >= 0) {
+                                // log the user out
+                                app.logout("session/create");
+        
+                            } else {
+                                exit_err(code, "error: http error " + code, cb);
+                            }
                         }
                     });
 
@@ -300,7 +306,7 @@
 
                     if ([403, 401].indexOf(code) >= 0) {
                         // log the user out
-                        app.logout();
+                        app.logout("account/deleted");
 
                     } else {
 
