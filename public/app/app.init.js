@@ -1,4 +1,4 @@
-module.exports = function(app) {
+    
     //
     app.init = function() {
         app.init.generate_api_stubs(["user", "token", "cart", "menu", "order", "html"]);
@@ -391,4 +391,4 @@ module.exports = function(app) {
         }
     };
 
-}
+ 
