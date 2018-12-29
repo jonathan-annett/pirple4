@@ -295,6 +295,7 @@ app.displayPizzaMenu=function(cb){
     } else {
         app.templates.token.create(cb);
     }
+    
 };
 
 /*

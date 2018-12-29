@@ -125,7 +125,7 @@
                     app.init.interceptFormSubmits();
 
                     if (typeof cb === 'function') {
-                        cb(200, pageInfo.cookedHtml);
+                        cb(200, pageInfo.cookedHtml,pageInfo);
                     }
 
                 });
@@ -271,9 +271,9 @@
         make_template("user", "deleted", "account");
         make_template("token", "create", "session", false, function (){ 
             if (app.config.sessionToken && app.config.sessionToken. email) {
-                return {email : app.config.sessionToken.email}
+                return {email : app.config.sessionToken.email};
             }
-            return {}
+            return {};
         });
         make_template("token", "deleted", "session");
         make_template("menu", "list", undefined, true);
@@ -343,7 +343,6 @@
 
         };
         
-        
 
         var captureFormSubmit = function(form) {
             form.addEventListener("submit", onFormSubmit);
@@ -406,8 +405,8 @@
                     el.addEventListener("click", function(e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        templateHandler(function() {
-                            clickHandler();
+                        templateHandler(function(code,html,info) {
+                            clickHandler(info);
                         });
                     });
                 }
