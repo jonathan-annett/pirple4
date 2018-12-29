@@ -46,15 +46,17 @@ app.make_templates= function (make_template) {
     make_template("cart", "view", undefined, function (vars,cb){ 
         
         vars["cart.total"] = vars.cart.total;
+        var cart=[];
+        
         var item_keys = Object.keys(vars.cart.items);
-        var flat=vars["cart[]"]=[];
         for(var i = 0; i < item_keys.length; i++) {
             var item_key = item_keys[i];
-            flat.push(vars.cart.items[item_key]);
+            var item = vars.cart.items[item_key];
+            item.id = item_key; 
+            cart.push(item);
         }
-        delete vars.cart;
-
-        console.log({vars:vars});
+        vars.cart = cart;
+        
         cb(vars);
         
     });
