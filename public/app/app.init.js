@@ -331,7 +331,14 @@
             return cb({});
         });
         make_template("token", "deleted", "session");
-        make_template("menu", "list", undefined, true);
+        make_template("menu", "list", undefined, true, function (cb){ 
+             app.api.menu.list(function(code,array){
+                 if (code===200) {
+                     return cb ({menu:array});
+                 }
+                 return cb({});
+             });
+         });
         make_template("menu", "view");
         make_template("menu", "create");
         make_template("menu", "edit");
