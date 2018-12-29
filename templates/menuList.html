@@ -1,15 +1,20 @@
 <h1>Pizza 2 Go! Menu</h1>
 <table>
     <tr>
-        <th>Description</th><th>Price</th><th>Picture</th>
+        <th>Picture</th><th>Description</th><th>Price</th>
     </tr>
     {?:menu[]}{menu[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven}">
+        <td>
+            <form id="cartAdd_{id}" action="/api/cart" method="post">
+                <input type="image" src="{image_url}" alt="{description}" />
+                <input type="hidden" name="id"  value= "{$id}" />
+                <input type="hidden" name="quantity" value= "1" />
+            </form>
+        </td>
         <td id="desc_{id}">{description}</td>
         <td id="price_{id}">{price}</td>
-        <td>
-            <img class="menuImage" id="img_{id}" src="{image_url}" alt="{description}"\>
-        </td>
+        
     </tr>
     {:?}
 </table>

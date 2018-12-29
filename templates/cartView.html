@@ -1,15 +1,16 @@
 <h1>Shopping Cart</h1>
 <table>
     <tr>
-        <th>Description</th><th>Price</th><th>Picture</th>
+        <th>Picture</th><th>Description</th><th>Price</th><th>Quantity</th>
     </tr>
-    {?:cart[]}{menu[]}{:else:}
+    {?:cart[]}{cart[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven}">
-        <td id="desc_{id}">{description}</td>
-        <td id="price_{id}">{price}</td>
         <td>
             <img class="menuImage" id="img_{id}" src="{image_url}" alt="{description}"\>
         </td>
+        <td id="desc_{id}">{description}</td>
+        <td id="price_{id}">{price}</td>
+        <td id="quantity_{id}">{quantity}</td>
     </tr>
     {:?}
 </table>
