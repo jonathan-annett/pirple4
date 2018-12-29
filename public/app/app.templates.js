@@ -4,68 +4,96 @@ app.make_templates= function (make_template) {
     
     make_template("user", "create", "account");
     
-    make_template("user", "edit",   "account", function (vars,cb){ 
-          app.api.user.get(function(code,user){
-              if (code===200) {
-                  var user_keys = Object.keys(user);
-                  for(var i = 0; i < user_keys.length; i++) {
-                      var user_key = user_keys[i];
-                      vars["user."+user_key] = user[user_key];
+    make_template(
+        "user|account",    "edit",   
+        
+        // form variable filter (called prior to html render)
+        function (vars,cb){ 
+            
+              // merge users current data in with global vars from server
+              app.api.user.get(function(code,user){
+                  if (code===200) {
+                      var user_keys = Object.keys(user);
+                      for(var i = 0; i < user_keys.length; i++) {
+                          var user_key = user_keys[i];
+                          vars["user."+user_key] = user[user_key];
+                      }
                   }
-              }
-              return cb(vars);
-          });
-    });
-    
-    make_template("user", "deleted", "account");
-    
-    make_template("token", "create", "session", function (vars,cb){ 
-        
-        if (app.config.sessionToken && app.config.sessionToken. email) {
-            vars.email = app.config.sessionToken.email;
+                  return cb(vars);
+              });
         }
+    );
+    
+    make_template(
+        "user|account", "deleted"
+    );
+    
+    make_template(
         
-        return cb(vars);
-    });
+        "token|session", "create",
+
+        // form variable filter (called prior to html render)
+        function(vars, cb) {
     
-    make_template("token", "deleted", "session");
+            // merge sessionToken email in with global vars from server
+            if (app.config.sessionToken && app.config.sessionToken.email) {
+                vars.email = app.config.sessionToken.email;
+            }
     
-    make_template("menu", "list", undefined, function (vars,cb){ 
-         app.api.menu.get(function(code,array){
-             if (code===200) {
-                 vars.menu=array;
-             }
-             return cb(vars);
-         });
-    });
+            return cb(vars);
+        }
+    );
+    
+    make_template("token|session", "deleted");
+    
+    make_template(
+        "menu", "list", 
+        function (vars,cb){ 
+            console.log({before:vars});
+            app.api.menu.get(function(code,array){
+                if (code===200) {
+                    vars.menu=array;
+                }
+                console.log({after:vars});
+                return cb(vars);
+            });
+        }
+    );
      
     make_template("menu", "view");
     make_template("menu", "create");
     make_template("menu", "edit");
     
-    make_template("cart", "view", undefined, function (vars,cb){ 
+    make_template(
         
-        vars["cart.total"] = vars.cart.total;
-        var cart=[];
+        "cart", "view", 
         
-        var item_keys = Object.keys(vars.cart.items);
-        for(var i = 0; i < item_keys.length; i++) {
-            var item_key = item_keys[i];
-            var item = vars.cart.items[item_key];
-            item.id = item_key; 
-            cart.push(item);
+        // form variable filter (called prior to html render)
+        function (vars,cb){ 
+            
+            //flatten the cart 
+            vars["cart.total"] = vars.cart.total;
+            var cart=[];
+            
+            var item_keys = Object.keys(vars.cart.items);
+            for(var i = 0; i < item_keys.length; i++) {
+                var item_key = item_keys[i];
+                var item = vars.cart.items[item_key];
+                item.id = item_key; 
+                cart.push(item);
+            }
+            vars.cart = cart;
+            
+            cb(vars);
+            
         }
-        vars.cart = cart;
-        
-        cb(vars);
-        
-    });
+    );
     make_template("cart", "checkout");
     
     make_template("order", "complete");
     
     make_template("order", "failed");
-    make_template("order", "list", undefined);
+    make_template("order", "list");
     make_template("order", "view");
 
 };
@@ -77,7 +105,7 @@ app.make_templates= function (make_template) {
 
 */
 
-
+app.after_submit={};
 app.buttons = {};
 
 // invoked after the account/create page has been loaded dynamically into the contents div
@@ -115,7 +143,7 @@ app.buttons.logoutButton = function(){
 
 */
 
-app.after_submit={};
+
 app.after_submit._generic = function (responsePayload , payload, formId) {
     if (typeof formId==='string'&&formId.substr(0,8)==="cartAdd_") {
         return app.template_links["cart/view"]();

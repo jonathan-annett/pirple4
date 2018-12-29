@@ -139,7 +139,11 @@ app.init.generate_templates = function() {
         }
     };
 
-    var make_template = function(path, op, path_alias, var_getter) {
+    var make_template = function(path_alias, op, var_getter) {
+        
+        path_alias = path_alias.split("|");
+        var path = path_alias.shift();
+        path_alias = path_alias[0];
 
         var linkpath = path_alias || path;
         // camelcase "account","create" --> accountCreate
