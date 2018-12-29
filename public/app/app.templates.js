@@ -1,4 +1,5 @@
 /* global app */
+
 app.make_templates= function (make_template) {
     
     make_template("user", "create", "account");
@@ -126,4 +127,4 @@ app.after_submit.sessionCreate = function(token) {
        // display the full menu 
         app.template_links["menu/list"]();
     });
-}
+};

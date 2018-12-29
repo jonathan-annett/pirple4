@@ -458,4 +458,4 @@ app.init.localStorage = function() {
             app.setLoggedInClass(false);
         }
     }
-}
+};
