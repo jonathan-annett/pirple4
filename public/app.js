@@ -24,7 +24,7 @@ app.helpers.resolve_uri=function(url){
     }
 };
 
-[[["public/app/app.form.js"]]];
+[[["public/app/app.forms.js"]]];
 ([[["lib/helpers/html_merge.js"]]])(app.helpers);
 ([[["lib/helpers/validate_forms.js"]]])(app.helpers);
 app.helpers.validate.default_image_url = "/public/default.png";
