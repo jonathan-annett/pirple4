@@ -6,7 +6,11 @@ app.make_templates= function (make_template) {
     make_template("user", "edit",   "account", function (vars,cb){ 
           app.api.user.get(function(code,user){
               if (code===200) {
-                  vars.user = user;
+                  var user_keys = Object.keys(user);
+                  for(var i = 0; i < user_keys.length; i++) {
+                      var user_key = user_keys[i];
+                      vars["user."+user_key] = user[user_key];
+                  }
               }
               return cb(vars);
           });
