@@ -29,7 +29,6 @@ app.helpers.resolve_uri=function(url){
 ([[["lib/helpers/validate_forms.js"]]])(app.helpers);
 app.helpers.validate.default_image_url = "/public/default.png";
 
-
 app.helpers.build_uri = function(path,queryParams,cb){
     var uri = Object.keys(queryParams).reduce(function(uri,key,index){
         return uri+(index===0?'?':'&')+key+'='+encodeURIComponent(queryParams[key]);
@@ -172,12 +171,9 @@ app.api.request = function (path,payloadIn,options,cb) {
 
 };
 
-
 [[["public/app/app.templates.js"]]];
 
 [[["public/app/app.init.js"]]];
-
-
 
 app.logout = function(template,cb){
     // determine what template to load after logging out
@@ -217,8 +213,6 @@ app.logout = function(template,cb){
         
     });
 };
-
-
 
 window.onload=app.init;
 
