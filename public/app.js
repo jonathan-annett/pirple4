@@ -177,15 +177,17 @@ app.submitFormData = function (frmId,path,method,cb){
     var 
     
     payload = app.helpers.getFormData(frmId),
-    if (payload._method) {
-        method = payload._method;
-        delete payload._method;
-    }
+    
     error_message=function(code,message) {
        if (typeof cb==='function') {
           cb(code,{Error:message},payload);// note extra parameter for payload
        }
     };
+    
+    if (payload._method) {
+        method = payload._method;
+        delete payload._method;
+    }
  
     
     if (typeof payload!=='object') {
