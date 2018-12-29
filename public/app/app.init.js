@@ -216,44 +216,59 @@
                             variables = {};
                     }
                     
-                    var_getter(variables,function (variables) {
-                         if (templateCache[formId]) {
-         
-                             app.helpers.mergeVariables(templateCache[formId].rawHtml, variables, '', function(html) {
-         
-                                 exit_200(formId, {
-                                     cookedHtml: html,
-                                     variables: templateCache[formId].variables
-                                 }, cb);
-         
-                             });
-         
-                         } else {
-         
-                             return app.api.html.post({
-                                 formId: formId,
-                                 variables: variables,
-                                 handler: path,
-                                 operation: op
-                             },
-         
-                             function(code, pageInfo) {
-                                 if (code == 200) {
-                                     templateCache[formId] = pageInfo;
-                                     exit_200(formId, pageInfo, cb);
+                
+                     if (templateCache[formId]) {
+                         
+                         var_getter(templateCache[formId].variables,function (variables) {
+                            app.helpers.mergeVariables(templateCache[formId].rawHtml, variables, '', function(html) {
+        
+                                exit_200(formId, {
+                                    rawHtml    : templateCache[formId].rawHtml,
+                                    cookedHtml : html,
+                                    variables  : variables
+                                }, cb);
+        
+                            }); 
+                         });
+                         
+     
+                     } else {
+     
+                         return app.api.html.post({
+                             formId: formId,
+                             variables: variables,
+                             handler: path,
+                             operation: op
+                         },
+     
+                         function(code, pageInfo) {
+                             if (code == 200) {
+                                 templateCache[formId] = pageInfo;
+                                 
+                                 var_getter(pageInfo.variables,function (variables) {
+                                      exit_200(formId, {
+                                          cookedHtml:pageInfo.cookedHtml,
+                                          rawHtml:pageInfo.rawHtml,
+                                          variables:variables
+                                      }, cb);   
+                                 });
+                                 
+                                 
+                             } else {
+                                 if ([403, 401].indexOf(code) >= 0) {
+                                     // log the user out
+                                     app.logout("session/create");
+             
                                  } else {
-                                     if ([403, 401].indexOf(code) >= 0) {
-                                         // log the user out
-                                         app.logout("session/create");
-                 
-                                     } else {
-                                         exit_err(code, "error: http error " + code, cb);
-                                     }
+                                     exit_err(code, "error: http error " + code, cb);
                                  }
-                             });
-         
-                         }
-                    });
+                             }
+                         });
+     
+                     }
+                     
+                         
+                    
     
                     
                 };
