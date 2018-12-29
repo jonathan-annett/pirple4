@@ -14,12 +14,12 @@
             <form id="cartQuantity_{$id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="PUT"/>
                 <input type="hidden" name="id" value="{id}"/>
-                <input type="text" name="quantity" value="{quantity}"/>
+                <input class="cartQuantity" type="text" name="quantity" value="{quantity}"/>
             </form>
             <form id="cartDelete_{$id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="DELETE"/>
                 <input type="hidden" name="id" value="{id}"/>
-                <input type="image" src="public/trash.png" alt="Remove item(s) from cart"/>
+                <input class="cartDeleteImage" type="image" src="public/trash.png" alt="Remove item(s) from cart"/>
             </form>
         </td>
     </tr>

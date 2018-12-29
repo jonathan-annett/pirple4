@@ -212,6 +212,12 @@ body.index .blurb{
    height:100px;
 }
 
+.cartDeleteImage {
+    
+    width : auto;
+    height : 24px;
+}
+
 .menuRowEven {
    background-color: #d0efed; 
 }
@@ -220,6 +226,9 @@ body.index .blurb{
    background-color: #d1efd0;
 }
 
+.cartQuantity {
+    width : 50px;
+}
 
 hr {
   margin: 30px 0;
