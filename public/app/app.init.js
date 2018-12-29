@@ -8,7 +8,6 @@ app.init = function() {
     app.init.localStorage();
 };
 
-
 // auto generate the api tool stubs
 // this creates app.api.(user,token,cart,menu,order).(get,post,put,delete) etc
 app.init.generate_api_stubs = function(paths) {
@@ -50,8 +49,6 @@ app.init.generate_api_stubs = function(paths) {
         };
     });
 };
-
-
 
 // auto generate the template generators
 // creates app.templates.PATH.OPERATION(data,context, cb)
@@ -278,10 +275,6 @@ app.init.generate_templates = function() {
 
     app.make_templates(make_template);
 };
-
-
-
-
 
 // app.interceptFormSubmits attaches a generic callback to prevent default form submit
 // and use our own javascript AJAX style submit without losing current browser page.

@@ -23,6 +23,7 @@ app.helpers.resolve_uri=function(url){
         return url;
     }
 };
+
 app.helpers.setInput = {
   text     : function(el,value) { el.value = value; },
   checkbox : function(el,value) { if (value) el.checked=true; else el.checked=false;}
@@ -30,8 +31,9 @@ app.helpers.setInput = {
 app.helpers.setInput.password=app.helpers.setInput.text;
 
 app.helpers.getInput = {
-  text     : function(el) { return el.value; },
-  checkbox : function(el) { return el.checked; }
+  text     : function(db,key,el) { db[key] = el.value; },
+  checkbox : function(db,key,el) { db[key] = el.checked; },
+  password : function(db,key,el) { if (el.value.length>0) db[key] = el.value; }
 };
 app.helpers.getInput.password=app.helpers.getInput.text;
 
@@ -51,7 +53,7 @@ app.helpers.getFormData = function (frmId) {
 
     Object.keys(elements).forEach(function(i){
       var fn,el = elements[i];
-      if (el.name && (fn = app.helpers.getInput[el.type])) result[el.name]=fn(el);
+      if (el.name && typeof (fn = app.helpers.getInput[el.type])==='function') fn(result,el.name,el);
     });
     return result;
 };
