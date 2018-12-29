@@ -172,47 +172,6 @@ app.api.request = function (path,payloadIn,options,cb) {
 
 };
 
-app.submitFormData = function (frmId,path,method,cb){
-    
-    var 
-    
-    payload = app.helpers.getFormData(frmId),
-    
-    error_message=function(code,message) {
-       if (typeof cb==='function') {
-          cb(code,{Error:message},payload);// note extra parameter for payload
-       }
-    };
-    
-    if (payload._method) {
-        method = payload._method;
-        delete payload._method;
-    }
- 
-    
-    if (typeof payload!=='object') {
-        return error_message(500,"could not get valid payload for "+frmId+" in submitFormData("+frmId+")" );
-    }
-    
-    if (typeof app.api[path]!=='object') {
-        return error_message(500,path+" is not a valid path for the API" );
-    }
-    
-    var fn=app.api[path][method];
-    if (typeof fn==='function') {
-       fn(payload,function(code,responsePayload){
-          if (typeof cb==='function') {
-            cb(code,responsePayload,payload);// note extra param for submitted payload.
-          }  
-       });
-    } else {
-       if (typeof cb==='function') {
-           return error_message(500,method+" is not a valid method for "+path+" in app.submitFormData("+frmId+")");
-       }
-    }
- 
-};
-
 
 [[["public/app/app.templates.js"]]];
 
