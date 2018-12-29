@@ -4,9 +4,7 @@
     <tr>
         <th>Description</th><th>Price</th><th>Picture</th>
     </tr>
-    {?:menu[]}
-    {menu[]}
-    {:else:}
+    {?:menu[]}{menu[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven}">
         <td id="desc_{id}">{description}</td>
         <td id="price_{id}">{price}</td>
