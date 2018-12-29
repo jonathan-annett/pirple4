@@ -277,10 +277,15 @@ app.init.generate_templates = function() {
 
             app.templates[path][op] = function(variables, cb) {
 
-                if (typeof variables === 'function') {
-                    // eg app.templates.user.create(function(){...})
-                    cb = variables;
-                    variables = {};
+                switch (typeof variables) {  
+                    case  'function' : 
+                       // eg app.templates.user.create(function(){...})
+                       cb = variables;
+                       variables = {};
+                       break;
+                    case 'undefined' :
+                        // eg app.templates.user.create(function(){...})
+                        variables = {};
                 }
 
                 if (templateCache[formId]) {
