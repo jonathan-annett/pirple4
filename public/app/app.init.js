@@ -210,60 +210,54 @@
                 
                 app.templates[path][op] = function(variables, cb) {
     
-                    var serve_template = function (variables) {
-                        if (templateCache[formId]) {
-        
-                            app.helpers.mergeVariables(templateCache[formId].rawHtml, variables, '', function(html) {
-        
-                                exit_200(formId, {
-                                    cookedHtml: html,
-                                    variables: templateCache[formId].variables
-                                }, cb);
-        
-                            });
-        
-                        } else {
-        
-                            return app.api.html.post({
-                                formId: formId,
-                                variables: variables,
-                                handler: path,
-                                operation: op
-                            },
-        
-                            function(code, pageInfo) {
-                                if (code == 200) {
-                                    templateCache[formId] = pageInfo;
-                                    exit_200(formId, pageInfo, cb);
-                                } else {
-                                    if ([403, 401].indexOf(code) >= 0) {
-                                        // log the user out
-                                        app.logout("session/create");
-                
-                                    } else {
-                                        exit_err(code, "error: http error " + code, cb);
-                                    }
-                                }
-                            });
-        
-                        }
-                    };
-                    
                     if (typeof variables==='function') { 
                             // eg app.templates.user.create(function(){...})
                             cb = variables;
-                            variables = undefined;
-                    }
-                    if (typeof variables==='undefined') {
-                        // eg app.templates.user.create(function(){...})
-                        // eg app.templates.user.create()
-                        return var_getter(serve_template);
+                            variables = {};
                     }
                     
-                    return serve_template(variables);
-
+                    var_getter(variables,function (variables) {
+                         if (templateCache[formId]) {
+         
+                             app.helpers.mergeVariables(templateCache[formId].rawHtml, variables, '', function(html) {
+         
+                                 exit_200(formId, {
+                                     cookedHtml: html,
+                                     variables: templateCache[formId].variables
+                                 }, cb);
+         
+                             });
+         
+                         } else {
+         
+                             return app.api.html.post({
+                                 formId: formId,
+                                 variables: variables,
+                                 handler: path,
+                                 operation: op
+                             },
+         
+                             function(code, pageInfo) {
+                                 if (code == 200) {
+                                     templateCache[formId] = pageInfo;
+                                     exit_200(formId, pageInfo, cb);
+                                 } else {
+                                     if ([403, 401].indexOf(code) >= 0) {
+                                         // log the user out
+                                         app.logout("session/create");
+                 
+                                     } else {
+                                         exit_err(code, "error: http error " + code, cb);
+                                     }
+                                 }
+                             });
+         
+                         }
+                    });
+    
                     
-                };    
+                };
+                
             } else {
             
                 app.templates[path][op] = function(variables, cb) {
@@ -321,35 +315,10 @@
             app.template_links[linkpath + "/" + op] = app.templates[path][op];
         };
 
-        make_template("user", "create", "account");
-        make_template("user", "edit", "account");
-        make_template("user", "deleted", "account");
-        make_template("token", "create", "session", false, function (cb){ 
-            if (app.config.sessionToken && app.config.sessionToken. email) {
-                return cb({email : app.config.sessionToken.email});
-            }
-            return cb({});
-        });
-        make_template("token", "deleted", "session");
-        make_template("menu", "list", undefined, true, function (cb){ 
-             app.api.menu.get(function(code,array){
-                 if (code===200) {
-                     return cb ({menu:array});
-                 }
-                 return cb({});
-             });
-         });
-        make_template("menu", "view");
-        make_template("menu", "create");
-        make_template("menu", "edit");
-        make_template("cart", "view", undefined, true);
-        make_template("cart", "checkout");
-        make_template("order", "complete");
-        make_template("order", "failed");
-        make_template("order", "list", undefined, true);
-        make_template("order", "view");
-
+        app.make_templates(make_template);
     };
+    
+    
 
 
 

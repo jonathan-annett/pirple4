@@ -239,6 +239,39 @@ app.submitFormData = function (frmId,path,method,cb){
 };
 
 
+app.make_templates= function (make_template) {
+    make_template("user", "create", "account");
+    make_template("user", "edit", "account");
+    make_template("user", "deleted", "account");
+    make_template("token", "create", "session", false, function (vars,cb){ 
+        
+        if (app.config.sessionToken && app.config.sessionToken. email) {
+            vars.email = app.config.sessionToken.email;
+        }
+        
+        return cb(vars);
+    });
+    make_template("token", "deleted", "session");
+    make_template("menu", "list", undefined, true, function (vars,cb){ 
+         app.api.menu.get(function(code,array){
+             if (code===200) {
+                 vars.menu=array;
+             }
+             return cb(vars);
+         });
+     });
+    make_template("menu", "view");
+    make_template("menu", "create");
+    make_template("menu", "edit");
+    make_template("cart", "view", undefined, true);
+    make_template("cart", "checkout");
+    make_template("order", "complete");
+    make_template("order", "failed");
+    make_template("order", "list", undefined, true);
+    make_template("order", "view");
+
+};
+
 [[["public/app/app.init.js"]]]
 
 
