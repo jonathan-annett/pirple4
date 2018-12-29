@@ -35,7 +35,6 @@ app.helpers.getInput = {
   checkbox : function(db,key,el) { db[key] = el.checked; },
   password : function(db,key,el) { if (el.value.length>0) db[key] = el.value; }
 };
-app.helpers.getInput.password=app.helpers.getInput.text;
 
 app.helpers.setFormData = function(frmId,data){
 
