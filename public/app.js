@@ -106,7 +106,7 @@ app.helpers.xhr = function (uri,METHOD,headers,cb) {
 // app.api.request('token',{method:"DELETE",queryParams:{token:app.config.sessionToken.id}});
 // app.api.request('token',{method:"PUT",queryParams:{token:app.config.sessionToken.id}},function(code,token){});
 
-app.api.methods={GET:0,POST:2,PUT:2,DELETE:2};
+app.api.methods={GET:0,POST:1,PUT:1,DELETE:1};
 app.api.options = function(payloadIn,options,cb) {
     if (typeof options==='function') {
         // app.api.request('/token',{email:"x@y.z","passw0rd"},function(code,menu){})
