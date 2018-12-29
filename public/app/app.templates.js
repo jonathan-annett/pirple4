@@ -101,6 +101,9 @@ app.buttons.logoutButton = function(){
 
 app.after_submit={};
 app.after_submit._generic = function (responsePayload , payload, formId) {
+    if (typeof formId==='string'&&formId.substr(0,8)==="cartAdd_") {
+        return app.template_links["cart/view"]();
+    }
     console.log({
         warning:{
             info:"unhandled app.after_submit",
