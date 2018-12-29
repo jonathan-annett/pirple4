@@ -207,6 +207,19 @@ body.index .blurb{
   width : 150px;
 }
 
+.menuImage {
+   height:100px;   
+}
+
+.menuRowEven {
+   background-color: #d0efed; 
+}
+
+.menuRowOdd {
+   background-color: #d1efd0;
+}
+
+
 hr {
   margin: 30px 0;
 }
@@ -264,7 +277,6 @@ th{
   padding: 10px;
   border-color: #000;
   border-style: dotted;
-  padding: 10px;
   margin: 0 0 10px 0;
   background-color: #efefef;
 }
