@@ -332,7 +332,7 @@
         });
         make_template("token", "deleted", "session");
         make_template("menu", "list", undefined, true, function (cb){ 
-             app.api.menu.list(function(code,array){
+             app.api.menu.get(function(code,array){
                  if (code===200) {
                      return cb ({menu:array});
                  }
