@@ -4,7 +4,7 @@
     <tr>
         <th>Description</th><th>Price</th><th>Picture</th>
     </tr>
-    {?:menu[]}<tr>
+    {?:menu[]}{menu[]}{:else:}<tr>
         <td id="desc_{id}">{description}</td><td id="price_{id}">{price}</td><td><img id="img_{id}" src="{img_url}" alt="{description}"></td>
     </tr>{:?}
 </table>
