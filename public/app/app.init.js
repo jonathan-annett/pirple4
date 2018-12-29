@@ -141,61 +141,8 @@ app.init.generate_templates = function() {
             });
         }
     };
-/*
-    var make_array_template = function(formId, path, op) {
-        // extends array template function to allow arrayed delivery
-        app.templates[path][op].array = function(array, context, cb) {
 
-            if (typeof context === 'function') {
-                cb = context;
-                context = {};
-            } else {
-                if (typeof array === 'function') {
-                    cb = array;
-                    array = {};
-                }
-            }
-
-
-            var exit_arrayed = function() {
-                app.helpers.mergeVariableArray(templateCache[formId].rawHtml, array, '', function(html) {
-                    exit_200(
-                    formId, {
-                        cookedHtml: html,
-                        variables: templateCache[formId].variables
-                    },
-                    cb);
-                });
-            };
-
-            if (templateCache[formId]) {
-
-                exit_arrayed();
-
-            } else {
-
-                // request html template for 
-                return app.api.html.post({
-                    formId: formId,
-                    variables: {},
-                    handler: path,
-                    operation: op,
-                    context: context
-                },
-
-                function(code, pageInfo) {
-                    if (code == 200) {
-                        templateCache[formId] = pageInfo;
-                        exit_arrayed();
-                    } else {
-                        exit_err(code, "error: http code " + code, cb);
-                    }
-                });
-            }
-        };
-    };
-*/
-    var make_template = function(path, op, path_alias, arrayed, var_getter) {
+    var make_template = function(path, op, path_alias, var_getter) {
 
         var linkpath = path_alias || path;
         // camelcase "account","create" --> accountCreate
@@ -325,10 +272,6 @@ app.init.generate_templates = function() {
             };
 
         }
-
-        //if (arrayed) {
-            //make_array_template(formId, path, op);
-        //}
 
         app.template_links[linkpath + "/" + op] = app.templates[path][op];
     };

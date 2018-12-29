@@ -2,10 +2,19 @@
 app.make_templates= function (make_template) {
     
     make_template("user", "create", "account");
-    make_template("user", "edit", "account");
+    
+    make_template("user", "edit",   "account", function (vars,cb){ 
+          app.api.user.get(function(code,user){
+              if (code===200) {
+                  vars.user = user;
+              }
+              return cb(vars);
+          });
+    });
+    
     make_template("user", "deleted", "account");
     
-    make_template("token", "create", "session", false, function (vars,cb){ 
+    make_template("token", "create", "session", function (vars,cb){ 
         
         if (app.config.sessionToken && app.config.sessionToken. email) {
             vars.email = app.config.sessionToken.email;
@@ -16,7 +25,7 @@ app.make_templates= function (make_template) {
     
     make_template("token", "deleted", "session");
     
-    make_template("menu", "list", undefined, true, function (vars,cb){ 
+    make_template("menu", "list", undefined, function (vars,cb){ 
          app.api.menu.get(function(code,array){
              if (code===200) {
                  vars.menu=array;
@@ -29,13 +38,13 @@ app.make_templates= function (make_template) {
     make_template("menu", "create");
     make_template("menu", "edit");
     
-    make_template("cart", "view", undefined, true);
+    make_template("cart", "view", undefined);
     make_template("cart", "checkout");
     
     make_template("order", "complete");
     
     make_template("order", "failed");
-    make_template("order", "list", undefined, true);
+    make_template("order", "list", undefined);
     make_template("order", "view");
 
 };
