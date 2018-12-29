@@ -203,7 +203,8 @@ body.index .blurb{
 }
 
 .formBusy {
-  visibility: hidden;  
+  visibility: hidden; 
+  width : 150px;
 }
 
 hr {
