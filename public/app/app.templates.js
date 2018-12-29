@@ -146,9 +146,24 @@ app.buttons.logoutButton = function(){
 
 
 app.after_submit._generic = function (responsePayload , payload, formId) {
-    if (typeof formId==='string'&&formId.substr(0,8)==="cartAdd_") {
-        return app.template_links["cart/view"]();
+    
+    var prefixRedirects = {
+        "cartAdd_"      : "cart/view",
+        "cartDelete_"   : "cart/view",
+        "cartQuantity_" : "cart/view"
+    };
+    if (typeof formId==='string') {
+        
+        var frm_keys = Object.keys(prefixRedirects);
+        for(var i = 0; i < frm_keys.length; i++) {
+             var formPrefix = frm_keys[i];
+             if (formId.substr(0,formPrefix.length)===formPrefix) {
+                return app.template_links[prefixRedirects[formPrefix]]();
+            }
+        }
+        
     }
+    
     console.log({
         warning:{
             info:"unhandled app.after_submit",
