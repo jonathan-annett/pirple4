@@ -332,6 +332,8 @@ app.init.interceptFormSubmits = function() {
                     //}
                 } else {
                     // If successful, send to form response processor
+                    var formSuccess = document.querySelector("#" + formId + " .formSuccess");
+                    if (formSuccess) formSuccess.style.display = 'block';
                     var processor = app.after_submit[formId] || app.after_submit._generic;
                     processor(responsePayload, payload, formId);
     
