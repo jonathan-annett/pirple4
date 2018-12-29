@@ -11,20 +11,18 @@ app.make_templates= function (make_template) {
         function (vars,cb){ 
             
               // merge users current data in with global vars from server
-              console.log({before:vars});
               
-              app.api.user.get(function(code,user){
-                  if (code===200) {
-                      var user_keys = Object.keys(user);
+              //app.api.user.get(function(code,user){
+                  //if (code===200) {
+                      var user_keys = Object.keys(vars.user);
                       for(var i = 0; i < user_keys.length; i++) {
                           var user_key = user_keys[i];
-                          vars["user."+user_key] = user[user_key];
+                          vars["user."+user_key] = vars.user[user_key];
                       }
-                  }
-                  console.log({after:vars});
-              
+                 // }
+               
                   return cb(vars);
-              });
+              //});
         }
     );
     
