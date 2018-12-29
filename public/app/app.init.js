@@ -355,7 +355,7 @@
             var el_keys = Object.keys(form.elements);
             for(var i = 0; i < el_keys.length; i++) {
                 var el = form.elements[el_keys[i]];
-                if (["type","password"].indexOf(el.type)>=0){
+                if (["text","password"].indexOf(el.type)>=0){
                      if (el.autofocus){
                         el.focus();
                         unfocussed=false;
