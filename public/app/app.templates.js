@@ -131,7 +131,7 @@ app.buttons["cart/view"] = function(){
 
 // invoked after the account/edit page has been loaded dynamically into the contents div
 app.buttons["account/edit"] = function(){
-    console.log(arguments);
+    app.clearTemplateCache("accountEdit");
 };
 
 app.buttons.logoutButton = function(){
