@@ -195,7 +195,7 @@
             };
         };
 
-        var make_template = function(path, op, path_alias, arrayed) {
+        var make_template = function(path, op, path_alias, arrayed, var_getter) {
 
             var linkpath = path_alias || path;
             // camelcase "account","create" --> accountCreate
@@ -207,9 +207,18 @@
             //
             app.templates[path][op] = function(variables, cb) {
 
-                if (typeof variables === 'function') {
-                    cb = variables;
-                    variables = {};
+                switch (typeof variables) {
+                    case 'function': 
+                        // eg app.templates.user.create(function(){...})
+                        cb = variables;
+                        variables = {};
+                        break;
+                    case 'undefined' :
+                        // eg app.templates.user.create()
+                        if (typeof var_getter==='function') {
+                            variables = var_getter();
+                        }    
+                        break;
                 }
 
                 if (templateCache[formId]) {
@@ -260,7 +269,12 @@
         make_template("user", "create", "account");
         make_template("user", "edit", "account");
         make_template("user", "deleted", "account");
-        make_template("token", "create", "session");
+        make_template("token", "create", "session", false, function (){ 
+            if (app.config.sessionToken && app.config.sessionToken. email) {
+                return {email : app.config.sessionToken.email}
+            }
+            return {}
+        });
         make_template("token", "deleted", "session");
         make_template("menu", "list", undefined, true);
         make_template("menu", "view");
