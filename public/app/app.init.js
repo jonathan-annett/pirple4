@@ -342,9 +342,14 @@
             });
 
         };
+        
+        var captureFocus = function (form) {
+             console.log(form.elements);
+        };
 
         var captureFormSubmit = function(form) {
-            form.addEventListener("submit", onFormSubmit)
+            form.addEventListener("submit", onFormSubmit);
+            captureFocus(form);
         };
 
         document.querySelectorAll("form").forEach(captureFormSubmit);
