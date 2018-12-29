@@ -312,6 +312,9 @@
                     document.querySelector(sel).style.display = 'none';
                 }
             });
+            
+            var formBusy = document.querySelector("#" + formId + " .formBusy");
+            formBusy.style.visibility = "visible" ;
 
             // submit the form data using API
             app.submitFormData(
@@ -319,6 +322,9 @@
                 app.helpers.resolve_uri(path).substr(4), 
                 method, 
                 function(code, responsePayload, payload) {
+                    
+                    formBusy.style.visibility = "hidden" ;
+
                     // Display an error on the form if needed
                     if (code !== 200) {
     
