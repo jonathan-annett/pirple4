@@ -300,8 +300,9 @@ app.init.interceptFormSubmits = function() {
 
         var formBusy = document.querySelector("#" + formId + " .formBusy");
         
-        formBusy.style.visibility = "visible";
-
+        if (formBusy) {
+            formBusy.style.visibility = "visible";
+        }
         // submit the form data using API
         app.submitFormData(
             formId,
@@ -310,8 +311,9 @@ app.init.interceptFormSubmits = function() {
     
             function(code, responsePayload, payload) {
     
-                formBusy.style.visibility = "hidden";
-    
+                if (formBusy) {
+                    formBusy.style.visibility = "hidden";
+                }
                 // Display an error on the form if needed
                 if (code !== 200) {
     
