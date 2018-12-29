@@ -1,1 +1,15 @@
-<H1>not implemented</H1>
+<h1>Shopping Cart</h1>
+<table>
+    <tr>
+        <th>Description</th><th>Price</th><th>Picture</th>
+    </tr>
+    {?:cart[]}{menu[]}{:else:}
+    <tr class="menuRow{_meta.indexOddEven}">
+        <td id="desc_{id}">{description}</td>
+        <td id="price_{id}">{price}</td>
+        <td>
+            <img class="menuImage" id="img_{id}" src="{image_url}" alt="{description}"\>
+        </td>
+    </tr>
+    {:?}
+</table>
