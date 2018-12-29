@@ -24,7 +24,6 @@ app.helpers.resolve_uri=function(url){
     }
 };
 
-
 [[["public/app/app.form.js"]]];
 ([[["lib/helpers/html_merge.js"]]])(app.helpers);
 ([[["lib/helpers/validate_forms.js"]]])(app.helpers);
