@@ -343,13 +343,23 @@
 
         };
         
-        var captureFocus = function (form) {
-             console.log(form.elements);
+        var captureAutoFocus = function (form) {
+            
+            var el_keys = Object.keys(form.elements);
+            for(var i = 0; i < el_keys.length; i++) {
+                var el = form.elements[el_keys[i]];
+                if (["type","password"].indexOf(el.type)>=0){
+                     if (el.autofocus){
+                        el.focus();
+                        return;
+                     }
+                 }
+            }
         };
 
         var captureFormSubmit = function(form) {
             form.addEventListener("submit", onFormSubmit);
-            captureFocus(form);
+            captureAutoFocus(form);
         };
 
         document.querySelectorAll("form").forEach(captureFormSubmit);
