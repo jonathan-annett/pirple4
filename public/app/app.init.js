@@ -207,18 +207,18 @@
             //
             app.templates[path][op] = function(variables, cb) {
 
-                switch (typeof variables) {
-                    case 'function': 
+                if (typeof variables==='function') { 
                         // eg app.templates.user.create(function(){...})
                         cb = variables;
-                        variables = {};
-                        break;
-                    case 'undefined' :
-                        // eg app.templates.user.create()
-                        if (typeof var_getter==='function') {
-                            variables = var_getter();
-                        }    
-                        break;
+                        variables = undefined;
+                }
+                
+                if (typeof variables==='undefined') {
+                    // eg app.templates.user.create(function(){...})
+                    // eg app.templates.user.create()
+                    if (typeof var_getter==='function') {
+                        variables = var_getter();
+                    }    
                 }
 
                 if (templateCache[formId]) {
