@@ -291,17 +291,17 @@ app.init.interceptFormSubmits = function() {
             method = this.method.toLowerCase();
 
         // Hide any messages currently shown due to a previous error.
+        var frmEls={};
         ["formError", "formSuccess"].forEach(function(el) {
-            var sel = "#" + formId + " ." + el;
-            if (document.querySelector(sel)) {
-                document.querySelector(sel).style.display = 'none';
+            frmEls[el]=document.querySelector("#" + formId + " ." + el)
+            if (frmEls[el]) {
+                frmEls[el].style.display = 'none';
             }
         });
-
-        var formBusy = document.querySelector("#" + formId + " .formBusy");
+        frmEls.formBusy = document.querySelector("#" + formId + " .formBusy");
         
-        if (formBusy) {
-            formBusy.style.visibility = "visible";
+        if (frmEls.formBusy) {
+            frmEls.formBusy.style.visibility = "visible";
         }
         // submit the form data using API
         app.submitFormData(
@@ -311,8 +311,8 @@ app.init.interceptFormSubmits = function() {
     
             function(code, responsePayload, payload) {
     
-                if (formBusy) {
-                    formBusy.style.visibility = "hidden";
+                if (frmEls.formBusy) {
+                    frmEls.formBusy.style.visibility = "hidden";
                 }
                 // Display an error on the form if needed
                 if (code !== 200) {
@@ -326,16 +326,19 @@ app.init.interceptFormSubmits = function() {
                     // Try to get the error from the api, or set a default error message
                     var error = typeof(responsePayload.Error) == 'string' ? responsePayload.Error : 'An error has occured, please try again';
     
-                    // Set the formError field with the error text
-                    document.querySelector("#" + formId + " .formError").innerHTML = error;
+                    if(frmEls.formError) {
+                        // Set the formError field with the error text
+                        frmEls.formError.innerHTML = error;
     
-                    // Show (unhide) the form error field on the form
-                    document.querySelector("#" + formId + " .formError").style.display = 'block';
+                        // Show (unhide) the form error field on the form
+                        frmEls.formError.style.display = 'block';
+                    }
                     //}
                 } else {
+                    if(frmEls.formSuccess) {
+                        frmEls.formSuccess.style.display = 'block';
+                    }
                     // If successful, send to form response processor
-                    var formSuccess = document.querySelector("#" + formId + " .formSuccess");
-                    if (formSuccess) formSuccess.style.display = 'block';
                     var processor = app.after_submit[formId] || app.after_submit._generic;
                     processor(responsePayload, payload, formId);
     
