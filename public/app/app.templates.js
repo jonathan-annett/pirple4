@@ -43,7 +43,10 @@ app.make_templates= function (make_template) {
     make_template("menu", "create");
     make_template("menu", "edit");
     
-    make_template("cart", "view", undefined);
+    make_template("cart", "view", undefined, function (vars,cb){ 
+        console.log({vars:vars});
+        
+    });
     make_template("cart", "checkout");
     
     make_template("order", "complete");
