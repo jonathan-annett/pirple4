@@ -11,6 +11,8 @@ app.make_templates= function (make_template) {
         function (vars,cb){ 
             
               // merge users current data in with global vars from server
+              console.log({before:vars});
+              
               app.api.user.get(function(code,user){
                   if (code===200) {
                       var user_keys = Object.keys(user);
@@ -19,6 +21,8 @@ app.make_templates= function (make_template) {
                           vars["user."+user_key] = user[user_key];
                       }
                   }
+                  console.log({after:vars});
+              
                   return cb(vars);
               });
         }
@@ -49,12 +53,11 @@ app.make_templates= function (make_template) {
     make_template(
         "menu", "list", 
         function (vars,cb){ 
-            console.log({before:vars});
             app.api.menu.get(function(code,array){
                 if (code===200) {
                     vars.menu=array;
                 }
-                console.log({after:vars});
+               
                 return cb(vars);
             });
         }
