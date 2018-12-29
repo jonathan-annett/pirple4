@@ -276,6 +276,10 @@ app.init.generate_templates = function() {
 
         app.template_links[linkpath + "/" + op] = app.templates[path][op];
     };
+    
+    app.clearTemplateCache = function(formId){
+        if (templateCache[formId]) delete templateCache[formId];  
+    };
 
     app.make_templates(make_template);
 };

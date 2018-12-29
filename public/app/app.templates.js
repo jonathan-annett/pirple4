@@ -12,17 +12,17 @@ app.make_templates= function (make_template) {
             
               // merge users current data in with global vars from server
               
-              //app.api.user.get(function(code,user){
-                  //if (code===200) {
+              app.api.user.get(function(code,user){
+                  if (code===200) {
                       var user_keys = Object.keys(vars.user);
                       for(var i = 0; i < user_keys.length; i++) {
                           var user_key = user_keys[i];
                           vars["user."+user_key] = vars.user[user_key];
                       }
-                 // }
+                  }
                
                   return cb(vars);
-              //});
+              });
         }
     );
     
@@ -126,7 +126,7 @@ app.buttons["menu/list"] = function(){
 
 // invoked after the cart/view page has been loaded dynamically into the contents div
 app.buttons["cart/view"] = function(){
-    console.log(arguments);
+    app.clearTemplateCache("cartView");
 };
 
 // invoked after the account/edit page has been loaded dynamically into the contents div
