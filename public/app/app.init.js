@@ -286,7 +286,7 @@ app.init.interceptFormSubmits = function() {
         e.preventDefault();
 
         // pull in formId,path & method from form object.
-        var formId = this.id,
+        var formId = this.getAttribute("id"),
             path = app.helpers.resolve_uri(this.action),
             method = this.method.toLowerCase();
 
