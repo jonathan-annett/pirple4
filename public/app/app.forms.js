@@ -4,6 +4,7 @@ app.helpers.setInput = {
   text     : function(el,value) { el.value = value; },
   checkbox : function(el,value) { if (value) el.checked=true; else el.checked=false;}
 };
+
 app.helpers.setInput.password=app.helpers.setInput.text;
 
 app.helpers.getInput = {

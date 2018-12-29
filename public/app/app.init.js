@@ -299,43 +299,45 @@ app.init.interceptFormSubmits = function() {
         });
 
         var formBusy = document.querySelector("#" + formId + " .formBusy");
+        
         formBusy.style.visibility = "visible";
 
         // submit the form data using API
         app.submitFormData(
-        formId,
-        app.helpers.resolve_uri(path).substr(4),
-        method,
-
-        function(code, responsePayload, payload) {
-
-            formBusy.style.visibility = "hidden";
-
-            // Display an error on the form if needed
-            if (code !== 200) {
-
-                // if ([403, 401].indexOf(code) >= 0) {
-                // log the user out
-                //    app.logout("account/deleted");
-
-                //} else {
-
-                // Try to get the error from the api, or set a default error message
-                var error = typeof(responsePayload.Error) == 'string' ? responsePayload.Error : 'An error has occured, please try again';
-
-                // Set the formError field with the error text
-                document.querySelector("#" + formId + " .formError").innerHTML = error;
-
-                // Show (unhide) the form error field on the form
-                document.querySelector("#" + formId + " .formError").style.display = 'block';
-                //}
-            } else {
-                // If successful, send to form response processor
-                var processor = app.after_submit[formId] || app.after_submit._generic;
-                processor(responsePayload, payload, formId);
-
+            formId,
+            app.helpers.resolve_uri(path).substr(4),
+            method,
+    
+            function(code, responsePayload, payload) {
+    
+                formBusy.style.visibility = "hidden";
+    
+                // Display an error on the form if needed
+                if (code !== 200) {
+    
+                    // if ([403, 401].indexOf(code) >= 0) {
+                    // log the user out
+                    //    app.logout("account/deleted");
+    
+                    //} else {
+    
+                    // Try to get the error from the api, or set a default error message
+                    var error = typeof(responsePayload.Error) == 'string' ? responsePayload.Error : 'An error has occured, please try again';
+    
+                    // Set the formError field with the error text
+                    document.querySelector("#" + formId + " .formError").innerHTML = error;
+    
+                    // Show (unhide) the form error field on the form
+                    document.querySelector("#" + formId + " .formError").style.display = 'block';
+                    //}
+                } else {
+                    // If successful, send to form response processor
+                    var processor = app.after_submit[formId] || app.after_submit._generic;
+                    processor(responsePayload, payload, formId);
+    
+                }
             }
-        });
+        );
 
     };
 
