@@ -220,44 +220,37 @@ app.init.generate_templates = function() {
                         // eg app.templates.user.create(function(){...})
                         variables = {};
                 }
-
-
-                if (templateCache[formId]) {
-
-                    var_getter(templateCache[formId].variables, function(variables) {
-                        app.helpers.mergeVariables(templateCache[formId].rawHtml, variables, '', function(html) {
+                
+                var loadTemplatePage = function (pageInfo){
+                    var_getter(pageInfo.variables, function(variables) {
+                        app.helpers.mergeVariables(pageInfo.rawHtml, variables, '', function(html) {
 
                             exit_200(formId, {
-                                rawHtml: templateCache[formId].rawHtml,
+                                rawHtml:    pageInfo.rawHtml,
                                 cookedHtml: html,
-                                variables: variables
+                                variables:  variables
                             }, cb);
 
                         });
                     });
+                };
 
 
+                if (templateCache[formId]) {
+                    return loadTemplatePage(templateCache[formId]);
                 } else {
 
                     return app.api.html.post({
-                        formId: formId,
+                        formId:    formId,
                         variables: variables,
-                        handler: path,
+                        handler:   path,
                         operation: op
                     },
 
                     function(code, pageInfo) {
                         if (code == 200) {
                             templateCache[formId] = pageInfo;
-
-                            var_getter(pageInfo.variables, function(variables) {
-                                exit_200(formId, {
-                                    cookedHtml: pageInfo.cookedHtml,
-                                    rawHtml: pageInfo.rawHtml,
-                                    variables: variables
-                                }, cb);
-                            });
-
+                            return loadTemplatePage (pageInfo);
 
                         } else {
                             if ([403, 401].indexOf(code) >= 0) {
