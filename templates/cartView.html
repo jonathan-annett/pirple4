@@ -10,7 +10,17 @@
         </td>
         <td id="desc_{id}">{description}</td>
         <td id="price_{id}">{price}</td>
-        <td id="quantity_{id}">{quantity}</td>
+        <td id="quantity_{id}">
+            <form id="update_qty_{$id}" action = "api/cart" >
+                <input type="hidden" name="_method" value="PUT"/>
+                <input type="hidden" name="id" value="{id}"/>
+                <input type="text" name="quantity" value="{quantity}"/>
+            </form>
+            <form id="delete_{$id}" action = "api/cart" >
+                <input type="hidden" name="_method" value="DELETE"/>
+                <input type="hidden" name="id" value="{id}"/>
+            </form>
+        </td>
     </tr>
     {:?}
 </table>
