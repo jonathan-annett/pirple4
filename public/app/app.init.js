@@ -343,26 +343,38 @@
 
         };
         
+        
+
+        var captureFormSubmit = function(form) {
+            form.addEventListener("submit", onFormSubmit);
+        };
+        
+        var unfocussed=true;
+        
         var captureAutoFocus = function (form) {
-            
             var el_keys = Object.keys(form.elements);
             for(var i = 0; i < el_keys.length; i++) {
                 var el = form.elements[el_keys[i]];
                 if (["type","password"].indexOf(el.type)>=0){
                      if (el.autofocus){
                         el.focus();
+                        unfocussed=false;
                         return;
                      }
                  }
             }
         };
-
-        var captureFormSubmit = function(form) {
-            form.addEventListener("submit", onFormSubmit);
-            captureAutoFocus(form);
-        };
-
-        document.querySelectorAll("form").forEach(captureFormSubmit);
+        
+        var forms = document.querySelectorAll("form");
+        
+        forms.forEach(captureFormSubmit);
+        
+        // dynamically created forms need a helping hand to find focus in life...
+        var form_keys = Object.keys(forms);
+        for(var i = 0; unfocussed && (i < form_keys.length); i++) {
+            var form_key = form_keys[i];
+            captureAutoFocus(forms[form_key]);
+        }
     };
 
 
