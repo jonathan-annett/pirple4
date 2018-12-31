@@ -28,11 +28,15 @@ app.init = function () {
     app.workers.start();
 };
 
+var debugMode = typeof v8debug === 'object';
 
-console.log(process.argv0);
-
-//app.init();
-
+if (debugMode) {
+    setTimeout(function(){
+        debugger;
+    },5000);
+} else {
+    app.init();
+}
 
 
 
