@@ -487,7 +487,8 @@ app.init.interceptButtonLinks = function() {
 
                 e.preventDefault();
                 
-                alert("oi");
+                //alert("oi");
+                document.querySelector("div.content").innerHTML = new Date().getTime().toString();
                 return;
                 
                 if (typeof clickHandler === "function") {
