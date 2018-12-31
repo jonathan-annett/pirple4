@@ -198,6 +198,13 @@ app.make_templates= function (make_template) {
 */
 
 app.after_submit={};
+
+app.before_template={}; 
+app.browser_variables={}; 
+app.after_template={};  
+app.before_submit={}; 
+app.after_submit={};
+
 app.buttons = {};
 
 // invoked after the account/create page has been loaded dynamically into the contents div

@@ -166,8 +166,16 @@ app.init.generate_templates = function() {
 
         app.templates[path] = app.templates[path] || {};
         
-        app.buttons[path] = after_submit;
 
+        
+        if (typeof before_submit=== 'function') {
+            app.before_submit[formId] = before_submit;
+        }
+        
+        if (after_submit) {
+            app.after_submit[formId] = after_submit;
+        }
+        
         //
 
         if (typeof browser_variables === 'function') {
@@ -185,52 +193,71 @@ app.init.generate_templates = function() {
                         variables = {};
                 }
                 
+                var cb_after_template=cb;
+                if (typeof after_template=== 'function') {   
+                    cb_after_template = function () {
+                        after_template();
+                        cb();
+                    }; 
+                }
+                
                 var loadTemplatePage = function (pageInfo){
                     browser_variables(pageInfo.variables, function(variables) {
                         app.helpers.mergeVariables(pageInfo.rawHtml, variables, '', function(html) {
 
-                            exit_200(formId, {
-                                rawHtml:    pageInfo.rawHtml,
-                                cookedHtml: html,
-                                variables:  variables
-                            }, cb);
+                            exit_200(
+                                formId, 
+                                {
+                                    rawHtml:    pageInfo.rawHtml,
+                                    cookedHtml: html,
+                                    variables:  variables
+                                }, 
+                                cb_after_template 
+                            );
 
                         });
                     });
                 };
-
-
-                if (templateCache[formId]) {
-                    return loadTemplatePage(templateCache[formId]);
-                } else {
-
-                    return app.api.html.post({
-                        formId:    formId,
-                        variables: variables,
-                        handler:   path,
-                        operation: op
-                    },
-
-                    function(code, pageInfo) {
-                        if (code == 200) {
-                            templateCache[formId] = pageInfo;
-                            return loadTemplatePage (pageInfo);
-
-                        } else {
-                            if ([403, 401].indexOf(code) >= 0) {
-                                // log the user out
-                                app.logout("session/create");
-
+                
+                var proceedWithTemplate=function(){
+    
+                    if (templateCache[formId]) {
+                        return loadTemplatePage(templateCache[formId]);
+                    } else {
+    
+                        return app.api.html.post({
+                            formId:    formId,
+                            variables: variables,
+                            handler:   path,
+                            operation: op
+                        },
+    
+                        function(code, pageInfo) {
+                            if (code == 200) {
+                                templateCache[formId] = pageInfo;
+                                return loadTemplatePage (pageInfo);
+    
                             } else {
-                                exit_err(code, "error: http error " + code, cb);
+                                if ([403, 401].indexOf(code) >= 0) {
+                                    // log the user out
+                                    app.logout("session/create");
+    
+                                } else {
+                                    exit_err(code, "error: http error " + code, cb);
+                                }
                             }
-                        }
-                    });
+                        });
+    
+                    }
+                
+                };
 
+
+                if (typeof before_template=== 'function') {
+                    before_template(proceedWithTemplate);
+                } else {
+                    proceedWithTemplate();
                 }
-
-
-
 
 
             };
@@ -249,43 +276,60 @@ app.init.generate_templates = function() {
                         // eg app.templates.user.create(function(){...})
                         variables = {};
                 }
-
-                if (templateCache[formId]) {
-
-                    app.helpers.mergeVariables(templateCache[formId].rawHtml, variables, '', function(html) {
-
-                        exit_200(formId, {
-                            cookedHtml: html,
-                            variables: templateCache[formId].variables
-                        }, cb);
-
-                    });
-
-                } else {
-
-                    return app.api.html.post({
-                        formId: formId,
-                        variables: variables,
-                        handler: path,
-                        operation: op
-                    },
-
-                    function(code, pageInfo) {
-                        if (code == 200) {
-                            templateCache[formId] = pageInfo;
-                            exit_200(formId, pageInfo, cb);
-                        } else {
-                            if ([403, 401].indexOf(code) >= 0) {
-                                // log the user out
-                                app.logout("session/create");
-
-                            } else {
-                                exit_err(code, "error: http error " + code, cb);
-                            }
-                        }
-                    });
-
+                
+                var cb_after_template=cb;
+                if (typeof after_template=== 'function') {   
+                    cb_after_template = function () {
+                        after_template();
+                        cb();
+                    }; 
                 }
+
+                var proceedWithTemplate=function(){
+                    if (templateCache[formId]) {
+    
+                        app.helpers.mergeVariables(templateCache[formId].rawHtml, variables, '', function(html) {
+    
+                            exit_200(formId, {
+                                cookedHtml: html,
+                                variables: templateCache[formId].variables
+                            }, cb_after_template);
+    
+                        });
+    
+                    } else {
+    
+                        return app.api.html.post({
+                            formId: formId,
+                            variables: variables,
+                            handler: path,
+                            operation: op
+                        },
+    
+                        function(code, pageInfo) {
+                            if (code == 200) {
+                                templateCache[formId] = pageInfo;
+                                exit_200(formId, pageInfo, cb_after_template);
+                            } else {
+                                if ([403, 401].indexOf(code) >= 0) {
+                                    // log the user out
+                                    app.logout("session/create");
+    
+                                } else {
+                                    exit_err(code, "error: http error " + code, cb_after_template);
+                                }
+                            }
+                        });
+    
+                    }
+                };
+                
+                if (typeof before_template=== 'function') {
+                    before_template(proceedWithTemplate);
+                } else {
+                    proceedWithTemplate();
+                }
+                
             };
 
         }
@@ -315,65 +359,73 @@ app.init.interceptFormSubmits = function() {
         var formId = this.getAttribute("id"),
             path = app.helpers.resolve_uri(this.action),
             method = this.method.toLowerCase();
+            
+        var proceedWithSubmit = function (){
 
-        // Hide any messages currently shown due to a previous error.
-        var frmEls={};
-        ["formError", "formSuccess"].forEach(function(el) {
-            frmEls[el]=document.querySelector("#" + formId + " ." + el);
-            if (frmEls[el]) {
-                frmEls[el].style.display = 'none';
+            // Hide any messages currently shown due to a previous error.
+            var frmEls={};
+            ["formError", "formSuccess"].forEach(function(el) {
+                frmEls[el]=document.querySelector("#" + formId + " ." + el);
+                if (frmEls[el]) {
+                    frmEls[el].style.display = 'none';
+                }
+            });
+            frmEls.formBusy = document.querySelector("#" + formId + " .formBusy");
+            
+            if (frmEls.formBusy) {
+                frmEls.formBusy.style.visibility = "visible";
             }
-        });
-        frmEls.formBusy = document.querySelector("#" + formId + " .formBusy");
+            // submit the form data using API
+            app.submitFormData(
+                formId,
+                app.helpers.resolve_uri(path).substr(4),
+                method,
         
-        if (frmEls.formBusy) {
-            frmEls.formBusy.style.visibility = "visible";
+                function(code, responsePayload, payload) {
+        
+                    if (frmEls.formBusy) {
+                        frmEls.formBusy.style.visibility = "hidden";
+                    }
+                    // Display an error on the form if needed
+                    if (code !== 200) {
+        
+                        // if ([403, 401].indexOf(code) >= 0) {
+                        // log the user out
+                        //    app.logout("account/deleted");
+        
+                        //} else {
+        
+                        // Try to get the error from the api, or set a default error message
+                        var error = typeof(responsePayload.Error) == 'string' ? responsePayload.Error : 'An error has occured, please try again';
+        
+                        if(frmEls.formError) {
+                            // Set the formError field with the error text
+                            frmEls.formError.innerHTML = error;
+        
+                            // Show (unhide) the form error field on the form
+                            frmEls.formError.style.display = 'block';
+                        }
+                        //}
+                    } else {
+                        if(frmEls.formSuccess) {
+                            frmEls.formSuccess.style.display = 'block';
+                        }
+                        // If successful, send to form response processor
+                        var processor = app.after_submit[formId] || app.after_submit._generic;
+                        processor(responsePayload, payload, formId);
+        
+                    }
+                }
+            );
+        };
+        
+        if (app.before_submit[formId]){
+            app.before_submit[formId](proceedWithSubmit);
+        } else {
+            proceedWithSubmit();
         }
-        // submit the form data using API
-        app.submitFormData(
-            formId,
-            app.helpers.resolve_uri(path).substr(4),
-            method,
-    
-            function(code, responsePayload, payload) {
-    
-                if (frmEls.formBusy) {
-                    frmEls.formBusy.style.visibility = "hidden";
-                }
-                // Display an error on the form if needed
-                if (code !== 200) {
-    
-                    // if ([403, 401].indexOf(code) >= 0) {
-                    // log the user out
-                    //    app.logout("account/deleted");
-    
-                    //} else {
-    
-                    // Try to get the error from the api, or set a default error message
-                    var error = typeof(responsePayload.Error) == 'string' ? responsePayload.Error : 'An error has occured, please try again';
-    
-                    if(frmEls.formError) {
-                        // Set the formError field with the error text
-                        frmEls.formError.innerHTML = error;
-    
-                        // Show (unhide) the form error field on the form
-                        frmEls.formError.style.display = 'block';
-                    }
-                    //}
-                } else {
-                    if(frmEls.formSuccess) {
-                        frmEls.formSuccess.style.display = 'block';
-                    }
-                    // If successful, send to form response processor
-                    var processor = app.after_submit[formId] || app.after_submit._generic;
-                    processor(responsePayload, payload, formId);
-    
-                }
-            }
-        );
 
     };
-
 
     var captureFormSubmit = function(form) {
         form.addEventListener("submit", onFormSubmit);
