@@ -106,6 +106,7 @@ app.init.generate_templates = function() {
 
         // replace the page contents with newly rendered html 
         document.querySelector("div.content").innerHTML = pageInfo.cookedHtml;
+        debugger;
 
         // save the formId for future record
         app.config.appState = formId;
@@ -487,9 +488,7 @@ app.init.interceptButtonLinks = function() {
 
                 e.preventDefault();
                 
-                //alert("oi");
-                document.querySelector("div.content").innerHTML = new Date().getTime().toString();
-                return;
+
                 
                 if (typeof clickHandler === "function") {
                     clickHandler(function() {
