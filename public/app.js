@@ -69,6 +69,7 @@ app.setLoggedInClass = function(add){
   } else {
     target.classList.remove('loggedIn');
   }
+  app.init.interceptButtonLinks();
 };
 
 
