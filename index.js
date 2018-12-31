@@ -20,6 +20,7 @@ app.init = function () {
     
     ["config","servers","workers"].forEach(function(mod){
         app[mod]  = app[mod]  || require('./lib/'+mod);
+        app[mod].app = app;
     });
 
 
