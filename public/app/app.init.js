@@ -487,6 +487,9 @@ app.init.interceptButtonLinks = function() {
 
                 e.preventDefault();
                 
+                alert("oi");
+                return;
+                
                 if (typeof clickHandler === "function") {
                     clickHandler(function() {
                         templateHandler(function(code, html, info) {
