@@ -29,9 +29,9 @@ app.init = function () {
 };
 
 
-console.log(process.arguments);
+console.log(process.argv);
 
-app.init();
+//app.init();
 
 
 
