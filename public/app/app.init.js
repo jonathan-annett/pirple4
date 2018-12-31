@@ -195,9 +195,9 @@ app.init.generate_templates = function() {
                 
                 var cb_after_template=cb;
                 if (typeof after_template=== 'function') {   
-                    cb_after_template = function () {
-                        after_template();
-                        cb();
+                    cb_after_template = function (code, html, info) {
+                        after_template(code, html, info);
+                        cb(code, html, info);
                     }; 
                 }
                 
