@@ -28,7 +28,7 @@ app.init = function () {
     app.workers.start();
 };
 
-var debugMode = typeof v8debug === 'object';
+var debugMode = process.execArgv.indexOf('--inspect')>=0;
 
 if (debugMode) {
     setTimeout(function(){
