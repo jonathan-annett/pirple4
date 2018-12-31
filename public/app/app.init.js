@@ -474,7 +474,6 @@ app.init.interceptButtonLinks = function() {
 
                 return el.addEventListener("click", function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
                     clickHandler();
                 });
 
@@ -487,8 +486,7 @@ app.init.interceptButtonLinks = function() {
             el.addEventListener("click", function(e) {
 
                 e.preventDefault();
-                e.stopPropagation();
-
+                
                 if (typeof clickHandler === "function") {
                     clickHandler(function() {
                         templateHandler(function(code, html, info) {
