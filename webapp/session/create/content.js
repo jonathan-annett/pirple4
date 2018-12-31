@@ -6,10 +6,7 @@ module.exports = function(app,handlers){
         // before_template() is called, in the browser context
         // note that this DOES NOT GET CALLED if the user navigates to account/edit in the nav bar
         // before_template() will however be called when a page is displayed using app.template()
-        before_template : function (cb) {
-            app.clearTemplateCache("accountEdit");
-            cb();
-        },
+        before_template : function (cb) { cb(); },
         
         // htmlOptions is used when rendering html from content.html
         htmlOptions : {
@@ -26,7 +23,6 @@ module.exports = function(app,handlers){
         template : function(params,cb) {
            
              params.htmlOptions = page.htmlOptions;
-             
              return handlers.html.template(params,cb);
         },
         
