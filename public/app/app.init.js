@@ -165,7 +165,8 @@ app.init.generate_templates = function() {
         var formId = linkpath.toLowerCase() + linkop.substr(0, 1).toUpperCase() + linkop.substr(1).toLowerCase();
 
         app.templates[path] = app.templates[path] || {};
-
+        
+        app.buttons[path] = after_submit;
 
         //
 
@@ -318,7 +319,7 @@ app.init.interceptFormSubmits = function() {
         // Hide any messages currently shown due to a previous error.
         var frmEls={};
         ["formError", "formSuccess"].forEach(function(el) {
-            frmEls[el]=document.querySelector("#" + formId + " ." + el)
+            frmEls[el]=document.querySelector("#" + formId + " ." + el);
             if (frmEls[el]) {
                 frmEls[el].style.display = 'none';
             }
