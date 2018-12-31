@@ -4,14 +4,14 @@ app.make_templates= function (make_template) {
     
     // handler stubs - intentionally left "undefined"
     var before_template, browser_variables, after_template,  before_submit, after_submit;
-    
+    /*
     make_template("user", "create", "account");
     
     make_template(
         "user|account",    "edit",  
         
         before_template,
-        /*browser_variables*/ function (vars,cb){ 
+        /*browser_variables* / function (vars,cb){ 
             
               // merge users current data in with global vars from server
               
@@ -30,7 +30,7 @@ app.make_templates= function (make_template) {
         after_template,  
         before_submit, 
         after_submit
-    );
+    );*/
     
     make_template(
         "user|account", "deleted",
