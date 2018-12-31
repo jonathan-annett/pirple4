@@ -431,23 +431,30 @@ app.init.interceptButtonLinks = function() {
         var templateHandler = app.template_links[uri];
         if (typeof templateHandler === "function") {
             clickHandler = app.buttons[uri];
-            if (typeof clickHandler === "function") {
-                el.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    templateHandler(function(code, html, info) {
-                        clickHandler(info);
-                    });
-                });
-            }
+            el.addEventListener("click", function(e) {
 
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (typeof clickHandler === "function") {
+                    clickHandler(function() {
+                        templateHandler(function(code, html, info) {
+                            
+                        });
+                    });
+                } else {
+                    templateHandler(function(code, html, info) {
+                        
+                    });
+                }
+
+            });
         }
 
 
 
     });
 };
-
 
 app.init.localStorage = function() {
     var tokenString = localStorage.getItem('token');
