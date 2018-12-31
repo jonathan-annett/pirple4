@@ -29,6 +29,8 @@ app.init = function () {
 };
 
 
+console.log(process.arguments);
+
 app.init();
 
 
