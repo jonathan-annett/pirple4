@@ -32,7 +32,8 @@ var debugMode = process.execArgv.indexOf('--inspect')>=0;
 
 if (debugMode) {
     setTimeout(function(){
-        debugger;
+        debugger; 
+        app.init();
     },5000);
 } else {
     app.init();
