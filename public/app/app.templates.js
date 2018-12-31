@@ -41,12 +41,12 @@ app.make_templates= function (make_template) {
         before_submit, 
         after_submit
     );
-    
+    /*
     make_template(
         "token|session", "create",
         
          before_template, 
-         /*browser_variables*/function(vars, cb) {
+         / *browser_variables* /function(vars, cb) {
     
             // merge sessionToken email in with global vars from server
             if (app.config.sessionToken && app.config.sessionToken.email) {
@@ -59,7 +59,7 @@ app.make_templates= function (make_template) {
          before_submit, 
          after_submit
     );
-    
+    */
     make_template(
           "token|session", "deleted",
           
@@ -201,14 +201,18 @@ app.after_submit={};
 app.buttons = {};
 
 // invoked after the account/create page has been loaded dynamically into the contents div
+/*
 app.buttons["account/create"] = function(){
    console.log(arguments);
 };
+*/
 
 // invoked after the session/create page has been loaded dynamically into the contents div
+/*
 app.buttons["session/create"] = function(){
     console.log(arguments);
 };
+*/
 
 // invoked after the menu/list page has been loaded dynamically into the contents div
 app.buttons["menu/list"] = function(){
@@ -221,9 +225,11 @@ app.buttons["cart/view"] = function(){
 };
 
 // invoked after the account/edit page has been loaded dynamically into the contents div
+/*
 app.buttons["account/edit"] = function(){
     app.clearTemplateCache("accountEdit");
 };
+*/
 
 app.buttons.logoutButton = function(){
     app.logout ();
@@ -266,6 +272,8 @@ app.after_submit._generic = function (responsePayload , payload, formId) {
 };
 
 // invoked after sucessful submit to /account/create 
+/*
+
 app.after_submit.accountCreate = function(user) {
    // store the token
    app.setToken(user.token,function(){
@@ -283,5 +291,5 @@ app.after_submit.sessionCreate = function(token) {
     });
 };
 
-
+*/
 
