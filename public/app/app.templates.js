@@ -2,13 +2,16 @@
 
 app.make_templates= function (make_template) {
     
+    // handler stubs - intentionally left "undefined"
+    var before_template, browser_variables, after_template,  before_submit, after_submit;
+    
     make_template("user", "create", "account");
     
     make_template(
-        "user|account",    "edit",   
+        "user|account",    "edit",  
         
-        // form variable filter (called prior to html render)
-        function (vars,cb){ 
+        before_template,
+        /*browser_variables*/ function (vars,cb){ 
             
               // merge users current data in with global vars from server
               
@@ -23,19 +26,28 @@ app.make_templates= function (make_template) {
                
                   return cb(vars);
               });
-        }
+        },
+        after_template,  
+        before_submit, 
+        after_submit
     );
     
     make_template(
-        "user|account", "deleted"
+        "user|account", "deleted",
+        
+        before_template, 
+        browser_variables, 
+        after_template,  
+        before_submit, 
+        after_submit
     );
     
     make_template(
         
         "token|session", "create",
-
-        // form variable filter (called prior to html render)
-        function(vars, cb) {
+         before_template, 
+                  
+         /*browser_variables*/function(vars, cb) {
     
             // merge sessionToken email in with global vars from server
             if (app.config.sessionToken && app.config.sessionToken.email) {
@@ -43,14 +55,25 @@ app.make_templates= function (make_template) {
             }
     
             return cb(vars);
-        }
+        },
+         after_template,  
+         before_submit, 
+         after_submit
     );
     
-    make_template("token|session", "deleted");
+    make_template(
+          "token|session", "deleted",
+          before_template, 
+          browser_variables, 
+          after_template,  
+          before_submit, 
+          after_submit);
     
     make_template(
         "menu", "list", 
-        function (vars,cb){ 
+        before_template, 
+                 
+        /*browser_variables*/function (vars,cb){ 
             app.api.menu.get(function(code,array){
                 if (code===200) {
                     vars.menu=array;
@@ -58,19 +81,45 @@ app.make_templates= function (make_template) {
                
                 return cb(vars);
             });
-        }
+        },
+        after_template,  
+        before_submit, 
+        after_submit
     );
      
-    make_template("menu", "view");
-    make_template("menu", "create");
-    make_template("menu", "edit");
+    make_template(
+        "menu", "view",
+        
+        before_template, 
+        browser_variables, 
+        after_template,  
+        before_submit, 
+        after_submit);
+    make_template(
+        "menu", "create",
+        
+        before_template, 
+        browser_variables, 
+        after_template,  
+        before_submit, 
+        after_submit);
+    make_template(
+        "menu", "edit",
+        
+        before_template, 
+        browser_variables, 
+        after_template,  
+        before_submit, 
+        after_submit);
     
     make_template(
         
         "cart", "view", 
         
         // form variable filter (called prior to html render)
-        function (vars,cb){ 
+        before_template, 
+                 
+        /*browser_variables*/function (vars,cb){ 
             
             //flatten the cart 
             vars["cart.total"] = vars.cart.total;
@@ -87,15 +136,49 @@ app.make_templates= function (make_template) {
             
             cb(vars);
             
-        }
+        },
+        after_template,  
+        before_submit, 
+        after_submit
     );
-    make_template("cart", "checkout");
+    make_template(
+        "cart", "checkout",
+        before_template, 
+        browser_variables, 
+        after_template,  
+        before_submit, 
+        after_submit
+    );
     
-    make_template("order", "complete");
+    make_template(
+        "order", "complete",
+        before_template, 
+        browser_variables, 
+        after_template,  
+        before_submit, 
+        after_submit);
     
-    make_template("order", "failed");
-    make_template("order", "list");
-    make_template("order", "view");
+    make_template(
+        "order", "failed",
+        before_template, 
+        browser_variables, 
+        after_template,  
+        before_submit, 
+        after_submit);
+    make_template(
+        "order", "list",
+        before_template, 
+        browser_variables, 
+        after_template,  
+        before_submit, 
+        after_submit);
+    make_template(
+        "order", "view",
+        before_template, 
+        browser_variables, 
+        after_template,  
+        before_submit, 
+        after_submit);
 
 };
 
@@ -191,3 +274,6 @@ app.after_submit.sessionCreate = function(token) {
         app.template_links["menu/list"]();
     });
 };
+
+
+

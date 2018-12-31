@@ -173,6 +173,8 @@ app.api.request = function (path,payloadIn,options,cb) {
 
 [[["public/app/app.templates.js"]]];
 
+[[["virtual/app/app.templates.js"]]];
+
 [[["public/app/app.init.js"]]];
 
 app.logout = function(template,cb){

@@ -139,22 +139,37 @@ app.init.generate_templates = function() {
         }
     };
 
-    var make_template = function(path_alias, op, var_getter) {
+    var make_template = function(
+        path_alias, op_alias,
+        before_template,
+        browser_variables,
+        after_template,
+        before_submit,
+        after_submit) {
         
         path_alias = path_alias.split("|");
         var path = path_alias.shift();
         path_alias = path_alias[0];
 
         var linkpath = path_alias || path;
-        // camelcase "account","create" --> accountCreate
-        var formId = linkpath.toLowerCase() + op.substr(0, 1).toUpperCase() + op.substr(1).toLowerCase();
+        
+        op_alias = op_alias.split("|");
+        var op = op_alias.shift();
+        op_alias = op_alias[0];
+        
+        var linkop = op_alias || op;
+        
+        
+        // "account","create" --> accountCreate
+        // "user|account","create" --> accountCreate
+        var formId = linkpath.toLowerCase() + linkop.substr(0, 1).toUpperCase() + linkop.substr(1).toLowerCase();
 
         app.templates[path] = app.templates[path] || {};
 
 
         //
 
-        if (typeof var_getter === 'function') {
+        if (typeof browser_variables === 'function') {
 
             app.templates[path][op] = function(variables, cb) {
 
@@ -170,7 +185,7 @@ app.init.generate_templates = function() {
                 }
                 
                 var loadTemplatePage = function (pageInfo){
-                    var_getter(pageInfo.variables, function(variables) {
+                    browser_variables(pageInfo.variables, function(variables) {
                         app.helpers.mergeVariables(pageInfo.rawHtml, variables, '', function(html) {
 
                             exit_200(formId, {

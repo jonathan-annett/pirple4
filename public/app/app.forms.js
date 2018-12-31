@@ -64,15 +64,19 @@ app.submitFormData = function (frmId,path,method,cb){
     
     var fn=app.api[path][method];
     if (typeof fn==='function') {
+        
        fn(payload,function(code,responsePayload){
           if (typeof cb==='function') {
             cb(code,responsePayload,payload);// note extra param for submitted payload.
           }  
        });
+       
     } else {
+        
        if (typeof cb==='function') {
            return error_message(500,method+" is not a valid method for "+path+" in app.submitFormData("+frmId+")");
        }
+       
     }
  
 };
