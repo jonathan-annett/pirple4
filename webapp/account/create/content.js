@@ -2,8 +2,6 @@ module.exports = function(app,handlers){
     
     var page = {
         
-        alias : { user : "create" },
-        
         // before_template : function (cb) {cb();},
         
         htmlOptions : {

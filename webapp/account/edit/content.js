@@ -2,8 +2,6 @@ module.exports = function(app,handlers){
     
     var page = {
         
-        alias : { user : "edit" },
-        
         // before navigating to /account/edit, in response to user clicking on the menu
         // before_template() is called, in the browser context
         // note that this DOES NOT GET CALLED if the user navigates to account/edit in the nav bar
