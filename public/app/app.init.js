@@ -297,6 +297,8 @@ app.init.generate_templates = function() {
     };
 
     app.make_templates(make_template);
+    app.make_page_templates(make_template);
+    
 };
 
 // app.interceptFormSubmits attaches a generic callback to prevent default form submit

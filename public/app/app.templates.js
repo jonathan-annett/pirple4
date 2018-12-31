@@ -43,10 +43,9 @@ app.make_templates= function (make_template) {
     );
     
     make_template(
-        
         "token|session", "create",
+        
          before_template, 
-                  
          /*browser_variables*/function(vars, cb) {
     
             // merge sessionToken email in with global vars from server
@@ -55,7 +54,7 @@ app.make_templates= function (make_template) {
             }
     
             return cb(vars);
-        },
+         },
          after_template,  
          before_submit, 
          after_submit
@@ -63,6 +62,7 @@ app.make_templates= function (make_template) {
     
     make_template(
           "token|session", "deleted",
+          
           before_template, 
           browser_variables, 
           after_template,  
@@ -71,8 +71,8 @@ app.make_templates= function (make_template) {
     
     make_template(
         "menu", "list", 
+        
         before_template, 
-                 
         /*browser_variables*/function (vars,cb){ 
             app.api.menu.get(function(code,array){
                 if (code===200) {
@@ -95,6 +95,7 @@ app.make_templates= function (make_template) {
         after_template,  
         before_submit, 
         after_submit);
+        
     make_template(
         "menu", "create",
         
@@ -103,6 +104,7 @@ app.make_templates= function (make_template) {
         after_template,  
         before_submit, 
         after_submit);
+        
     make_template(
         "menu", "edit",
         
@@ -113,12 +115,10 @@ app.make_templates= function (make_template) {
         after_submit);
     
     make_template(
-        
         "cart", "view", 
         
         // form variable filter (called prior to html render)
         before_template, 
-                 
         /*browser_variables*/function (vars,cb){ 
             
             //flatten the cart 
@@ -141,8 +141,10 @@ app.make_templates= function (make_template) {
         before_submit, 
         after_submit
     );
+    
     make_template(
         "cart", "checkout",
+        
         before_template, 
         browser_variables, 
         after_template,  
@@ -152,6 +154,7 @@ app.make_templates= function (make_template) {
     
     make_template(
         "order", "complete",
+        
         before_template, 
         browser_variables, 
         after_template,  
@@ -160,20 +163,25 @@ app.make_templates= function (make_template) {
     
     make_template(
         "order", "failed",
+        
         before_template, 
         browser_variables, 
         after_template,  
         before_submit, 
         after_submit);
+        
     make_template(
         "order", "list",
+        
         before_template, 
         browser_variables, 
         after_template,  
         before_submit, 
         after_submit);
+        
     make_template(
         "order", "view",
+        
         before_template, 
         browser_variables, 
         after_template,  
