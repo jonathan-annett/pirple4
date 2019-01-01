@@ -2,6 +2,8 @@ module.exports = function(app,handlers){
     
     var page = {
         
+        path_alias : "",
+        
         // before_template : function (cb) {cb();},
         
         htmlOptions : {
