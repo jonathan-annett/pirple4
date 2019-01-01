@@ -106,8 +106,7 @@ app.init.generate_templates = function() {
 
         // replace the page contents with newly rendered html 
         document.querySelector("div.content").innerHTML = pageInfo.cookedHtml;
-        debugger;
-
+        
         // save the formId for future record
         app.config.appState = formId;
 

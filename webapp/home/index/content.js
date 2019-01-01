@@ -5,11 +5,10 @@ module.exports = function(app,handlers){
         // before_template : function (cb) {cb();},
         
         htmlOptions : {
-            variables : { 
-                'head.title'       : 'Create an Account',
-                'head.description' : 'Signup is quick, and is happening right now...',
-                'body.class'       : 'accountCreate'            
-            }
+             variables : { 
+                 'head.title'   : 'Pizza to Go!',
+                 'body.class'   : 'homeIndex'
+             }
         },
         
         template : function(params,cb) {
@@ -28,11 +27,7 @@ module.exports = function(app,handlers){
         //before_submit : function (cb) { cb(); },
          
         after_submit : function (user) {
-            // store the token
-            app.setToken(user.token,function(){
-               // display the full menu 
-               app.template_links["menu/list"]();
-            });
+             
         }
 
         

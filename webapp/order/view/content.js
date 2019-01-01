@@ -5,17 +5,19 @@ module.exports = function(app,handlers){
         // before_template : function (cb) {cb();},
         
         htmlOptions : {
-            variables : { 
-                'head.title'       : 'Create an Account',
-                'head.description' : 'Signup is quick, and is happening right now...',
-                'body.class'       : 'accountCreate'            
-            }
+             variables : { 
+                 'head.title'   : 'Previous Order',
+                 'body.class'   : 'orderView'
+             },
+             dataSources : {
+                 order : "tba"
+             }
         },
         
         template : function(params,cb) {
            
              params.htmlOptions = page.htmlOptions;
-             
+             page.htmlOptions.dataSources.order = params.queryParams.id;
              return handlers.html.template(params,cb);
         },
 

@@ -6,9 +6,11 @@ module.exports = function(app,handlers){
         
         htmlOptions : {
             variables : { 
-                'head.title'       : 'Create an Account',
-                'head.description' : 'Signup is quick, and is happening right now...',
-                'body.class'       : 'accountCreate'            
+               'head.title'   : 'Shopping Cart',
+               'body.class'   : 'cartView'
+            },
+            dataSources : {
+               cart : true
             }
         },
         
@@ -28,11 +30,13 @@ module.exports = function(app,handlers){
         //before_submit : function (cb) { cb(); },
          
         after_submit : function (user) {
-            // store the token
-            app.setToken(user.token,function(){
-               // display the full menu 
-               app.template_links["menu/list"]();
-            });
+            app.clearTemplateCache("cartView");
+        },
+        
+        after_submit_redirects : {
+            "cartAdd_"      : "cart/view",
+            "cartDelete_"   : "cart/view",
+            "cartQuantity_" : "cart/view"
         }
 
         

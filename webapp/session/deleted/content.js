@@ -6,9 +6,9 @@ module.exports = function(app,handlers){
         
         htmlOptions : {
             variables : { 
-                'head.title'       : 'Create an Account',
-                'head.description' : 'Signup is quick, and is happening right now...',
-                'body.class'       : 'accountCreate'            
+                'head.title'       : 'Logged Out',
+                'head.description' : 'You have been logged out of your account.',
+                'body.class'       : 'sessionDeleted'
             }
         },
         

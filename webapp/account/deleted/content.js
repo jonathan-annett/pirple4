@@ -6,10 +6,11 @@ module.exports = function(app,handlers){
         
         htmlOptions : {
             variables : { 
-                'head.title'       : 'Create an Account',
-                'head.description' : 'Signup is quick, and is happening right now...',
-                'body.class'       : 'accountCreate'            
-            }
+                'head.title'       : 'Account Deleted',
+                'head.description' : 'Your account has been deleted.',
+                'body.class'       : 'accountDeleted'
+            },
+            dataSources : { }
         },
         
         template : function(params,cb) {

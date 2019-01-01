@@ -5,11 +5,14 @@ module.exports = function(app,handlers){
         // before_template : function (cb) {cb();},
         
         htmlOptions : {
-            variables : { 
-                'head.title'       : 'Create an Account',
-                'head.description' : 'Signup is quick, and is happening right now...',
-                'body.class'       : 'accountCreate'            
-            }
+             variables : { 
+                 'head.title'   : 'View Previous Orders',
+                 'body.class'   : 'orderList',
+                 'meta.handler' : 'order.html.list'
+             },
+             dataSources : {
+                 order : {list:{preload:true,flatten:true}}
+             }
         },
         
         template : function(params,cb) {

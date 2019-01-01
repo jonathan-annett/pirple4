@@ -5,11 +5,13 @@ module.exports = function(app,handlers){
         // before_template : function (cb) {cb();},
         
         htmlOptions : {
-            variables : { 
-                'head.title'       : 'Create an Account',
-                'head.description' : 'Signup is quick, and is happening right now...',
-                'body.class'       : 'accountCreate'            
-            }
+             variables : { 
+                 'head.title'   : 'Payment Failed',
+                 'body.class'   : 'orderFailed'
+             },
+             dataSources : {
+                 cart : true
+             }
         },
         
         template : function(params,cb) {

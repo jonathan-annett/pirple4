@@ -13,8 +13,7 @@ module.exports = function(app,handlers){
             variables : { 
                 'head.title'       : 'Login to your account.',
                 'head.description' : 'Please enter your email and password to access your account.',
-                'body.class'       : 'sessionCreate',
-                'meta.handler'     : 'token.html.create'
+                'body.class'       : 'sessionCreate'
             }
         },
         

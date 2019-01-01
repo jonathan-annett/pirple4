@@ -5,17 +5,20 @@ module.exports = function(app,handlers){
         // before_template : function (cb) {cb();},
         
         htmlOptions : {
-            variables : { 
-                'head.title'       : 'Create an Account',
-                'head.description' : 'Signup is quick, and is happening right now...',
-                'body.class'       : 'accountCreate'            
-            }
+             variables : { 
+                 'head.title'   : 'Create a new menu item',
+                 'body.class'   : 'menuCreate'
+             },
+             dataSources : {
+             },
+             requiredPermissions : {
+                 edit_menu : true
+             }
         },
         
         template : function(params,cb) {
            
              params.htmlOptions = page.htmlOptions;
-             
              return handlers.html.template(params,cb);
         },
 
@@ -28,11 +31,7 @@ module.exports = function(app,handlers){
         //before_submit : function (cb) { cb(); },
          
         after_submit : function (user) {
-            // store the token
-            app.setToken(user.token,function(){
-               // display the full menu 
-               app.template_links["menu/list"]();
-            });
+            app.clearTemplateCache("menuList");
         }
 
         

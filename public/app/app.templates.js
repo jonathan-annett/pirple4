@@ -219,20 +219,22 @@ app.buttons["account/create"] = function(){
 app.buttons["session/create"] = function(){
     console.log(arguments);
 };
-*/
+
 
 // invoked after the menu/list page has been loaded dynamically into the contents div
 app.buttons["menu/list"] = function(){
     console.log(arguments);
 };
+*/
 
+/*
 // invoked after the cart/view page has been loaded dynamically into the contents div
 app.buttons["cart/view"] = function(){
     app.clearTemplateCache("cartView");
 };
 
 // invoked after the account/edit page has been loaded dynamically into the contents div
-/*
+
 app.buttons["account/edit"] = function(){
     app.clearTemplateCache("accountEdit");
 };
