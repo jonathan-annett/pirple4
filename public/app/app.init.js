@@ -495,7 +495,7 @@ app.init.interceptFormSubmits = function() {
     
     var onElementChange = function (e) {
         // pull in formId,path & method from form object.
-        var formId = this.getAttribute("id");
+        var formId = this.form.getAttribute("id");
         var formData = app.helpers.getFormData(formId);
         if (app.on_change[formId]){
             app.on_change[formId](formData,e.target);
