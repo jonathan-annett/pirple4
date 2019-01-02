@@ -72,7 +72,7 @@ var define_element_event = function (eventName) {
    app[trigger]._generic.prefixes={};
 };
 
-["change","input"].forEach(define_element_event);
+["input"].forEach(define_element_event);
 
 /*
 app.on_change={};
