@@ -15,6 +15,19 @@
                 <input type="hidden" name="_method" value="PUT"/>
                 <input type="hidden" name="id" value="{id}"/>
                 <input class="cartQuantity" type="text" name="quantity" value="{quantity}"/>
+                <input type="submit" value="update"/>
+            </form>
+            <form id="cartAdd_{id}" action = "api/cart" >
+                <input type="hidden" name="_method" value="POST"/>
+                <input type="hidden" name="id" value="{id}"/>
+                <input type="hidden" name="quantity" value="1"/>
+                <input type="submit" value="+"/>
+            </form>
+            <form id="cartAdd_{id}" action = "api/cart" >
+                <input type="hidden" name="_method" value="POST"/>
+                <input type="hidden" name="id" value="{id}"/>
+                <input type="hidden" name="quantity" value="-1"/>
+                <input type="submit" value="-"/>
             </form>
             <form id="cartDelete_{id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="DELETE"/>
