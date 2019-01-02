@@ -39,8 +39,7 @@ module.exports = function(app,handlers){
                        item.id = item_key; 
                        vars.cart.push(item);
                    }
-    
-                   
+
                } 
             
                 cb(vars);

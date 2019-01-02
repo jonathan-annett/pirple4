@@ -62,7 +62,7 @@ app.before_submit._generic = function (responsePayload , payload, formId) {
         for(var i = 0; i < frm_keys.length; i++) {
              var formPrefix = frm_keys[i];
              if (formId.substr(0,formPrefix.length)===formPrefix) {
-                return app.templates[ app.before_submit._generic.prefixes[ formPrefix ] ]();
+                return app.before_submit._generic.prefixes[ formPrefix ]();
             }
         }
         
@@ -81,7 +81,7 @@ app.after_submit._generic = function (responsePayload , payload, formId) {
         for(var i = 0; i < frm_keys.length; i++) {
              var formPrefix = frm_keys[i];
              if (formId.substr(0,formPrefix.length)===formPrefix) {
-                return app.templates[ app.after_submit._generic.prefixes[ formPrefix ] ]();
+                return app.after_submit._generic.prefixes[ formPrefix ]();
             }
         }
         
