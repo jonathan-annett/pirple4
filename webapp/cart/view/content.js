@@ -27,7 +27,7 @@ module.exports = function(app,handlers){
            
            app.api.cart.get(function(code,cart){
                
-               if (code===200){
+               if (code===200 && cart){
                    
                    vars["cart.total"] = cart.total;
                    
