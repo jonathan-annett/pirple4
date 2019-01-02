@@ -402,7 +402,7 @@ app.init.generate_templates = function() {
         if (templateCache[formId]) delete templateCache[formId];  
     };
 
-    app.make_templates(make_template);
+    app.make_page_templates(make_template);
     
 };
 
