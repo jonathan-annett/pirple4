@@ -583,7 +583,7 @@ app.init.interceptFormSubmits = function() {
     
     
     forms.forEach(captureFormSubmit);
-    capture_element_events("change");
+    //capture_element_events("change");
     capture_element_events("input");
 
     var unfocussed = true;
