@@ -527,25 +527,26 @@ app.init.interceptButtonLinks = function() {
                     }
                     
                 }
+                return;
             }
             
-            return;
-            
-        }
-
-        var templateHandler = app.templates[uri];
-        if (typeof templateHandler === "function") {
-            
-            el.addEventListener("click", function(e) {
-
-                e.preventDefault();
+             var templateHandler = app.templates[uri];
+             if (typeof templateHandler === "function") {
+                 
+                 el.addEventListener("click", function(e) {
      
-                templateHandler(function(code, html, info) {
-                    
-                });
+                     e.preventDefault();
           
-            });
+                     templateHandler(function(code, html, info) {
+                         
+                     });
+               
+                 });
+             }
+            
         }
+
+        
         
     });
     
