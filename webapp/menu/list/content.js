@@ -34,9 +34,15 @@ module.exports = function(app,handlers){
         //after_template : function () { },
          
          forms : [{
-            id_prefix: "cartAdd_",
+            id_prefix: "menuView_",
 
-            //before_submit : function (cb) { cb(); },
+             before_submit : function (vars,cb) { 
+                 
+                app.clearTemplateCache("menuList"); 
+                app.templates["menu/view"]({
+                  id:vars.id
+                });
+             },
 
              after_submit: function() {
                 app.clearTemplateCache("cartView");
@@ -44,7 +50,18 @@ module.exports = function(app,handlers){
                 app.templates["cart/view"]();
             }
 
-        }], 
+        },{
+             id_prefix: "menuAdd_",
+ 
+             //before_submit : function (cb) { cb(); },
+ 
+              after_submit: function() {
+                 app.clearTemplateCache("cartView");
+                 app.clearTemplateCache("menuList");
+                 app.templates["cart/view"]();
+             }
+ 
+         }], 
          
         
     };
