@@ -53,7 +53,7 @@ app.init.generate_api_stubs = function(paths) {
 
 app.before_template={};
 app.before_submit={}; 
-app.before_submit._generic = function (responsePayload , payload, formId) {
+app.before_submit._generic = function (payload, formId,cb) {
     
 
     if (typeof formId==='string') {
@@ -62,7 +62,7 @@ app.before_submit._generic = function (responsePayload , payload, formId) {
         for(var i = 0; i < frm_keys.length; i++) {
              var formPrefix = frm_keys[i];
              if (formId.substr(0,formPrefix.length)===formPrefix) {
-                return app.before_submit._generic.prefixes[ formPrefix ]();
+                return app.before_submit._generic.prefixes[ formPrefix ](payload,cb);
             }
         }
         
@@ -81,7 +81,7 @@ app.after_submit._generic = function (responsePayload , payload, formId) {
         for(var i = 0; i < frm_keys.length; i++) {
              var formPrefix = frm_keys[i];
              if (formId.substr(0,formPrefix.length)===formPrefix) {
-                return app.after_submit._generic.prefixes[ formPrefix ]();
+                return app.after_submit._generic.prefixes[ formPrefix ](responsePayload , payload, formId );
             }
         }
         
@@ -466,9 +466,9 @@ app.init.interceptFormSubmits = function() {
         };
         
         if (app.before_submit[formId]){
-            app.before_submit[formId](app.helpers.getFormData(formId),proceedWithSubmit);
+            app.before_submit[formId]( app.helpers.getFormData(formId), proceedWithSubmit);
         } else {
-            proceedWithSubmit();
+            app.before_submit._generic(app.helpers.getFormData(formId),formId,proceedWithSubmit);
         }
         
     };
