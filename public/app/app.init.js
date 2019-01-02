@@ -506,52 +506,7 @@ app.init.interceptFormSubmits = function() {
 // set 
 app.init.interceptButtonLinks = function() {
     
-    /*
-    document.querySelectorAll("li a").forEach(function(el) {
 
-        var buttonId = el.id,
-            uri = app.helpers.resolve_uri(el.href),
-            clickHandler;
-            
-        if (typeof uri === "string") {   
-        
-            if (typeof buttonId === "string") {
-        
-                if (uri === "#") {
-                    
-                    clickHandler = app.buttons[buttonId] ;
-                    if(typeof clickHandler === 'function') {
-                        el.addEventListener("click", function(e) {
-                            e.preventDefault();
-                            clickHandler();
-                        },false);
-                    }
-                    
-                    return;
-                }
-               
-                 var templateHandler = app.templates[uri];
-                 if (typeof templateHandler === "function") {
-                     
-                     el.addEventListener("click", function(e) {
-         
-                         e.preventDefault();
-              
-                         templateHandler(function(code, html, info) {
-                             
-                         });
-                   
-                     },false);
-                 }
-            }    
-        }
-
-        
-        
-    });
-    */
-    
-    
     document.addEventListener('click', function (event) {
         
         
