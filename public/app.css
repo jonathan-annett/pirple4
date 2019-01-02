@@ -232,6 +232,10 @@ body.index .blurb{
 
 }
 
+.cartButtons form input{
+    vertical-align: middle;
+}
+
 .cartQuantity {
     width : 50px;
 }
