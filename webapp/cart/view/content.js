@@ -31,7 +31,7 @@ module.exports = function(app,handlers){
                    
                    vars["cart.total"] = cart.total;
                    
-                   vars.cart={};
+                   vars.cart=[];
                    var item_keys = Object.keys(cart.items);
                    for(var i = 0; i < item_keys.length; i++) {
                        var item_key = item_keys[i];
