@@ -25,19 +25,26 @@ module.exports = function(app,handlers){
            
            //flatten the cart 
            
-           app.api.cart.get(function(cart){
-               vars["cart.total"] = cart.total;
+           app.api.cart.get(function(code,cart){
                
-               vars.cart={};
-               var item_keys = Object.keys(cart.items);
-               for(var i = 0; i < item_keys.length; i++) {
-                   var item_key = item_keys[i];
-                   var item = vars.cart.items[item_key];
-                   item.id = item_key; 
-                   vars.cart.push(item);
-               }
-
-               cb(vars);
+               if (code===200){
+                   
+                   vars["cart.total"] = cart.total;
+                   
+                   vars.cart={};
+                   var item_keys = Object.keys(cart.items);
+                   for(var i = 0; i < item_keys.length; i++) {
+                       var item_key = item_keys[i];
+                       var item = vars.cart.items[item_key];
+                       item.id = item_key; 
+                       vars.cart.push(item);
+                   }
+    
+                   
+               } 
+            
+                cb(vars);
+               
            });
            
            
