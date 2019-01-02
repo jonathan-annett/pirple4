@@ -25,18 +25,15 @@ module.exports = function(app,handlers){
 
         //after_template : function () { },
          
+        forms : [{ 
          
-         
-        //before_submit : function (cb) { cb(); },
-         
-        after_submit : function (user) {
-            // store the token
-            app.setToken(user.token,function(){
-               // display the full menu 
-               app.template_links["menu/list"]();
-            });
-        }
-
+            //before_submit : function (cb) { cb(); },
+             
+            after_submit : function (user) {
+                
+                
+            }
+        }]
         
     };
     

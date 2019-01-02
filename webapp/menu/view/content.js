@@ -26,14 +26,15 @@ module.exports = function(app,handlers){
 
         //after_template : function () { },
          
-         
-         
-        //before_submit : function (cb) { cb(); },
-         
-        after_submit : function (user) {
-            app.clearTemplateCache("menuView");
-        }
-
+        forms : [{ 
+             
+            //before_submit : function (cb) { cb(); },
+             
+            after_submit : function (user) {
+                app.template_links["cart/view"]();
+            }
+            
+        }]
         
     };
     

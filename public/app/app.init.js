@@ -50,6 +50,46 @@ app.init.generate_api_stubs = function(paths) {
     });
 };
 
+
+
+app.before_submit={}; 
+app.before_submit._generic = function (responsePayload , payload, formId) {
+    
+
+    if (typeof formId==='string') {
+        
+        var frm_keys = Object.keys(app.before_submit._generic.prefixes);
+        for(var i = 0; i < frm_keys.length; i++) {
+             var formPrefix = frm_keys[i];
+             if (formId.substr(0,formPrefix.length)===formPrefix) {
+                return app.template_links[ app.before_submit._generic.prefixes[ formPrefix ] ]();
+            }
+        }
+        
+    }
+
+};
+app.before_submit._generic.prefixes={};
+
+app.after_submit={};
+app.after_submit._generic = function (responsePayload , payload, formId) {
+    
+
+    if (typeof formId==='string') {
+        
+        var frm_keys = Object.keys(app.after_submit._generic.prefixes);
+        for(var i = 0; i < frm_keys.length; i++) {
+             var formPrefix = frm_keys[i];
+             if (formId.substr(0,formPrefix.length)===formPrefix) {
+                return app.template_links[ app.after_submit._generic.prefixes[ formPrefix ] ]();
+            }
+        }
+        
+    }
+
+};
+app.after_submit._generic.prefixes={};
+
 // auto generate the template generators
 // creates app.templates.PATH.OPERATION(data,context, cb)
 app.init.generate_templates = function() {
@@ -144,8 +184,8 @@ app.init.generate_templates = function() {
         before_template,
         browser_variables,
         after_template,
-        before_submit,
-        after_submit) {
+        forms,
+        form_prefixes) {
         
         path_alias = path_alias.split("|");
         var path = path_alias.shift();
@@ -166,16 +206,38 @@ app.init.generate_templates = function() {
 
         app.templates[path] = app.templates[path] || {};
         
+        var i,frm;
+        if (forms) {
+            
+            for(i = 0; i < forms.length; i++) {
+                frm = forms[i];
+                
+                if (frm.before_submit) {
+                    app.before_submit[frm.id] = frm.before_submit;
+                }
+                
+                if (frm.after_submit) {
+                    app.after_submit[frm.id] = frm.after_submit;
+                }
+            }
+        }
+        
+        if (form_prefixes) {
+            var prefixes=Object.keys(form_prefixes);
+            for(i = 0; i < prefixes.length; i++) {
+                var prefix = prefixes[i];
+                frm = form_prefixes[prefix];
+                
+                if (frm.before_submit) {
+                    app.before_submit._generic.prefixes[prefix] = frm.before_submit;
+                }
+                
+                if (frm.after_submit) {
+                    app.after_submit._generic.prefixes[prefix] = frm.after_submit;
+                }
+            }
+        }
 
-        
-        if (typeof before_submit=== 'function') {
-            app.before_submit[formId] = before_submit;
-        }
-        
-        if (after_submit) {
-            app.after_submit[formId] = after_submit;
-        }
-        
         //
 
         if (typeof browser_variables === 'function') {
@@ -342,9 +404,11 @@ app.init.generate_templates = function() {
     };
 
     app.make_templates(make_template);
-    app.make_page_templates(make_template);
     
 };
+
+
+
 
 // app.interceptFormSubmits attaches a generic callback to prevent default form submit
 // and use our own javascript AJAX style submit without losing current browser page.
@@ -357,7 +421,7 @@ app.init.interceptFormSubmits = function() {
 
         // pull in formId,path & method from form object.
         var formId = this.getAttribute("id"),
-            path = app.helpers.resolve_uri(this.action),
+            path   = app.helpers.resolve_uri(this.action),
             method = this.method.toLowerCase();
             
         var proceedWithSubmit = function (){
@@ -424,7 +488,7 @@ app.init.interceptFormSubmits = function() {
         } else {
             proceedWithSubmit();
         }
-
+        
     };
 
     var captureFormSubmit = function(form) {
@@ -457,6 +521,7 @@ app.init.interceptFormSubmits = function() {
         var form_key = form_keys[i];
         captureAutoFocus(forms[form_key]);
     }
+    
 };
 
 

@@ -58,28 +58,43 @@ module.exports = function(app,handlers){
          },
          
          // after the html has been rendered and displayed, after_template() is called
-         after_template : function () { },
+        after_template : function () { },
          
-         
-         
-         // when a user initiates a form submit on one of the forms defined in content.html
-         // before_submit will be called. if you want to abort the submit, don't call cb()
-         // this can therefore be user to update UI and or validate form input
-         before_submit : function (cb) { cb();  },
-         
-         // it is expected the form will use one of the api functions, and return a value
-         
-    
-        // once submitted to server, returned content is passed to after_submit
-        after_submit : function (user) {
-            // store the token
-            app.setToken(user.token,function(){
-               // display the full menu 
-               app.template_links["menu/list"]();
-            });
-        }
-
         
+        forms : [{
+             
+                id : "accountEdit",
+                 // when a user initiates a form submit on one of the forms defined in content.html
+                 // before_submit will be called. if you want to abort the submit, don't call cb()
+                 // this can therefore be user to update UI and or validate form input
+                before_submit : function (cb) { cb();  },
+                 
+                 // it is expected the form will use one of the api functions, and return a value
+                 
+            
+                // once submitted to server, returned content is passed to after_submit
+                after_submit : function () {
+                    app.template_links["menu/list"]();
+                }
+    
+            },
+            {
+                id : "accountEditPassword",
+                 // when a user initiates a form submit on one of the forms defined in content.html
+                 // before_submit will be called. if you want to abort the submit, don't call cb()
+                 // this can therefore be user to update UI and or validate form input
+                before_submit : function (cb) { cb();  },
+                 
+                 // it is expected the form will use one of the api functions, and return a value
+                 
+            
+                // once submitted to server, returned content is passed to after_submit
+                after_submit : function () {
+                    app.template_links["menu/list"]();
+                }
+    
+            }]
+            
     };
     
     return page;

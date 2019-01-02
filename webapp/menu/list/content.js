@@ -21,22 +21,31 @@ module.exports = function(app,handlers){
              return handlers.html.template(params,cb);
         },
 
-        //browser_variables : function (vars,cb){ cb(vars); }
+        browser_variables : function (vars,cb){ 
+            app.api.menu.get(function(code,array){
+                if (code===200) {
+                    vars.menu=array;
+                }
+               
+                return cb(vars);
+            });
+        },
 
         //after_template : function () { },
          
-         
-         
-        //before_submit : function (cb) { cb(); },
-         
-        after_submit : function (user) {
-            app.clearTemplateCache("menuList");
-        },
-         
-        after_submit_redirects : {
-            "cartAdd_"      : "cart/view"
-        }
+         forms : [{
+            id_prefix: "cartAdd_",
 
+            //before_submit : function (cb) { cb(); },
+
+             after_submit: function() {
+                app.clearTemplateCache("cartView");
+                app.clearTemplateCache("menuList");
+                app.template_links["cart/view"]();
+            }
+
+        }], 
+         
         
     };
     

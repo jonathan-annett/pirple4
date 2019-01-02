@@ -55,7 +55,7 @@ app.submitFormData = function (frmId,path,method,cb){
  
     
     if (typeof payload!=='object') {
-        return error_message(500,"could not get valid payload for "+frmId+" in submitFormData("+frmId+")" );
+        return error_message(500,"could not get valid payload for " + frmId + " in submitFormData(" + frmId + ")" );
     }
     
     if (typeof app.api[path]!=='object') {
@@ -74,7 +74,7 @@ app.submitFormData = function (frmId,path,method,cb){
     } else {
         
        if (typeof cb==='function') {
-           return error_message(500,method+" is not a valid method for "+path+" in app.submitFormData("+frmId+")");
+           return error_message(500,method+" is not a valid method for " + path + " in app.submitFormData(" + frmId + ")");
        }
        
     }

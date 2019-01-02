@@ -28,9 +28,9 @@ app.init = function () {
     app.workers.start();
 };
 
-var debugMode = process.execArgv.indexOf('--inspect')>=0;
-
-if (debugMode) {
+if (process.execArgv.indexOf('--inspect')>=0) {
+    // wait 5 seconds to allow opening of chrome://inspect browser window
+    // to enable debugging of app.init()
     setTimeout(function(){
         debugger; 
         app.init();

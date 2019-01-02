@@ -26,13 +26,13 @@ module.exports = function(app,handlers){
         //after_template : function () { },
          
          
-         
-        //before_submit : function (cb) { cb(); },
-         
-        after_submit : function (user) {
-            app.clearTemplateCache("cartView");
-        }
-
+        forms : [{  
+            //before_submit : function (cb) { cb(); },
+             
+            after_submit : function () {
+                app.clearTemplateCache("cartCheckout");
+            }
+        }]
     };
     
     return page;

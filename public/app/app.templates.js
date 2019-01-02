@@ -30,7 +30,7 @@ app.make_templates= function (make_template) {
         after_template,  
         before_submit, 
         after_submit
-    );*/
+    );
     
     make_template(
         "user|account", "deleted",
@@ -41,7 +41,7 @@ app.make_templates= function (make_template) {
         before_submit, 
         after_submit
     );
-    /*
+   
     make_template(
         "token|session", "create",
         
@@ -59,7 +59,7 @@ app.make_templates= function (make_template) {
          before_submit, 
          after_submit
     );
-    */
+    
     make_template(
           "token|session", "deleted",
           
@@ -73,7 +73,7 @@ app.make_templates= function (make_template) {
         "menu", "list", 
         
         before_template, 
-        /*browser_variables*/function (vars,cb){ 
+        / *browser_variables* /function (vars,cb){ 
             app.api.menu.get(function(code,array){
                 if (code===200) {
                     vars.menu=array;
@@ -119,7 +119,7 @@ app.make_templates= function (make_template) {
         
         // form variable filter (called prior to html render)
         before_template, 
-        /*browser_variables*/function (vars,cb){ 
+        / * browser_variables * /function (vars,cb){ 
             
             //flatten the cart 
             vars["cart.total"] = vars.cart.total;
@@ -187,7 +187,7 @@ app.make_templates= function (make_template) {
         after_template,  
         before_submit, 
         after_submit);
-
+    */
 };
 
 
@@ -196,8 +196,6 @@ app.make_templates= function (make_template) {
   form button click callbacks
 
 */
-
-app.after_submit={};
 
 app.before_template={}; 
 app.browser_variables={}; 
