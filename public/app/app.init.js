@@ -525,25 +525,23 @@ app.init.interceptButtonLinks = function() {
                             clickHandler();
                         });
                     }
-                    
+                     return;
                 }
-                return;
-            }
-            
-             var templateHandler = app.templates[uri];
-             if (typeof templateHandler === "function") {
-                 
-                 el.addEventListener("click", function(e) {
-     
-                     e.preventDefault();
-          
-                     templateHandler(function(code, html, info) {
-                         
-                     });
                
-                 });
-             }
-            
+                 var templateHandler = app.templates[uri];
+                 if (typeof templateHandler === "function") {
+                     
+                     el.addEventListener("click", function(e) {
+         
+                         e.preventDefault();
+              
+                         templateHandler(function(code, html, info) {
+                             
+                         });
+                   
+                     });
+                 }
+            }    
         }
 
         
