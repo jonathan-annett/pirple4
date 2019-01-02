@@ -157,7 +157,7 @@ app.init.generate_templates = function() {
                 // set the document title
                 document.title = title;
 
-                //app.init.interceptFormSubmits();
+                app.init.interceptFormSubmits();
 
                 if (typeof cb === 'function') {
                     cb(200, pageInfo.cookedHtml, pageInfo);
