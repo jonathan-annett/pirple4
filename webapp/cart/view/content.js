@@ -107,6 +107,30 @@ module.exports = function(app,handlers){
 
             //before_submit : function (formData,cb) { cb(); },
             
+            on_change : function (formData,element){
+                
+                var 
+                idstr = formData.id,
+                proceed = Number(element.value) > 0 || element.value.trim()==='0' ;
+                if (proceed) {
+                    app.api.cart.put({
+                        id : formData.id,
+                        quantity : formData.quantity
+                    },function(code,cart){
+                        if (code===200) {
+                            
+                            document.getElementById("subtotal_"+idstr).innerHTML=
+                                cart.items[idstr].subtotal;
+                                
+                            
+                            document.getElementById("cartViewTotal").innerHTML=
+                                cart.total;
+
+                        }
+                    });
+                }
+                
+            },
 
             after_submit: function(user) {
                 app.clearTemplateCache("cartView");

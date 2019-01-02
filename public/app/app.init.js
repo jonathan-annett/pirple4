@@ -52,6 +52,25 @@ app.init.generate_api_stubs = function(paths) {
 
 
 app.before_template={};
+
+app.on_change={};
+app.on_change._generic = function (formData, element,formId,cb) {
+    
+
+    if (typeof formId==='string') {
+        
+        var frm_keys = Object.keys(app.on_change._generic.prefixes);
+        for(var i = 0; i < frm_keys.length; i++) {
+             var formPrefix = frm_keys[i];
+             if (formId.substr(0,formPrefix.length)===formPrefix) {
+                return app.on_change._generic.prefixes[ formPrefix ](formData,element,cb);
+            }
+        }
+        
+    }
+};
+app.on_change._generic.prefixes={};
+
 app.before_submit={}; 
 app.before_submit._generic = function (payload, formId,cb) {
     
@@ -401,7 +420,8 @@ app.init.interceptFormSubmits = function() {
         var formId = this.getAttribute("id"),
             path   = app.helpers.resolve_uri(this.action),
             method = this.method.toLowerCase();
-            
+        var formData = app.helpers.getFormData(formId);  
+        
         var proceedWithSubmit = function (data){
             
             if (data) {
@@ -466,15 +486,33 @@ app.init.interceptFormSubmits = function() {
         };
         
         if (app.before_submit[formId]){
-            app.before_submit[formId]( app.helpers.getFormData(formId), proceedWithSubmit);
+            app.before_submit[formId]( formData, proceedWithSubmit);
         } else {
-            app.before_submit._generic(app.helpers.getFormData(formId),formId,proceedWithSubmit);
+            app.before_submit._generic( formData, formId, proceedWithSubmit);
         }
         
+    };
+    
+    var onElementChange = function (e) {
+        // pull in formId,path & method from form object.
+        var formId = this.getAttribute("id");
+        var formData = app.helpers.getFormData(formId);
+        if (app.on_change[formId]){
+            app.on_change[formId](formData,e.target);
+        } else {
+            app.on_change._generic(formData,e.target,formId);
+        } 
+       
     };
 
     var captureFormSubmit = function(form) {
         form.addEventListener("submit", onFormSubmit);
+    };
+    
+    var captureElementChange = function(form) {
+        form.elements.forEach(function(el) { 
+           el.addEventListener("change", onElementChange);   
+        });
     };
 
     var unfocussed = true;
@@ -501,7 +539,9 @@ app.init.interceptFormSubmits = function() {
     var form_keys = Object.keys(forms);
     for (var i = 0; unfocussed && (i < form_keys.length); i++) {
         var form_key = form_keys[i];
-        captureAutoFocus(forms[form_key]);
+        var frm = forms[form_key];
+        captureAutoFocus(frm);
+        captureElementChange(frm);
     }
     
 };
