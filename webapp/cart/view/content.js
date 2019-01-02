@@ -71,9 +71,9 @@ module.exports = function(app,handlers){
             {
                 id_prefix: "cartSubtract_",
     
-                before_submit : function (data,cb) { 
+                 before_submit : function (data,cb) { 
                     
-                    if (Number(document.getElementById("edit_quantity_"+data.id).value) >0) {
+                    if (Number(document.getElementById("edit_quantity_"+data.id).value) >1) {
                         cb(); 
                     }
                     
@@ -99,6 +99,9 @@ module.exports = function(app,handlers){
 
         }, {
             id_prefix: "cartQuantity_",
+            
+            
+            
 
             //before_submit : function (cb) { cb(); },
 
