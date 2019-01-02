@@ -561,20 +561,36 @@ app.init.interceptButtonLinks = function() {
         uri = el.href ? app.helpers.resolve_uri(el.href) : false,
         clickHandler;
         
-        console.log(uri,buttonId);
-        event.preventDefault();
         
-        return;
-    
-        // If the clicked element doesn't have the right selector, bail
-        if (!event.target.matches('.click-me')) return;
-    
-        // Don't follow the link
-        event.preventDefault();
-    
-        // Log the clicked element in the console
-        console.log(event.target);
-    
+        if (typeof uri === "string") {   
+        
+            if (typeof buttonId === "string") {
+        
+                if (uri === "#") {
+                    
+                    clickHandler = app.buttons[buttonId] ;
+                    if(typeof clickHandler === 'function') {
+                        event.preventDefault();
+                        clickHandler();
+                    }
+                    
+                    return;
+                }
+               
+                 var templateHandler = app.templates[uri];
+                 if (typeof templateHandler === "function") {
+                     
+                     event.preventDefault();
+              
+                     templateHandler(function(code, html, info) {
+                             
+                    });
+                   
+                 }
+            }    
+        }
+        
+
     }, false);
     
 };
