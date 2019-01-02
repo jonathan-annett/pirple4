@@ -11,6 +11,7 @@
         <td id="desc_{id}">{description}</td>
         <td id="price_{id}">{price}</td>
         <td id="quantity_{id}">
+            <table><tr><td>
             <form id="cartQuantity_{id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="PUT"/>
                 <input type="hidden" name="id" value="{id}"/>
@@ -34,6 +35,7 @@
                 <input type="hidden" name="id" value="{id}"/>
                 <input class="cartDeleteImage" type="image" src="public/trash.png" alt="Remove item(s) from cart"/>
             </form>
+            </td><tr></tr></table>
         </td>
     </tr>
     {:?}
