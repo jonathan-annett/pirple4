@@ -79,5 +79,5 @@ app.submitFormData = function (frmId,path,method,cb){
        
     }
  
-};
+}
 
