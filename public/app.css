@@ -230,6 +230,10 @@ body.index .blurb{
     width : 50px;
 }
 
+.cartQuantityBtn {
+    display : inline;
+}
+
 hr {
   margin: 30px 0;
 }
