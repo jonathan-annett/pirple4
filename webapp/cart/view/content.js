@@ -73,7 +73,7 @@ module.exports = function(app,handlers){
     
                 before_submit : function (data,cb) { 
                     
-                    if (Number(document.getElementById("quantity_"+data.id).value) >0) {
+                    if (Number(document.getElementById("edit_quantity_"+data.id).value) >0) {
                         cb(); 
                     }
                     

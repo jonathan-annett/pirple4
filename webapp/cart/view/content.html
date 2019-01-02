@@ -22,7 +22,7 @@
             <form id="cartQuantity_{id}" action = "api/cart">
                 <input type="hidden" name="_method" value="PUT"/>
                 <input type="hidden" name="id" value="{id}"/>
-                <input class="cartQuantity" type="text" name="quantity" id="quantity_{id}" value="{quantity}"/>
+                <input class="cartQuantity" type="text" name="quantity" id="edit_quantity_{id}" value="{quantity}"/>
                 <input class="cartQuantityBtn" type="submit" value="update"/>
             </form>
             <form id="cartSubtract_{id}" action = "api/cart" >
