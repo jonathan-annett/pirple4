@@ -558,7 +558,7 @@ app.init.interceptButtonLinks = function() {
         var 
         el = event.target,
         buttonId = el.id,
-        uri = app.helpers.resolve_uri(el.href),
+        uri = el.href ? app.helpers.resolve_uri(el.href) : false,
         clickHandler;
         
         console.log(uri,buttonId);
