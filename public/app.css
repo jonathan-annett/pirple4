@@ -231,7 +231,7 @@ body.index .blurb{
 }
 
 .cartQuantityBtn {
-    display : inline;
+    width : 50px;
 }
 
 hr {
