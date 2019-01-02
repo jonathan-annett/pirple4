@@ -90,11 +90,9 @@ app.after_submit._generic = function (responsePayload , payload, formId) {
 app.after_submit._generic.prefixes={};
 
 // auto generate the template generators
-// creates app.templates.PATH.OPERATION(data,context, cb)
 app.init.generate_templates = function() {
 
     app.templates = {};
-    app.template_links = {};
     var templateCache = {};
     var header_template_;
     var title_template_;
@@ -179,32 +177,14 @@ app.init.generate_templates = function() {
     };
 
     var make_template = function(
-        path_alias, op_alias,
+        link_path, defFormId,
         before_template,
         browser_variables,
         after_template,
         forms,
         form_prefixes) {
         
-        path_alias = path_alias.split("|");
-        var path = path_alias.shift();
-        path_alias = path_alias[0];
 
-        var linkpath = path_alias || path;
-        
-        op_alias = op_alias.split("|");
-        var op = op_alias.shift();
-        op_alias = op_alias[0];
-        
-        var linkop = op_alias || op;
-        
-        
-        // "account","create" --> accountCreate
-        // "user|account","create" --> accountCreate
-        var formId = linkpath.toLowerCase() + linkop.substr(0, 1).toUpperCase() + linkop.substr(1).toLowerCase();
-
-        app.templates[path] = app.templates[path] || {};
-        
         var i,frm;
         if (forms) {
             
@@ -237,20 +217,18 @@ app.init.generate_templates = function() {
             }
         }
 
-        //
+ 
 
         if (typeof browser_variables === 'function') {
 
-            app.templates[path][op] = function(variables, cb) {
+            app.templates[link_path] = function(variables, cb) {
 
                 switch (typeof variables) {  
                     case  'function' : 
-                       // eg app.templates.user.create(function(){...})
                        cb = variables;
                        variables = {};
                        break;
                     case 'undefined' :
-                        // eg app.templates.user.create(function(){...})
                         variables = {};
                 }
                 
@@ -267,7 +245,7 @@ app.init.generate_templates = function() {
                         app.helpers.mergeVariables(pageInfo.rawHtml, variables, '', function(html) {
 
                             exit_200(
-                                formId, 
+                                defFormId, 
                                 {
                                     rawHtml:    pageInfo.rawHtml,
                                     cookedHtml: html,
@@ -282,20 +260,19 @@ app.init.generate_templates = function() {
                 
                 var proceedWithTemplate=function(){
     
-                    if (templateCache[formId]) {
-                        return loadTemplatePage(templateCache[formId]);
+                    if (templateCache[link_path]) {
+                        return loadTemplatePage(templateCache[link_path]);
                     } else {
     
                         return app.api.html.post({
-                            formId:    formId,
-                            variables: variables,
-                            handler:   path,
-                            operation: op
+                            formId:      defFormId,
+                            variables:   variables,
+                            link_path:   link_path
                         },
     
                         function(code, pageInfo) {
                             if (code == 200) {
-                                templateCache[formId] = pageInfo;
+                                templateCache[link_path] = pageInfo;
                                 return loadTemplatePage (pageInfo);
     
                             } else {
@@ -325,16 +302,14 @@ app.init.generate_templates = function() {
 
         } else {
 
-            app.templates[path][op] = function(variables, cb) {
+            app.templates[link_path] = function(variables, cb) {
 
                 switch (typeof variables) {  
                     case  'function' : 
-                       // eg app.templates.user.create(function(){...})
                        cb = variables;
                        variables = {};
                        break;
                     case 'undefined' :
-                        // eg app.templates.user.create(function(){...})
                         variables = {};
                 }
                 
@@ -347,13 +322,13 @@ app.init.generate_templates = function() {
                 }
 
                 var proceedWithTemplate=function(){
-                    if (templateCache[formId]) {
+                    if (templateCache[link_path]) {
     
-                        app.helpers.mergeVariables(templateCache[formId].rawHtml, variables, '', function(html) {
+                        app.helpers.mergeVariables(templateCache[link_path].rawHtml, variables, '', function(html) {
     
-                            exit_200(formId, {
+                            exit_200(defFormId, {
                                 cookedHtml: html,
-                                variables: templateCache[formId].variables
+                                variables: templateCache[link_path].variables
                             }, cb_after_template);
     
                         });
@@ -361,16 +336,15 @@ app.init.generate_templates = function() {
                     } else {
     
                         return app.api.html.post({
-                            formId: formId,
-                            variables: variables,
-                            handler: path,
-                            operation: op
+                            formId:     defFormId,
+                            variables:  variables,
+                            link_path:  link_path
                         },
     
                         function(code, pageInfo) {
                             if (code == 200) {
-                                templateCache[formId] = pageInfo;
-                                exit_200(formId, pageInfo, cb_after_template);
+                                templateCache[link_path] = pageInfo;
+                                exit_200(defFormId, pageInfo, cb_after_template);
                             } else {
                                 if ([403, 401].indexOf(code) >= 0) {
                                     // log the user out
@@ -395,7 +369,6 @@ app.init.generate_templates = function() {
 
         }
 
-        app.template_links[linkpath + "/" + op] = app.templates[path][op];
     };
     
     app.clearTemplateCache = function(formId){
@@ -601,14 +574,14 @@ app.init.localStorage = function() {
                 } else {
                     // been logged in before, but not anymore
                     app.setLoggedInClass(false);
-                    app.templates.token.create({
+                    app.templates["session/create"]({
                         email: token.email
                     });
                 }
             } else {
                 // never been logged in
                 app.setLoggedInClass(false);
-                app.templates.user.create();
+                app.templates["account/create"]();
             }
         } catch (e) {
             // corrupt or never been logged in
