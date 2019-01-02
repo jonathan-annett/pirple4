@@ -215,8 +215,12 @@ app.init.generate_templates = function() {
                     app.before_submit[frm.id] = frm.before_submit;
                 }
                 
+                if (frm.on_change) {
+                    app.on_change[frm.id]     = frm.on_change;
+                }
+                
                 if (frm.after_submit) {
-                    app.after_submit[frm.id] = frm.after_submit;
+                    app.after_submit[frm.id]  = frm.after_submit;
                 }
             }
         }
@@ -231,8 +235,12 @@ app.init.generate_templates = function() {
                     app.before_submit._generic.prefixes[prefix] = frm.before_submit;
                 }
                 
+                if (frm.on_change) {
+                    app.on_change._generic.prefixes[prefix]     = frm.on_change;
+                }
+                
                 if (frm.after_submit) {
-                    app.after_submit._generic.prefixes[prefix] = frm.after_submit;
+                    app.after_submit._generic.prefixes[prefix]  = frm.after_submit;
                 }
             }
         }
