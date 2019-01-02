@@ -2,9 +2,9 @@ module.exports = function(app,handlers){
     
     var page = {
         
-        // before navigating to /session/create, in response to user clicking on the menu
+        // before navigating to session/create, in response to user clicking on the menu
         // before_template() is called, in the browser context
-        // note that this DOES NOT GET CALLED if the user navigates to account/edit in the nav bar
+        // note that this DOES NOT GET CALLED if the user navigates to session/create in the nav bar
         // before_template() will however be called when a page is displayed using app.template()
         before_template : function (cb) { cb(); },
         

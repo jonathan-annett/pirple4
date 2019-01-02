@@ -51,6 +51,7 @@ app.init.generate_api_stubs = function(paths) {
 };
 
 
+app.before_template={};
 app.before_submit={}; 
 app.before_submit._generic = function (responsePayload , payload, formId) {
     
@@ -216,14 +217,16 @@ app.init.generate_templates = function() {
                 }
             }
         }
-
- 
+        
+        if (before_template){
+            app.before_template[link_path]=before_template;
+        }
 
         if (typeof browser_variables === 'function') {
 
             app.templates[link_path] = function(variables, cb) {
 
-                switch (typeof variables) {  
+                switch (typeof variables) {
                     case  'function' : 
                        cb = variables;
                        variables = {};
@@ -233,7 +236,7 @@ app.init.generate_templates = function() {
                 }
                 
                 var cb_after_template=cb;
-                if (typeof after_template=== 'function') {   
+                if (typeof after_template === 'function') {   
                     cb_after_template = function (code, html, info) {
                         after_template(code, html, info);
                         cb(code, html, info);
@@ -290,8 +293,7 @@ app.init.generate_templates = function() {
                 
                 };
 
-
-                if (typeof before_template=== 'function') {
+                if (typeof before_template === 'function') {
                     before_template(proceedWithTemplate);
                 } else {
                     proceedWithTemplate();
@@ -304,7 +306,7 @@ app.init.generate_templates = function() {
 
             app.templates[link_path] = function(variables, cb) {
 
-                switch (typeof variables) {  
+                switch (typeof variables) {
                     case  'function' : 
                        cb = variables;
                        variables = {};
@@ -314,7 +316,7 @@ app.init.generate_templates = function() {
                 }
                 
                 var cb_after_template=cb;
-                if (typeof after_template=== 'function') {   
+                if (typeof after_template === 'function') {   
                     cb_after_template = function () {
                         after_template();
                         cb();
@@ -359,7 +361,7 @@ app.init.generate_templates = function() {
                     }
                 };
                 
-                if (typeof before_template=== 'function') {
+                if (typeof before_template === 'function') {
                     before_template(proceedWithTemplate);
                 } else {
                     proceedWithTemplate();
@@ -499,11 +501,14 @@ app.init.interceptFormSubmits = function() {
 
 // set 
 app.init.interceptButtonLinks = function() {
+    
     document.querySelectorAll("li a").forEach(function(el) {
 
         var buttonId = el.id,
             uri = app.helpers.resolve_uri(el.href),
             clickHandler = app.buttons[buttonId] || app.buttons[uri];
+            
+            app.before_template[uri]
 
         if (buttonId && typeof uri === "string" && typeof clickHandler === 'function') {
 
@@ -515,6 +520,7 @@ app.init.interceptButtonLinks = function() {
                 });
 
             }
+            
         }
 
         var templateHandler = app.template_links[uri];
@@ -544,6 +550,7 @@ app.init.interceptButtonLinks = function() {
 
 
     });
+    
 };
 
 app.init.localStorage = function() {
