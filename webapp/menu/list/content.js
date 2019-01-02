@@ -43,7 +43,7 @@ module.exports = function(app,handlers){
                   id:formData.id
                 },function(code,menuItem){
                     if (code===200) {
-                        app.templates["menu/view"](menuItem);    
+                        app.templates["menu/view"]({menu:menuItem});    
                     }
                 });
                 
