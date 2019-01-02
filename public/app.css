@@ -226,6 +226,11 @@ body.index .blurb{
    background-color: #d1efd0;
 }
 
+.cartButtons {
+    display:inline;
+
+}
+
 .cartQuantity {
     width : 50px;
 }
@@ -237,10 +242,12 @@ body.index .blurb{
 
 .cartPlus {
     width : 20px;
+    display:inline;
 }
 
 .cartMinus {
     width : 20px;
+    display:inline;
 }
 
 hr {
