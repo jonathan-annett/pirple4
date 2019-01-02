@@ -534,14 +534,13 @@ app.init.interceptFormSubmits = function() {
     var forms = document.querySelectorAll("form");
 
     forms.forEach(captureFormSubmit);
+    forms.forEach(captureElementChange);
 
     // dynamically created forms need a helping hand to find focus in life...
     var form_keys = Object.keys(forms);
     for (var i = 0; unfocussed && (i < form_keys.length); i++) {
         var form_key = form_keys[i];
-        var frm = forms[form_key];
-        captureAutoFocus(frm);
-        captureElementChange(frm);
+        captureAutoFocus(forms[form_key]);
     }
     
 };
