@@ -506,6 +506,7 @@ app.init.interceptFormSubmits = function() {
 // set 
 app.init.interceptButtonLinks = function() {
     
+    /*
     document.querySelectorAll("li a").forEach(function(el) {
 
         var buttonId = el.id,
@@ -520,12 +521,13 @@ app.init.interceptButtonLinks = function() {
                     
                     clickHandler = app.buttons[buttonId] ;
                     if(typeof clickHandler === 'function') {
-                        return el.addEventListener("click", function(e) {
+                        el.addEventListener("click", function(e) {
                             e.preventDefault();
                             clickHandler();
                         },false);
                     }
-                     return;
+                    
+                    return;
                 }
                
                  var templateHandler = app.templates[uri];
@@ -547,6 +549,26 @@ app.init.interceptButtonLinks = function() {
         
         
     });
+    */
+    
+    
+    document.addEventListener('click', function (event) {
+        
+        console.log(event.target);
+        event.preventDefault();
+        
+        return;
+    
+        // If the clicked element doesn't have the right selector, bail
+        if (!event.target.matches('.click-me')) return;
+    
+        // Don't follow the link
+        event.preventDefault();
+    
+        // Log the clicked element in the console
+        console.log(event.target);
+    
+    }, false);
     
 };
 
