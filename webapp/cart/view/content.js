@@ -100,9 +100,8 @@ module.exports = function(app,handlers){
             }
 
         }, {
+            
             id_prefix: "cartQuantity_",
-            
-            
             
 
             //before_submit : function (formData,cb) { cb(); },
