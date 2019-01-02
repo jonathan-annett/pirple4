@@ -24,19 +24,25 @@ module.exports = function(app,handlers){
         browser_variables :function (vars,cb){ 
            
            //flatten the cart 
-           vars["cart.total"] = vars.cart.total;
-           var cart=[];
            
-           var item_keys = Object.keys(vars.cart.items);
-           for(var i = 0; i < item_keys.length; i++) {
-               var item_key = item_keys[i];
-               var item = vars.cart.items[item_key];
-               item.id = item_key; 
-               cart.push(item);
-           }
-           vars.cart = cart;
+           app.api.cart.get(function(cart){
+               vars["cart.total"] = cart.total;
+               
+               vars.cart={};
+               var item_keys = Object.keys(cart.items);
+               for(var i = 0; i < item_keys.length; i++) {
+                   var item_key = item_keys[i];
+                   var item = vars.cart.items[item_key];
+                   item.id = item_key; 
+                   vars.cart.push(item);
+               }
+
+               cb(vars);
+           });
            
-           cb(vars);
+           
+ 
+           
            
        },
 
