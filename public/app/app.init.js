@@ -67,7 +67,7 @@ app.before_submit._generic = function (payload, formId,cb) {
         }
         
     }
-
+    return cb(payload);
 };
 app.before_submit._generic.prefixes={};
 
