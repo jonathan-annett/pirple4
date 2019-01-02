@@ -65,4 +65,10 @@ app.logout = function(template,cb){
     });
 };
 
+app.buttons = {};
+
+app.buttons.logoutButton = function (){
+    app.logout();
+};
+
 window.onload=app.init;

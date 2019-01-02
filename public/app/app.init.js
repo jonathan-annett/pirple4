@@ -62,7 +62,7 @@ app.before_submit._generic = function (responsePayload , payload, formId) {
         for(var i = 0; i < frm_keys.length; i++) {
              var formPrefix = frm_keys[i];
              if (formId.substr(0,formPrefix.length)===formPrefix) {
-                return app.template_links[ app.before_submit._generic.prefixes[ formPrefix ] ]();
+                return app.templates[ app.before_submit._generic.prefixes[ formPrefix ] ]();
             }
         }
         
@@ -81,7 +81,7 @@ app.after_submit._generic = function (responsePayload , payload, formId) {
         for(var i = 0; i < frm_keys.length; i++) {
              var formPrefix = frm_keys[i];
              if (formId.substr(0,formPrefix.length)===formPrefix) {
-                return app.template_links[ app.after_submit._generic.prefixes[ formPrefix ] ]();
+                return app.templates[ app.after_submit._generic.prefixes[ formPrefix ] ]();
             }
         }
         
@@ -506,49 +506,43 @@ app.init.interceptButtonLinks = function() {
 
         var buttonId = el.id,
             uri = app.helpers.resolve_uri(el.href),
-            clickHandler = app.buttons[buttonId] || app.buttons[uri];
+            clickHandler;
             
-            app.before_template[uri]
-
-        if (buttonId && typeof uri === "string" && typeof clickHandler === 'function') {
-
-            if (uri === "#") {
-
-                return el.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    clickHandler();
-                });
-
+        if (typeof uri === "string") {   
+        
+            if (typeof buttonId === "string") {
+        
+                if (uri === "#") {
+                    
+                    clickHandler = app.buttons[buttonId] ;
+                    if(typeof clickHandler === 'function') {
+                        return el.addEventListener("click", function(e) {
+                            e.preventDefault();
+                            clickHandler();
+                        });
+                    }
+                    
+                }
             }
+            
+            return;
             
         }
 
-        var templateHandler = app.template_links[uri];
+        var templateHandler = app.templates[uri];
         if (typeof templateHandler === "function") {
-            clickHandler = app.buttons[uri];
+            
             el.addEventListener("click", function(e) {
 
                 e.preventDefault();
-                
-
-                
-                if (typeof clickHandler === "function") {
-                    clickHandler(function() {
-                        templateHandler(function(code, html, info) {
-                            
-                        });
-                    });
-                } else {
-                    templateHandler(function(code, html, info) {
-                        
-                    });
-                }
-
+     
+                templateHandler(function(code, html, info) {
+                    
+                });
+          
             });
         }
-
-
-
+        
     });
     
 };
