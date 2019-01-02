@@ -31,7 +31,7 @@ module.exports = function(app,handlers){
                 // store the token
                 app.setToken(user.token,function(){
                    // display the full menu 
-                   app.template_links["menu/list"]();
+                   app.templates["menu/list"]();
                 });
             }
             

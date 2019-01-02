@@ -32,7 +32,7 @@ app.logout = function(template,cb){
     if (typeof template==='function') {
         cb = template;
     } else {
-        next_template = app.template_links[template]||next_template;
+        next_template = app.templates[template]||next_template;
     }
     
     // determine current login status

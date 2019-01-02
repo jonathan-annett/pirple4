@@ -32,7 +32,7 @@ module.exports = function(app,handlers){
              
             after_submit : function () {
                 app.clearTemplateCache("menuList");
-                app.template_links["menu/list"]();
+                app.templates["menu/list"]();
             }
 
          }]

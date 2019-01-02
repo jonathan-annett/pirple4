@@ -31,7 +31,7 @@ module.exports = function(app,handlers){
             //before_submit : function (cb) { cb(); },
              
             after_submit : function (user) {
-                app.template_links["cart/view"]();
+                app.templates["cart/view"]();
             }
             
         }]

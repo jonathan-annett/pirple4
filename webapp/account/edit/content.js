@@ -74,7 +74,7 @@ module.exports = function(app,handlers){
             
                 // once submitted to server, returned content is passed to after_submit
                 after_submit : function () {
-                    app.template_links["menu/list"]();
+                    app.templates["menu/list"]();
                 }
     
             },
@@ -90,7 +90,7 @@ module.exports = function(app,handlers){
             
                 // once submitted to server, returned content is passed to after_submit
                 after_submit : function () {
-                    app.template_links["menu/list"]();
+                    app.templates["menu/list"]();
                 }
     
             }]

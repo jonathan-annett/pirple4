@@ -49,7 +49,7 @@ module.exports = function(app,handlers){
 
               after_submit: function(user) {
                 app.clearTemplateCache("cartView");
-                app.template_links["cart/view"]();
+                app.templates["cart/view"]();
             }
 
         }, {
@@ -59,7 +59,7 @@ module.exports = function(app,handlers){
 
             after_submit: function(user) {
                 app.clearTemplateCache("cartView");
-                app.template_links["cart/view"]();
+                app.templates["cart/view"]();
             }
 
         }]

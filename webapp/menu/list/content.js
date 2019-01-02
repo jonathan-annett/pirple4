@@ -41,7 +41,7 @@ module.exports = function(app,handlers){
              after_submit: function() {
                 app.clearTemplateCache("cartView");
                 app.clearTemplateCache("menuList");
-                app.template_links["cart/view"]();
+                app.templates["cart/view"]();
             }
 
         }], 
