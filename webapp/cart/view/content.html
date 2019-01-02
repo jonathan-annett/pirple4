@@ -12,19 +12,20 @@
         <td id="price_{id}">{price}</td>
         <td id="quantity_{id}">
             <div class=cartButtons>
-            <form id="cartQuantity_{id}" action = "api/cart">
-                <input type="hidden" name="_method" value="PUT"/>
-                <input type="hidden" name="id" value="{id}"/>
-                <input class="cartQuantity" type="text" name="quantity" value="{quantity}"/>
-                <input class="cartQuantityBtn" type="submit" value="update"/>
-            </form>
+            
             <form id="cartAdd_{id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="POST"/>
                 <input type="hidden" name="id" value="{id}"/>
                 <input type="hidden" name="quantity" value="1"/>
                 <input class="cartPlus" type="submit" value="+"/>
             </form>
-            <form id="cartAdd_{id}" action = "api/cart" >
+            <form id="cartQuantity_{id}" action = "api/cart">
+                <input type="hidden" name="_method" value="PUT"/>
+                <input type="hidden" name="id" value="{id}"/>
+                <input class="cartQuantity" type="text" name="quantity" value="{quantity}"/>
+                <input class="cartQuantityBtn" type="submit" value="update"/>
+            </form>
+            <form id="cartSubtract_{id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="POST"/>
                 <input type="hidden" name="id" value="{id}"/>
                 <input type="hidden" name="quantity" value="-1"/>
@@ -35,7 +36,7 @@
                 <input type="hidden" name="id" value="{id}"/>
                 <input class="cartDeleteImage" type="image" src="public/trash.png" alt="Remove item(s) from cart"/>
             </form>
-             </div>
+            </div>
         </td>
     </tr>
     {:?}
