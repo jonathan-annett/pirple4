@@ -6,7 +6,7 @@
     {?:menu[]}{menu[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven}">
         <td>
-            <form id="cartAdd_{id}" action="/api/cart" method="post">
+            <form id="cartAdd_{id}" action="/menu/view?id={id}" method="get">
                 <input class="menuImage" type="image" src="{image_url}" alt="{description}" />
                 <input type="hidden" name="id"  value= "{id}" />
                 <input type="hidden" name="quantity" value= "1" />
@@ -17,7 +17,7 @@
         </td>
         <td id="price_{id}"><form id="cartAdd_{id}" action="/api/cart" method="post">
             {global.currencySymbol}{price}
-            <input class="menuAddToCartImage" type="image"  src="/public/add-to-cart.svg" alt="{description}" />
+            <input class="menuAddToCartImage" type="image"  src="/public/add-to-cart.svg" alt="Add to cart" />
             <input type="hidden" name="id"  value= "{id}" />
             <input type="hidden" name="quantity" value= "1" />
         </form></td>
