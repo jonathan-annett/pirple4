@@ -38,10 +38,15 @@ module.exports = function(app,handlers){
 
              before_submit : function (formData,cb) { 
                  
-                app.clearTemplateCache("menuList"); 
-                app.templates["menu/view"]({
+                app.clearTemplateCache("menuList");
+                app.api.menu.get({
                   id:formData.id
+                },function(code,menuItem){
+                    if (code===200) {
+                        app.templates["menu/view"](menuItem);    
+                    }
                 });
+                
              },
 
              after_submit: function() {
