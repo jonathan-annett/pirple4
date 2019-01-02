@@ -9,7 +9,7 @@
             <img class="menuImage" id="img_{id}" src="{image_url}" alt="{description}"\>
         </td>
         <td id="desc_{id}">{description}</td>
-        <td id="price_{id}">{price}</td>
+        <td id="price_{id}">{global.currencySymbol}{price}</td>
         <td id="quantity_{id}">
             <div class=cartButtons>
             
@@ -40,4 +40,5 @@
         </td>
     </tr>
     {:?}
+    {global.currencySymbol}{cart.total}
 </table>
