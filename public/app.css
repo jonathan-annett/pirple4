@@ -218,6 +218,13 @@ body.index .blurb{
     height : 24px;
 }
 
+.menuAddToCartImage {
+    
+    width : auto;
+    height : 24px;
+}
+
+
 .menuRowEven {
    background-color: #d0efed; 
 }
