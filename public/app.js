@@ -28,11 +28,11 @@ app.helpers={};
 
 app.logout = function(template,cb){
     // determine what template to load after logging out
-    var next_template = app.templates.token.deleted;
+    var next_template = app.templates["token/deleted"];
     if (typeof template==='function') {
         cb = template;
     } else {
-        next_template = app.templates[template]||next_template;
+        next_template = app.templates[template];
     }
     
     // determine current login status
@@ -59,7 +59,7 @@ app.logout = function(template,cb){
             
         } else {
            // never has logged in - show signup page 
-           app.templates.user.create(cb); 
+           app.templates["account/create"](cb); 
         }
         
     });
