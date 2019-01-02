@@ -64,7 +64,7 @@ var define_element_event = function (eventName) {
                 var formPrefix = frm_keys[i];
                 if (formId.substr(0,formPrefix.length)===formPrefix) {
                    return app[trigger]._generic.prefixes[ formPrefix ](formData,element,cb);
-               }
+                }
            }
            
        }
