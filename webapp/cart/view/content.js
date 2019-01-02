@@ -58,7 +58,8 @@ module.exports = function(app,handlers){
             {
                 id_prefix: "cartAdd_",
     
-                //before_submit : function (cb) { cb(); },
+                //before_submit : function (formData,cb) { cb(); },
+            
     
                  after_submit: function() {
                     app.clearTemplateCache("cartView");
@@ -71,9 +72,9 @@ module.exports = function(app,handlers){
             {
                 id_prefix: "cartSubtract_",
     
-                 before_submit : function (data,cb) { 
+                 before_submit : function (formData,cb) { 
                     
-                    if (Number(document.getElementById("edit_quantity_"+data.id).value) >1) {
+                    if (Number(document.getElementById("edit_quantity_"+formData.id).value) >1) {
                         cb(); 
                     }
                     
@@ -90,7 +91,8 @@ module.exports = function(app,handlers){
             {
             id_prefix: "cartDelete_",
 
-            //before_submit : function (cb) { cb(); },
+            //before_submit : function (formData,cb) { cb(); },
+            
 
               after_submit: function(user) {
                 app.clearTemplateCache("cartView");
@@ -103,7 +105,8 @@ module.exports = function(app,handlers){
             
             
 
-            //before_submit : function (cb) { cb(); },
+            //before_submit : function (formData,cb) { cb(); },
+            
 
             after_submit: function(user) {
                 app.clearTemplateCache("cartView");

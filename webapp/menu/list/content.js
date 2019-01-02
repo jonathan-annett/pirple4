@@ -36,11 +36,11 @@ module.exports = function(app,handlers){
          forms : [{
             id_prefix: "menuView_",
 
-             before_submit : function (vars,cb) { 
+             before_submit : function (formData,cb) { 
                  
                 app.clearTemplateCache("menuList"); 
                 app.templates["menu/view"]({
-                  id:vars.id
+                  id:formData.id
                 });
              },
 
@@ -53,7 +53,8 @@ module.exports = function(app,handlers){
         },{
              id_prefix: "menuAdd_",
  
-             //before_submit : function (cb) { cb(); },
+             //before_submit : function (formData,cb) { cb(); },
+            
  
               after_submit: function() {
                  app.clearTemplateCache("cartView");

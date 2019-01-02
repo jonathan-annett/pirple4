@@ -25,7 +25,7 @@ module.exports = function(app,handlers){
          
         forms : [{ 
          
-            //before_submit : function (cb) { cb(); },
+            //before_submit : function (formData,cb) { cb(); },
              
             after_submit : function (user) {
                 // store the token

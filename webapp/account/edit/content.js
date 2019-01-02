@@ -67,7 +67,8 @@ module.exports = function(app,handlers){
                  // when a user initiates a form submit on one of the forms defined in content.html
                  // before_submit will be called. if you want to abort the submit, don't call cb()
                  // this can therefore be user to update UI and or validate form input
-                before_submit : function (cb) { cb();  },
+                //before_submit : function (formData,cb) { cb(); },
+            
                  
                  // it is expected the form will use one of the api functions, and return a value
                  
@@ -83,7 +84,8 @@ module.exports = function(app,handlers){
                  // when a user initiates a form submit on one of the forms defined in content.html
                  // before_submit will be called. if you want to abort the submit, don't call cb()
                  // this can therefore be user to update UI and or validate form input
-                before_submit : function (cb) { cb();  },
+                //before_submit : function (formData,cb) { cb(); },
+            
                  
                  // it is expected the form will use one of the api functions, and return a value
                  
