@@ -510,9 +510,11 @@ app.init.interceptFormSubmits = function() {
     };
     
     var captureElementChange = function(form) {
-        form.elements.forEach(function(el) { 
-           el.addEventListener("change", onElementChange);   
-        });
+        var element_keys = Object.keys(form.elements);
+        for(var i = 0; i < element_keys.length; i++) {
+            var element_key = element_keys[i];
+            form.elements[element_key].addEventListener("change", onElementChange); 
+        }
     };
 
     var unfocussed = true;
