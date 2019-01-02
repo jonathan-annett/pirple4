@@ -35,7 +35,7 @@ module.exports = function(app,handlers){
                    var item_keys = Object.keys(cart.items);
                    for(var i = 0; i < item_keys.length; i++) {
                        var item_key = item_keys[i];
-                       var item = vars.cart.items[item_key];
+                       var item = cart.items[item_key];
                        item.id = item_key; 
                        vars.cart.push(item);
                    }
