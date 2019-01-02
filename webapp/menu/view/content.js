@@ -8,17 +8,13 @@ module.exports = function(app,handlers){
             variables : { 
                 'head.title'   : 'Pizza Menu!',
                 'body.class'   : 'menuView'
-            },
-            dataSources : {
-                menu : "tba"
             }
         },
         
         template : function(params,cb) {
            
              params.htmlOptions = page.htmlOptions;
-             page.htmlOptions.dataSources.menu = params.queryParams.id || params.payloadIn.id;
-             
+            
              return handlers.html.template(params,cb);
         },
 
