@@ -11,11 +11,12 @@ app.config = {
   sessionToken : false,
   appState : false
 };
+app.helpers={};
 
 [[["public/app/app.api.js"]]];
 [[["public/app/app.forms.js"]]];
 
-app.helpers={};
+
 ([[["lib/helpers/html_merge.js"]]])(app.helpers);
 ([[["lib/helpers/validate_forms.js"]]])(app.helpers);
 [[["public/app/app.helpers.js"]]];
