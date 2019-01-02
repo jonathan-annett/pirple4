@@ -12,7 +12,14 @@
                 <input type="hidden" name="quantity" value= "1" />
             </form>
         </td>
-        <td id="desc_{id}">{description}</td>
+        <td id="desc_{id}">
+        <form id="cartAdd_{id}" action="/api/cart" method="post">
+            {description}
+            <input type="image"  src="public/add-to-cart.svg" alt="{description}" />
+            <input type="hidden" name="id"  value= "{id}" />
+            <input type="hidden" name="quantity" value= "1" />
+        </form>
+        </td>
         <td id="price_{id}">{global.currencySymbol}{price}</td>
         
     </tr>
