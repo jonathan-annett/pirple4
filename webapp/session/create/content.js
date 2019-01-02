@@ -47,26 +47,26 @@ module.exports = function(app,handlers){
          },
          
          
-         
-         // when a user initiates a form submit on one of the forms defined in content.html
-         // before_submit will be called. if you want to abort the submit, don't call cb()
-         // this can therefore be user to update UI and or validate form input
-         before_submit : function (cb) {
-             cb();
-         },
-         
-         // it is expected the form will use one of the api functions, and return a value
-         
-    
-        // once submitted to server, returned content is passed to after_submit
-        after_submit : function (token) {
-            // store the token
-            app.setToken(token,function(){
-               // display the full menu 
-                app.template_links["menu/list"]();
-            });
-        }
-
+         forms : [{
+             // when a user initiates a form submit on one of the forms defined in content.html
+             // before_submit will be called. if you want to abort the submit, don't call cb()
+             // this can therefore be user to update UI and or validate form input
+             before_submit : function (cb) {
+                 cb();
+             },
+             
+             // it is expected the form will use one of the api functions, and return a value
+             
+        
+            // once submitted to server, returned content is passed to after_submit
+            after_submit : function (token) {
+                // store the token
+                app.setToken(token,function(){
+                   // display the full menu 
+                    app.template_links["menu/list"]();
+                });
+            }
+        }]
         
     };
     
