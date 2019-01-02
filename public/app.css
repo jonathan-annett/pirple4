@@ -226,6 +226,7 @@ body.index .blurb{
    background-color: #d1efd0;
 }
 
+.cartButtons form,
 .cartButtons {
     display:inline;
 
