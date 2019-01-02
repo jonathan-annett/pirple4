@@ -402,7 +402,11 @@ app.init.interceptFormSubmits = function() {
             path   = app.helpers.resolve_uri(this.action),
             method = this.method.toLowerCase();
             
-        var proceedWithSubmit = function (){
+        var proceedWithSubmit = function (data){
+            
+            if (data) {
+                app.helpers.setFormData(formId,data);
+            }
 
             // Hide any messages currently shown due to a previous error.
             var frmEls={};
@@ -462,7 +466,7 @@ app.init.interceptFormSubmits = function() {
         };
         
         if (app.before_submit[formId]){
-            app.before_submit[formId](proceedWithSubmit);
+            app.before_submit[formId](app.helpers.getFormData(formId),proceedWithSubmit);
         } else {
             proceedWithSubmit();
         }

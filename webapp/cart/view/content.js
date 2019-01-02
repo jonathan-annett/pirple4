@@ -71,7 +71,13 @@ module.exports = function(app,handlers){
             {
                 id_prefix: "cartSubtract_",
     
-                //before_submit : function (cb) { cb(); },
+                before_submit : function (data,cb) { 
+                    
+                    if (data.quantity>0) {
+                        cb(); 
+                    }
+                    
+                },
     
                  after_submit: function() {
                     app.clearTemplateCache("cartView");
