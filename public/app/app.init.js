@@ -51,7 +51,6 @@ app.init.generate_api_stubs = function(paths) {
 };
 
 
-
 app.before_submit={}; 
 app.before_submit._generic = function (responsePayload , payload, formId) {
     
