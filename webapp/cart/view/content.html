@@ -1,7 +1,7 @@
 <h1>Shopping Cart</h1>
 <table>
     <tr>
-        <th>Picture</th><th>Description</th><th>Price</th><th>Quantity</th>
+        <th>Picture</th><th>Description</th><th>Price</th><th>Quantity</th><th>Subtotal</th>
     </tr>
     {?:cart[]}{cart[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven}">
@@ -38,6 +38,7 @@
             </form>
             </div>
         </td>
+        <td id="subtotal_{id}">{global.currencySymbol}{subtotal}</td>
     </tr>
     {:?}
     {global.currencySymbol}{cart.total}
