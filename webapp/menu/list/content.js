@@ -74,6 +74,13 @@ module.exports = function(app,handlers){
                  app.templates["menu/edit"](formData);
              },
              //after_submit : function (user) {}
+         },
+         
+         {
+             id : "menuAddItem",
+             before_submit : function (formData,cb) {
+                 app.templates["menu/create"](formData);
+             },
          }], 
          
         
