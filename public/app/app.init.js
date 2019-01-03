@@ -59,12 +59,9 @@ var define_element_event = function (eventName) {
    app[trigger]._generic = function (formData, element,formId,cb) {
        if (typeof formId==='string') {
            
-           var frm_keys = Object.keys(app[trigger]._generic.prefixes);
-           for(var i = 0; i < frm_keys.length; i++) {
-                var formPrefix = frm_keys[i];
-                if (formId.substr(0,formPrefix.length)===formPrefix) {
-                   return app[trigger]._generic.prefixes[ formPrefix ](formData,element,cb);
-                }
+           var evFn;
+           if ( (evFn = app.prefix_detect(formId,app[trigger]._generic.prefixes)) ) {
+               return evFn(formData,element,cb);
            }
            
        }
@@ -72,60 +69,29 @@ var define_element_event = function (eventName) {
    app[trigger]._generic.prefixes={};
 };
 
-["input"].forEach(define_element_event);
+["change","input"].forEach(define_element_event);
 
-/*
-app.on_change={};
-app.on_change._generic = function (formData, element,formId,cb) {
-    
 
-    if (typeof formId==='string') {
-        
-        var frm_keys = Object.keys(app.on_change._generic.prefixes);
-        for(var i = 0; i < frm_keys.length; i++) {
-             var formPrefix = frm_keys[i];
-             if (formId.substr(0,formPrefix.length)===formPrefix) {
-                return app.on_change._generic.prefixes[ formPrefix ](formData,element,cb);
-            }
+app.prefix_detect=function(formId,prefixes){
+    var frm_keys = Object.keys(prefixes);
+    for(var i = 0; i < frm_keys.length; i++) {
+         var formPrefix = frm_keys[i];
+         if (formId.substr(0,formPrefix.length)===formPrefix) {
+            return prefixes[ formPrefix ];
         }
-        
-    }
+    }    
+    return false;
 };
-app.on_change._generic.prefixes={};
-
-
-app.on_input={};
-app.on_input._generic = function (formData, element,formId,cb) {
-    if (typeof formId==='string') {
-        
-        var frm_keys = Object.keys(app.on_input._generic.prefixes);
-        for(var i = 0; i < frm_keys.length; i++) {
-             var formPrefix = frm_keys[i];
-             if (formId.substr(0,formPrefix.length)===formPrefix) {
-                return app.on_input._generic.prefixes[ formPrefix ](formData,element,cb);
-            }
-        }
-        
-    }
-};
-app.on_input._generic.prefixes={};
-*/
-
 
 app.before_submit={}; 
 app.before_submit._generic = function (payload, formId,cb) {
     
 
     if (typeof formId==='string') {
-        
-        var frm_keys = Object.keys(app.before_submit._generic.prefixes);
-        for(var i = 0; i < frm_keys.length; i++) {
-             var formPrefix = frm_keys[i];
-             if (formId.substr(0,formPrefix.length)===formPrefix) {
-                return app.before_submit._generic.prefixes[ formPrefix ](payload,cb);
-            }
+        var evFn;
+        if ( (evFn = app.prefix_detect(formId,app.before_submit._generic.prefixes)) ) {
+            return evFn(payload,cb);
         }
-        
     }
     return cb(payload);
 };
@@ -136,15 +102,10 @@ app.after_submit._generic = function (responsePayload , payload, formId) {
     
 
     if (typeof formId==='string') {
-        
-        var frm_keys = Object.keys(app.after_submit._generic.prefixes);
-        for(var i = 0; i < frm_keys.length; i++) {
-             var formPrefix = frm_keys[i];
-             if (formId.substr(0,formPrefix.length)===formPrefix) {
-                return app.after_submit._generic.prefixes[ formPrefix ](responsePayload , payload, formId );
-            }
+        var evFn;
+        if ( (evFn = app.prefix_detect(formId,app.after_submit._generic.prefixes)) ) {
+            return evFn(responsePayload , payload, formId );
         }
-        
     }
 
 };
@@ -246,26 +207,16 @@ app.init.generate_templates = function() {
         form_prefixes) {
         
 
-        var i,frm;
+        var i,x,ev,frm,eventNames=["before_submit","on_change","on_input","after_submit"];
         if (forms) {
             
             for(i = 0; i < forms.length; i++) {
                 frm = forms[i];
-                
-                if (frm.before_submit) {
-                    app.before_submit[frm.id] = frm.before_submit;
-                }
-                
-                if (frm.on_change) {
-                    app.on_change[frm.id]     = frm.on_change;
-                }
-                
-                if (frm.on_input) {
-                    app.on_input[frm.id]      = frm.on_input;
-                }
-                
-                if (frm.after_submit) {
-                    app.after_submit[frm.id]  = frm.after_submit;
+                for(x = 0; x < eventNames.length; x++) {
+                    ev = eventNames[x];
+                    if (frm[ev]) {
+                       app[ev][frm.id] = frm[ev];
+                    }
                 }
             }
         }
@@ -276,21 +227,15 @@ app.init.generate_templates = function() {
                 var prefix = prefixes[i];
                 frm = form_prefixes[prefix];
                 
-                if (frm.before_submit) {
-                    app.before_submit._generic.prefixes[prefix] = frm.before_submit;
+                
+                for(x = 0; x < eventNames.length; x++) {
+                    ev = eventNames[x];
+                    if (frm[ev]) {
+                       app[ev][frm.id] = frm[ev];
+                       app[ev]._generic.prefixes[prefix] = frm[ev];
+                    }
                 }
                 
-                if (frm.on_change) {
-                    app.on_change._generic.prefixes[prefix]     = frm.on_change;
-                }
-                
-                if (frm.on_input) {
-                    app.on_input._generic.prefixes[prefix]     = frm.on_input;
-                }
-                
-                if (frm.after_submit) {
-                    app.after_submit._generic.prefixes[prefix]  = frm.after_submit;
-                }
             }
         }
         
@@ -571,19 +516,24 @@ app.init.interceptFormSubmits = function() {
             } 
            
         };
+        
         var captureElementEvent = function(form) {
-            var element_keys = Object.keys(form.elements);
-            for(var i = 0; i < element_keys.length; i++) {
-                    var element_key = element_keys[i];
-                    form.elements[element_key].addEventListener("change", onElementEvent); 
-                }
-            };
+            var formId = this.getAttribute("id");
+            if (app["on_"+eventName][formId]){
+                var element_keys = Object.keys(form.elements);
+                for(var i = 0; i < element_keys.length; i++) {
+                        var element_key = element_keys[i];
+                        form.elements[element_key].addEventListener(eventName, onElementEvent); 
+                    }
+            }
+        };
+        
         forms.forEach(captureElementEvent);
     };
     
     
     forms.forEach(captureFormSubmit);
-    //capture_element_events("change");
+    capture_element_events("change");
     capture_element_events("input");
 
     var unfocussed = true;
