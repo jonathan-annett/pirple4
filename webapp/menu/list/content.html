@@ -1,10 +1,11 @@
 <h1>Pizza 2 Go! Menu</h1>
 <table>
     <tr>
-        <th>Picture</th><th>Description</th><th>Price</th><th></th><th></th>
+        <th>Picture</th><th>Description</th><th>Price</th><th></th><th class="permissions_edit_user"></th>
     </tr>
     {?:menu[]}{menu[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven}">
+        
         <td>
             <form id="menuView_{id}" action="/menu/view?id={id}" method="get">
                 <input class="menuImage" type="image" src="{image_url}" alt="{description}" />
@@ -12,8 +13,11 @@
                 <input type="hidden" name="quantity" value= "1" />
             </form>
         </td>
+        
         <td id="desc_{id}">{description}</td>
+        
         <td id="price_{id}">{global.currencySymbol}{price}</td>
+        
         <td>
             <form id="menuAdd_{id}" action="/api/cart" method="post">
                 <input class="menuAddToCartImage" type="image"  src="/public/add-to-cart.svg" alt="Add to cart" />
@@ -21,7 +25,8 @@
                 <input type="hidden" name="quantity" value= "1" />
             </form>
         </td>
-        <td>
+        
+        <td class="permissions_edit_user">
             <form id="menuEdit_{id}" action="/api/menu" method="post">
                 <input class="menuEditButtonImage" type="image"  src="/public/edit-button.svg" alt="Edit" />
                 <input type="hidden" name="id"  value= "{id}" />

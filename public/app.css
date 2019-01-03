@@ -248,6 +248,10 @@ height:300px;
    background-color: #d1efd0;
 }
 
+
+.permissions_edit_user {
+   display : none;   
+}
 .cartButtons form,
 .cartButtons {
     display:inline;
