@@ -12,12 +12,8 @@
                 <input type="hidden" name="quantity" value= "1" />
             </form>
         </td>
-        <td id="desc_{id}">
-        {description}
-        </td>
-        <td id="price_{id}">
-            {global.currencySymbol}{price}
-        </td>
+        <td id="desc_{id}">{description}</td>
+        <td id="price_{id}">{global.currencySymbol}{price}</td>
         <td>
             <form id="menuAdd_{id}" action="/api/cart" method="post">
                 <input class="menuAddToCartImage" type="image"  src="/public/add-to-cart.svg" alt="Add to cart" />
