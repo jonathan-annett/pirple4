@@ -1,13 +1,13 @@
 {?:menu[]}{menu[]}{:else:}
  <h1>{description}</h1>
     <img class="menuViewImage" src="{image_url}" alt="{description}" />
-    <form id="menuAdd" action="/api/cart" method="post">
+    <form id="menuListAdd" action="/api/cart" method="post">
         {global.currencySymbol}{price}
         <input class="menuAddToCartImage" type="image"  src="/public/add-to-cart.svg" alt="Add to cart" />
         <input type="hidden" name="id"  value= "{id}" />
         <input type="hidden" name="quantity" value= "1" />
     </form>
-    <form id="menuEdit" action="/api/menu" method="post">
+    <form id="menuListEdit" action="/api/menu" method="post">
         <input class="menuAddToCartImage" type="image"  src="/public/edit-button.svg" alt="Edit" />
         <input type="hidden" name="id"  value= "{id}" />
         <input type="hidden" name="quantity" value= "1" />
