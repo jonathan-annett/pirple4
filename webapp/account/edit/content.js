@@ -95,7 +95,21 @@ module.exports = function(app,handlers){
                     app.templates["menu/list"]();
                 }
     
-            }]
+            },
+            
+            {
+                id : "accountEditDeleteMe",
+                
+                
+                after_submit : function () {
+                    app.templates["account/deleted"]();
+                }
+
+            }
+            
+            
+            
+            ]
             
     };
     
