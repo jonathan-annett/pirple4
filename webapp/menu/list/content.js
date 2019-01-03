@@ -33,7 +33,8 @@ module.exports = function(app,handlers){
 
         //after_template : function () { },
          
-         forms : [{
+         forms : [
+             {
             id_prefix: "menuView_",
 
              before_submit : function (formData,cb) { 
@@ -78,7 +79,7 @@ module.exports = function(app,handlers){
          
          {
               id_prefix : "menuListDelete_",
-              before_submit : function (formData,cb) {
+              after_submit : function (formData,cb) {
                  app.templates["menu/list"](formData);
               }
          },
