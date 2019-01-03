@@ -68,7 +68,7 @@ app.logout = function(template,cb){
 app.buttons = {};
 
 app.buttons.logoutButton = function (){
-    app.logout();
+    app.logout("session/create");
 };
 
 
@@ -108,6 +108,6 @@ app.buttons.logoutButton = function (){
         };  
         
         app.init();
-    }
+    };
 
 })(window);
