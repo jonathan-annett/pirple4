@@ -1,6 +1,7 @@
 <h1>Pizza 2 Go! Menu</h1>
 <table>
-    <tr class="permissions">
+    <tbody id="menuListTable">
+    <tr class="permissions" data-menu-id="none">
         <td></td>
         <td></td>
         <td></td>
@@ -12,7 +13,7 @@
              </form>
         </td>
     </tr>
-    <tr class="permissions">
+    <tr class="permissions" data-menu-id="none">
         <th>Picture</th>
         <th>Description</th>
         <th>Price</th>
@@ -21,7 +22,7 @@
         <th class="permissions_edit_menu"></th>
     </tr>
     
-    <tr class="permissions">
+    <tr class="permissions" data-menu-id="none">
         <th></th>
         <th>
             <form id="menuSearch" action="/api/menu">
@@ -35,7 +36,7 @@
         <th class="permissions_edit_menu"></th>
     </tr>
     {?:menu[]}{menu[]}{:else:}
-    <tr class="menuRow{_meta.indexOddEven} permissions">
+    <tr class="menuRow{_meta.indexOddEven} permissions" data-menu-id="{id}">
         
         <td>
             <form id="menuView_{id}" action="/menu/view?id={id}" method="get">
@@ -76,4 +77,5 @@
         </td>
     </tr>
     {:?}
+    </tbody>
 </table>

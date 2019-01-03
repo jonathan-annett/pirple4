@@ -111,9 +111,12 @@ module.exports = function(app,handlers){
                  app.config.searchTimer = setTimeout(function(){
                      delete app.config.searchTimer;
                      app.api.menu.get({description:formData.description},function(code,array){
-                         console.log(array);
-                         app.config.searchResults=array;
-                         app.templates["menu/list"]();
+                         var ids = ["none"];
+                         array.forEach(function(el){ids.push(el.id)});
+                         document.getElementById("menuListTable").elements.forEach(function(el) {
+                             el.hidden = ids.indexOf(el.dataset.menuId)<0;
+                         });
+                         
                      });
                  },500);
              }
