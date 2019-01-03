@@ -22,16 +22,22 @@ module.exports = function(app,handlers){
 
         //after_template : function () { },
          
-        forms : [{ 
-             
-            //before_submit : function (formData,cb) { cb(); },
-            
-             
-            after_submit : function (user) {
-                app.templates["cart/view"]();
+        forms : [
+            { 
+                id : "menuAdd",
+                //before_submit : function (formData,cb) { },
+                after_submit : function (user) {
+                     app.templates["cart/view"]();
+                }
+            },
+            { 
+                id : "menuEdit",
+                before_submit : function (formData,cb) {
+                    app.templates["menu/edit"](formData);
+                },
+                //after_submit : function (user) {}
             }
-            
-        }]
+        ]
         
     };
     
