@@ -38,12 +38,16 @@ module.exports = function(app,handlers){
                        item.id = item_key; 
                        vars.cart.push(item);
                    }
+                   
+                   app.config.cart = cart;
                    if (cart.total!==0) {
                         app.shoppingCartButton.style.display = "inline-block";
                    } else {
                         app.shoppingCartButton.style.display = "none";
+                        app.clearTemplateCache("menuList");
+                        return app.templates["menu/list"]();
                    }
-                   app.config.cart = cart;
+                   
 
                } else {
                    vars["cart"] = [];
