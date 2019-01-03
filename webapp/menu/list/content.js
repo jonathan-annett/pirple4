@@ -67,6 +67,13 @@ module.exports = function(app,handlers){
                  app.templates["cart/view"]();
              }
  
+         },
+         { 
+             id_prefix : "menuEdit_",
+             before_submit : function (formData,cb) {
+                 app.templates["menu/edit"](formData);
+             },
+             //after_submit : function (user) {}
          }], 
          
         
