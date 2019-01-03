@@ -67,18 +67,13 @@ body.loggedIn .header ul li.loggedOut{
   display: none;
 }
 
-body table tr th.permissions_edit_menu {
-   display : none;   
-}
+body table tr th.permissions_edit_menu,
 body table tr td.permissions_edit_menu {
    display : none;   
 }
 
-body.permissions_edit_menu table tr th.permissions_edit_menu{
-  display: inline-block;
-}
-
-body.permissions_edit_menu table tr td.permissions_edit_menu{
+body.permissions_edit_menu table tr th.permissions_edit_menu,
+body.permissions_edit_menu table tr td.permissions_edit_menu {
   display: inline-block;
 }
 
