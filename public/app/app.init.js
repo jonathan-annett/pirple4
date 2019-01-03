@@ -617,13 +617,14 @@ app.init.localStorage = function() {
             var token = JSON.parse(tokenString);
             app.config.sessionToken = token;
             if (typeof(token) == 'object') {
-                var permissions = token.permissions || {edit_menu:false,admin:false};
-                delete token.permissions;
                 if (token.id) {
                     // attempt to extend token
                     app.api.token.put({
                         token: token.id
                     }, function(code, token) {
+                        var permissions = token.permissions || {edit_menu:false,admin:false};
+                        delete token.permissions;
+                        
                         if (code == 200) {
                             // session extended ok - must be logged in
                             app.config.sessionToken = token;
