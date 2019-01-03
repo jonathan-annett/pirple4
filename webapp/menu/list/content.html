@@ -4,7 +4,7 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><img class="formBusy" src="public/loading.gif" alt="saving..."></td>
+        <td></td>
         <td class="permissions_edit_menu">
              <form id="menuAddItem" action="/api/menu" method="post">
                  <input class="menuEditButtonImage" type="image"  src="/public/create-btn.svg" alt="Edit" />
@@ -53,6 +53,7 @@
             <form id="menuListDelete_{id}" action="/api/menu">
                 <input type="hidden" name="_method" value="DELETE" />
                 <input class="menuEditButtonImage" type="image"  src="/public/trash.svg" alt="Delete" />
+                <img class="formBusy" src="public/loading.gif" alt="saving...">
                 <input type="hidden" name="id" value= "{id}" />
             </form>
         </td>
