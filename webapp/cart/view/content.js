@@ -141,7 +141,7 @@ module.exports = function(app,handlers){
             id: "cartGotoCheckout",
 
             before_submit : function (formData,cb) { 
-                if (formData.items.length>0) {
+                if (formData.items && formData.items.length>0) {
                     app.templates["cart/checkout"]();
                 }
             },
