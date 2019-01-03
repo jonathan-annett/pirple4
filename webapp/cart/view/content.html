@@ -19,23 +19,27 @@
                 <input type="hidden" name="quantity" value="1"/>
                 <input class="cartPlus" type="submit" value="+"/>
             </form>
+            
             <form id="cartQuantity_{id}" action = "api/cart">
                 <input type="hidden" name="_method" value="PUT"/>
                 <input type="hidden" name="id" value="{id}"/>
                 <input class="cartQuantity" type="text" name="quantity" id="edit_quantity_{id}" value="{quantity}"/>
-                <input class="cartQuantityBtn" type="submit" value="update"/>
+                <!-- input class="cartQuantityBtn" type="submit" value="update"/-->
             </form>
+            
             <form id="cartSubtract_{id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="POST"/>
                 <input type="hidden" name="id" value="{id}"/>
                 <input type="hidden" name="quantity" value="-1"/>
                 <input class="cartMinus" type="submit" value="-"/>
             </form>
+            
             <form id="cartDelete_{id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="DELETE"/>
                 <input type="hidden" name="id" value="{id}"/>
                 <input class="cartDeleteImage" type="image" src="public/trash.svg" alt="Remove item(s) from cart"/>
             </form>
+            
             </div>
         </td>
         <td id="subtotal_{id}">{global.currencySymbol}{subtotal}</td>
