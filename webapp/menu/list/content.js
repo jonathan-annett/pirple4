@@ -115,9 +115,12 @@ module.exports = function(app,handlers){
                          if (array) {
                             array.forEach(function(el){ids.push(el.id)});
                          }
-                         var rows = document.getElementById("menuListTable");
+                         var rows = document.getElementById("menuListTable").rows;
+                         for(var i = 0; i <rows.childElementCount; i++) {
+                             rows[i].hidden = array && ids.indexOf(rows[i].dataset.menuId)<0;
+                         }
                          rows.elements.forEach(function(el) {
-                             el.hidden = array && ids.indexOf(el.dataset.menuId)<0;
+                             el
                          });
                          
                      });
