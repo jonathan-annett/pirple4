@@ -76,7 +76,7 @@ app.buttons.logoutButton = function (){
     app.logout();
 };
 
-
+/*
 (function (global) { 
 
     if(typeof (global) === "undefined") {
@@ -116,3 +116,5 @@ app.buttons.logoutButton = function (){
     };
 
 })(window);
+*/
+window.onload = app.init;
