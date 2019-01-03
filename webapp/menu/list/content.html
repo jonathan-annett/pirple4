@@ -43,19 +43,23 @@
             </form>
         </td>
         
-        <td class="permissions_edit_menu">
-            <form id="menuEdit_{id}" action="/api/menu" method="post">
-                <input class="menuEditButtonImage" type="image"  src="/public/edit-button.svg" alt="Edit" />
-                <input type="hidden" name="id"  value= "{id}" />
-            </form>
+        <td class="permissions">
+            <div class="permissions_edit_menu">
+                <form id="menuEdit_{id}" action="/api/menu" method="post">
+                    <input class="menuEditButtonImage" type="image"  src="/public/edit-button.svg" alt="Edit" />
+                    <input type="hidden" name="id"  value= "{id}" />
+                </form>
+            </div>
         </td>
         
-        <td class="permissions_edit_menu">
-            <form id="menuListDelete_{id}" action="/api/menu">
-                <input type="hidden" name="_method" value="DELETE" />
-                <input class="menuEditButtonImage" type="image"  src="/public/trash.svg" alt="Delete" />
-                 <input type="hidden" name="id" value= "{id}" />
-            </form>
+        <td class="permissions">
+            <div class="permissions_edit_menu">
+                <form id="menuListDelete_{id}" action="/api/menu">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <input class="menuEditButtonImage" type="image"  src="/public/trash.svg" alt="Delete" />
+                     <input type="hidden" name="id" value= "{id}" />
+                </form>
+            </div>
         </td>
     </tr>
     {:?}
