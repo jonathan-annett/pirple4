@@ -67,6 +67,18 @@ body.loggedIn .header ul li.loggedOut{
   display: none;
 }
 
+.permissions_edit_user {
+   display : none;   
+}
+
+body.permissions_edit_user th.permissions_edit_user{
+  display: inline-block;
+}
+
+body.permissions_edit_user td.permissions_edit_user{
+  display: inline-block;
+}
+
 .header .logo{
   text-align: left;
   padding: 0 0 0 90px;
@@ -249,9 +261,7 @@ height:300px;
 }
 
 
-.permissions_edit_user {
-   display : none;   
-}
+
 .cartButtons form,
 .cartButtons {
     display:inline;
