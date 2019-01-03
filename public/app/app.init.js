@@ -617,6 +617,8 @@ app.init.localStorage = function() {
             var token = JSON.parse(tokenString);
             app.config.sessionToken = token;
             if (typeof(token) == 'object') {
+                var permissions = token.permissions || {edit_menu:false,admin:false};
+                delete token.permissions;
                 if (token.id) {
                     // attempt to extend token
                     app.api.token.put({
@@ -626,6 +628,11 @@ app.init.localStorage = function() {
                             // session extended ok - must be logged in
                             app.config.sessionToken = token;
                             app.setLoggedInClass(true);
+                            if (permissions) {
+                                Object.keys(permissions).forEach(function(k){
+                                    app.setPermissionClass(k, permissions[k]===true);
+                                });
+                            }
                         } else {
                             // session extend faild - can't have been logged in, or has expired
                             app.config.sessionToken.id = false;
@@ -633,6 +640,7 @@ app.init.localStorage = function() {
                         }
                         var tokenString = JSON.stringify(app.config.sessionToken);
                         localStorage.setItem('token', tokenString);
+                        
                     });
 
                 } else {

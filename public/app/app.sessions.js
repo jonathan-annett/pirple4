@@ -31,3 +31,14 @@ app.setLoggedInClass = function(add){
     target.classList.remove('loggedIn');
   }
 };
+
+
+// Set (or remove) the loggedIn class from the body
+app.setPermissionClass = function(perm,add){
+  var target = document.querySelector("body");
+  if(add){
+    target.classList.add("permissions_"+perm);
+  } else {
+    target.classList.remove("permissions_"+perm);
+  }
+};

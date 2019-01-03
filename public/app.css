@@ -79,6 +79,10 @@ body.permissions_edit_user td.permissions_edit_user{
   display: inline-block;
 }
 
+body.permissions_edit_user img.permissions_edit_user{
+  display: inline-block;
+}
+
 .header .logo{
   text-align: left;
   padding: 0 0 0 90px;
