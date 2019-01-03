@@ -30,17 +30,15 @@ module.exports = function(app,handlers){
             
             before_submit : function (formData,cb) { 
                 
-                app.helpers.validate.card(formData,function(card){
-                    if (card) {
-                        cb();     
+                app.helpers.validate.card(formData,function(stripe){
+                    if (stripe) {
+                        app.api.order.post({stripe:stripe});
                     }
                 });
 
             },
             
-            after_submit : function () {
-                app.clearTemplateCache("cartCheckout");
-            }
+            after_submit : function () {  }
         }]
     };
     
