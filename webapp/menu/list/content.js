@@ -115,8 +115,8 @@ module.exports = function(app,handlers){
                          if (array) {
                             array.forEach(function(el){ids.push(el.id)});
                          }
-                         var rows = document.getElementById("menuListTable").elements;
-                         rows.forEach(function(el) {
+                         var rows = document.getElementById("menuListTable");
+                         rows.elements.forEach(function(el) {
                              el.hidden = array && ids.indexOf(el.dataset.menuId)<0;
                          });
                          
