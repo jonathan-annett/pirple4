@@ -173,6 +173,7 @@ app.init.generate_templates = function() {
         get_title_template(function(title_temp) {
 
             // render the document title using variables from page
+            pageInfo.variables["meta.handler"] = formId;
             app.helpers.mergeVariables(title_temp, pageInfo.variables, '', function(title) {
 
                 // set the document title
