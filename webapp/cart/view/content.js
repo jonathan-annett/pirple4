@@ -7,8 +7,7 @@ module.exports = function(app,handlers){
         htmlOptions : {
             variables : { 
                'head.title'   : 'Shopping Cart',
-               'body.class'   : 'cartView'
-            },
+               'body.class'   : 'cartView' },
             dataSources : {
                cart : true
             }
@@ -40,7 +39,10 @@ module.exports = function(app,handlers){
                        vars.cart.push(item);
                    }
 
-               } 
+               } else {
+                   vars["cart[]"] = "";
+                   vars["cart.total"] = 0;
+               }
             
                 cb(vars);
                
