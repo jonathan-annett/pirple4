@@ -50,7 +50,6 @@ app.init.generate_api_stubs = function(paths) {
     });
 };
 
-
 app.before_template={};
 
 var define_element_event = function (eventName) {
@@ -70,7 +69,6 @@ var define_element_event = function (eventName) {
 };
 
 ["change","input"].forEach(define_element_event);
-
 
 app.prefix_detect=function(formId,prefixes){
     var frm_keys = Object.keys(prefixes);
@@ -651,7 +649,7 @@ app.init.localStorage = function() {
                     app.api.token.put({
                         token: token.id
                     }, function(code, token) {
-                        
+                        var shoppingCartButton = document.getElementById("shoppingCartButton");
                         var permissions = token.permissions || {};
                         delete token.permissions;
                         
@@ -664,6 +662,14 @@ app.init.localStorage = function() {
                                     app.setPermissionClass(k, permissions[k]===true);
                                 });
                             }
+                            
+                            app.api.cart.get(function(code,data){
+                                if (code===200 && data.items && data.items.length>0) {
+                                    shoppingCartButton.style.display = "list-item";
+                                } else {
+                                    shoppingCartButton.style.display = "none";
+                                }
+                            });
                         } else {
                             // session extend faild - can't have been logged in, or has expired
                             app.config.sessionToken.id = false;
@@ -671,6 +677,7 @@ app.init.localStorage = function() {
                             app.permission_keys.forEach(function(k){
                                 app.setPermissionClass(k, false);
                             });
+                            shoppingCartButton.style.display = "none";
                         }
                         var tokenString = JSON.stringify(app.config.sessionToken);
                         localStorage.setItem('token', tokenString);

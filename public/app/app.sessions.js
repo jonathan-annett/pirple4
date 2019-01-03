@@ -11,10 +11,14 @@ app.getToken=function(cb){
 };
 
 app.setToken=function(token,cb){
+    
     app.config.sessionToken = token;
     var tokenString = JSON.stringify(token);
     localStorage.setItem('token',tokenString);
+    
     if(typeof(token) == 'object'){
+      
+      
       app.setLoggedInClass(true);
       var permissions = token.permissions || {};
       delete token.permissions;
@@ -23,12 +27,19 @@ app.setToken=function(token,cb){
               app.setPermissionClass(k, permissions[k]===true);
           });
       }
+      
+      
     } else {
+      
+      
       app.setLoggedInClass(false);
       app.permission_keys.forEach(function(k){
           app.setPermissionClass(k, false);
       });
+      
+      
     }
+    
     return app.getToken(cb);
 };
 
@@ -41,7 +52,6 @@ app.setLoggedInClass = function(add){
     target.classList.remove('loggedIn');
   }
 };
-
 
 // Set (or remove) the loggedIn class from the body
 app.setPermissionClass = function(perm,add){
