@@ -136,6 +136,17 @@ module.exports = function(app,handlers){
                 app.templates["cart/view"]();
             }
 
+        },
+        {
+        
+            id: "cartGotoCheckout",
+
+            //before_submit : function (formData,cb) { cb(); },
+        
+             after_submit: function() {
+                app.templates["cart/checkout"]();
+            }
+
         }]
 
         

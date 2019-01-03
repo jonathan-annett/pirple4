@@ -217,9 +217,16 @@ width:auto;
 height:300px;
     
 }
+
 .cartDeleteImage {
     
     width : auto;
+    height : 24px;
+}
+
+
+.goToCartImage {
+        width : auto;
     height : 24px;
 }
 

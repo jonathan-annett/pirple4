@@ -47,6 +47,15 @@
     <tr>
         <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td id="cartViewTotal">{global.currencySymbol}{cart.total}</td>
     </tr>
+    <tr>
+        <th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>
+            <form id="cartGotoCheckout" action = "api/cart" >
+                <input type="hidden" name="_method" value="POST"/>
+                <input type="hidden" name="id" value="{id}"/>
+                <input class="goToCartImage" type="image" src="public/go-to-checkout.svg" alt="Remove item(s) from cart"/>
+            </form>
+        </th>
+    </tr>
 </table>
 
 
