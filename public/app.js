@@ -28,11 +28,11 @@ app.helpers={};
 
 app.logout = function(template,cb){
     // determine what template to load after logging out
-    var next_template = app.templates["token/deleted"];
+    var next_template = app.templates["session/deleted"];
     if (typeof template==='function') {
         cb = template;
     } else {
-        if (template) {
+        if (typeof template === 'string' && typeof app.templates[template] === 'function') {
             next_template = app.templates[template];
         }
     }
