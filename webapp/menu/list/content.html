@@ -1,7 +1,7 @@
 <h1>Pizza 2 Go! Menu</h1>
 <table>
     <tr>
-        <th>Picture</th><th>Description</th><th>Price</th><th></th><th class="permissions_edit_user"></th>
+        <th>Picture</th><th>Description</th><th>Price</th><th></th><th class="permissions_edit_menu"></th>
     </tr>
     {?:menu[]}{menu[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven}">
@@ -26,7 +26,7 @@
             </form>
         </td>
         
-        <td class="permissions_edit_user">
+        <td class="permissions_edit_menu">
             <form id="menuEdit_{id}" action="/api/menu" method="post">
                 <input class="menuEditButtonImage" type="image"  src="/public/edit-button.svg" alt="Edit" />
                 <input type="hidden" name="id"  value= "{id}" />
