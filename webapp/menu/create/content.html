@@ -1,1 +1,34 @@
-<H1>{meta.handler} not implemented</H1>
+<h1>Create Menu Item</h1>
+
+<div class="formWrapper">
+  
+  <form id="menuEdit" action="/api/menu" method="post">
+      
+    <div class="formSuccess">Your changes have been saved.</div>
+    
+    <div class="formError"></div>
+    
+    <div class="inputWrapper">
+      <div class="inputLabel">Description</div>
+      <input type="text" name="description" placeholder="" value=""/>
+    </div>
+    
+    <div class="inputWrapper">
+      <div class="inputLabel">Price</div>
+      <input type="text" name="price" placeholder="0.0" value=""/>
+    </div>
+    
+    <div class="inputWrapper">
+      <div class="inputLabel">Picture URL</div>
+      <input type="text" name="image_url" placeholder="/public/default.img" value=""/>
+    </div>
+    
+    <div class="inputWrapper ctaWrapper">
+      <button type="submit" class="cta green">Update</button>
+    </div>
+    
+    <img class="formBusy" src="public/loading.gif" alt="saving...">
+    
+  </form>
+ 
+</div>
