@@ -22,6 +22,11 @@ module.exports = function(app,handlers){
         },
 
         browser_variables : function (vars,cb){ 
+            if (app.config.searchResults) {
+                vars.menu = app.config.searchResults;
+                delete app.config.searchResults;
+                return cb(vars);
+            }
             app.api.menu.get(function(code,array){
                 if (code===200) {
                     vars.menu=array;
@@ -99,13 +104,16 @@ module.exports = function(app,handlers){
              id : "menuSearch",
              
              on_input : function (formData,element) {
-                 if (app.templates["menu/list"].searchTimer) {
-                     clearTimeout(app.templates.menuList.searchTimer);
+                 
+                 if (app.config.searchTimer) {
+                     clearTimeout(app.config.searchTimer);
                  }
-                 app.templates["menu/list"].searchTimer = setTimeout(function(){
-                     delete app.templates.menuList.searchTimer;
+                 app.config.searchTimer = setTimeout(function(){
+                     delete app.config.searchTimer;
                      app.api.menu.get({description:formData.description},function(code,array){
                          console.log(array);
+                         app.config.searchResults=array;
+                         app.templates("menu/list")();
                      });
                  },500);
              }
