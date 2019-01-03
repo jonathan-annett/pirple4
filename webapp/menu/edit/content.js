@@ -44,6 +44,7 @@ module.exports = function(app,handlers){
             after_submit : function () {
                 app.clearTemplateCache("menuEdit");
             }
+            
         }]
         
     };
