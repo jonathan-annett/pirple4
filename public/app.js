@@ -49,6 +49,7 @@ app.logout = function(template,cb){
                    tok.id=false;       
                    app.setToken(tok,function(){
                       // display logged out page
+                      app.setLoggedInClass(false);
                       next_template(cb);
                    });
                    
@@ -56,12 +57,14 @@ app.logout = function(template,cb){
                 
             } else {
                 // user is currently logged out
+                app.setLoggedInClass(false);
                 next_template(cb);
             }
             
         } else {
            // never has logged in - show signup page 
-           app.templates["account/create"](cb); 
+           app.setLoggedInClass(false);
+           app.templates["account/create"](); 
         }
         
     });
