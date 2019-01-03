@@ -22,7 +22,7 @@ module.exports = function(app,handlers){
         },
 
         browser_variables : function (vars,cb){ 
-            app.browser_variables["cart/view"](vars,cb); 
+            app.browser_variables["cart/view"](vars,cb);
         },
 
         //after_template : function () { },
