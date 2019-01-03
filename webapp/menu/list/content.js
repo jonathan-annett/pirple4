@@ -98,7 +98,7 @@ module.exports = function(app,handlers){
          {
              id : "menuSearch",
              
-             on_input : function (formData,cb) {
+             on_input : function (formData,element) {
                  if (app.templates.menuList.searchTimer) {
                      clearTimeout(app.templates.menuList.searchTimer);
                  }
