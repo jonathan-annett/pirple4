@@ -1,7 +1,7 @@
 <h1>Edit Menu Item</h1>
 
 <div class="formWrapper">
- {?:menu[]}{menu[]}{:else:}   
+  
   <form id="menuEdit" action="/api/menu">
     <input type="hidden" name="_method" value="PUT" />
     <div class="formSuccess">Your changes have been saved.</div>
@@ -10,6 +10,7 @@
       <div class="inputLabel">Description</div>
       <input type="text" name="description" placeholder="" value="{description}"/>
     </div>
+    <input type="hidden" name="id" value="{id}" />
     <div class="inputWrapper">
       <div class="inputLabel">Price</div>
       <input type="text" name="price" placeholder="0.0" value="{price}"/>
@@ -24,7 +25,7 @@
     </div>
     <img class="formBusy" src="public/loading.gif" alt="saving...">
   </form>
- {:?}
+ 
   
   
 </div>
