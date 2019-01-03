@@ -40,7 +40,7 @@ module.exports = function(app,handlers){
                    }
 
                } else {
-                   vars["cart"] = [{ "description" : "Cart is empty"}];
+                   vars["cart"] = [];
                    vars["cart.total"] = 0;
                }
             
@@ -141,7 +141,9 @@ module.exports = function(app,handlers){
             id: "cartGotoCheckout",
 
             before_submit : function (formData,cb) { 
+                if (formData.items.length>0) {
                     app.templates["cart/checkout"]();
+                }
             },
         
             //after_submit: function() {  }
