@@ -32,7 +32,9 @@ module.exports = function(app,handlers){
                 
                 app.helpers.validate.card(formData,function(stripe){
                     if (stripe) {
-                        app.api.order.post({stripe:stripe});
+                        app.api.order.post({stripe:stripe},function(code,order){
+                            console.log(order);
+                        });
                     }
                 });
 
