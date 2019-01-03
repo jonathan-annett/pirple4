@@ -106,7 +106,7 @@ module.exports = function(app,handlers){
 
             //before_submit : function (formData,cb) { cb(); },
             
-            on_change : function (formData,element){
+            on_input : function (formData,element){
                 
                 var 
                 idstr = formData.id,
