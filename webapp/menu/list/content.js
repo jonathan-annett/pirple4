@@ -77,6 +77,13 @@ module.exports = function(app,handlers){
          },
          
          {
+              id_prefix : "menuListDelete_",
+              before_submit : function (formData,cb) {
+                 app.templates["menu/list"](formData);
+              }
+         },
+         
+         {
              id : "menuAddItem",
              before_submit : function (formData,cb) {
                  app.templates["menu/create"](formData);
