@@ -350,9 +350,10 @@ app.init.generate_templates = function() {
                 }
 
                 var proceedWithTemplate=function(){
+                    if (variables) variables["meta.handler"] = link_path;
+                    
                     if (templateCache[link_path]) {
-    
-                        if (variables) variables["meta.handler"] = link_path;
+                        
                         app.helpers.mergeVariables(templateCache[link_path].rawHtml, variables, '', function(html) {
     
                             exit_200(defFormId, {
