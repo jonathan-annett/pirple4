@@ -4,7 +4,12 @@
 
 This API is [Homework Assignment #3](assignment.md) for the pirple online course. 
 
-***TLDR*** for anyone marking this assignment: once you have [installed](#installation) and [configured](#api-configuration-files) the files, please [read the API documentation](/lib/handlers/README.md). Also, for your convenience, the assignment text has been converted to [markdown format](assignment.md), with hyperlinks to the demonstrated required functionality.
+***TLDR*** for anyone marking this assignment: once you have [installed](#installation) and [configured](#api-configuration-files) the files, please create a default menu by running `new-user-test.sh` . 
+
+Also, please note that the site is designed to run as a single page app, which fetches the contents of each virtual page dynamically using api calls. whilst typing hard links to a specific site area in the nav bar will still work (eg /account/create), the intent is that once the user navigates to the landing page of the site, all content is dynmically built in the browser using api calls.
+
+To acheive this, a slight departure to the file structure taught in the course was made - page specific html and javascript now lives under /webapp
+
 
 # before you begin
 
@@ -67,37 +72,5 @@ the `currency_multiplier` is used to convert menu prices to the appropiate strip
     }
 
 <BR>
-<BR>
-
-# advanced configuration options
-
-*This step is OPTIONAL and is not required to test drive the api*
-
-If you want to deploy this api using real SSL certs on a dynamic dns host, you'll need an externally accessible machine or vps,a [no-ip account](https://www.noip.com/), and you'll need to have installed the [letsencrypt command line tool "certbot"](https://certbot.eff.org/docs/install.html). 
-If you have both of these, you can create the following additional files to take advantage of these features:
-
- * on server startup, the current ip address is sent to the no-ip dynamic dns updater
- * lets encrypt ssl certs are automatically generated using a bash script at configuration time
- * lets encrypt ssl certs are automatically loaded on server startup
-
-<BR>
-<BR>
-
-**../.apis/noip.json**  
-*COPY/PASTE/EDIT TO REFLECT YOUR NOIP API SETTINGS*
-
-    {
-      "username" : "<your username>",
-      "password" : "<your password>",
-      "hostname" : "your-pizza-shop-domain.bounceme.net",
-      "domain_email" : "email-for-registrar@a-domain.com",
-      "base_url"  : "http://dynupdate.no-ip.com/nic/update",
-      "user_agent" : "pirple-homework/1.0 email-for-registrar@a-domain.com"
-    }
-    
-
-note that the hostname listed in the above file must be associated with your no-ip account, and you need to have updated the ip once manually using the no-ip website, so it knows it's an active domain. once that's the case, you can run the letsencrypt.sh file from the terminal prompt, and you'll need to enter your password to authorize the generation of the ssl certs. 
-Please fully read [***letsencrypt.sh***](letsencrypt.sh) before running it, and understand that it will start up a server on port 80 to authenticate that you "own" the domain.
-
 
 [***API Documentation***](lib/handlers/README.md)
