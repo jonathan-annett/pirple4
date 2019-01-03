@@ -28,7 +28,12 @@ module.exports = function(app,handlers){
             app.api.menu.get({id : vars.menu.id},function(code,array){
                 
                 if (code===200) {
-                    vars.menu=array[0];
+                    var menu_keys = Object.keys(array[0]);
+                    for(var i = 0; i < menu_keys.length; i++) {
+                        var user_key = menu_keys[i];
+                        vars["menu."+user_key] = array[0][user_key];
+                    }
+                    
                 }
                
                 return cb(vars);
