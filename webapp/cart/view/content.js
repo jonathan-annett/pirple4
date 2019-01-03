@@ -40,7 +40,7 @@ module.exports = function(app,handlers){
                    }
 
                } else {
-                   vars["cart"] = [];
+                   vars["cart"] = [{ "description" : "Cart is empty"}];
                    vars["cart.total"] = 0;
                }
             
