@@ -111,7 +111,7 @@ module.exports = function(app,handlers){
                  app.config.searchTimer = setTimeout(function(){
                      delete app.config.searchTimer;
                      app.api.menu.get({description:formData.description},function(code,array){
-                         var ids = ["none"];
+                         var ids = ["none"]; 
                          if (array) {
                             array.forEach(function(el){ids.push(el.id)});
                          }
