@@ -67,7 +67,7 @@ body.loggedIn .header ul li.loggedOut{
   display: none;
 }
 
-.permissions_edit_menu {
+body table tr th.permissions_edit_menu {
    display : none;   
 }
 
