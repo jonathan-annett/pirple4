@@ -16,8 +16,18 @@ app.setToken=function(token,cb){
     localStorage.setItem('token',tokenString);
     if(typeof(token) == 'object'){
       app.setLoggedInClass(true);
+      var permissions = token.permissions || {};
+      delete token.permissions;
+      if (permissions) {
+          app.permission_keys.forEach(function(k){
+              app.setPermissionClass(k, permissions[k]===true);
+          });
+      }
     } else {
       app.setLoggedInClass(false);
+      app.permission_keys.forEach(function(k){
+          app.setPermissionClass(k, false);
+      });
     }
     return app.getToken(cb);
 };

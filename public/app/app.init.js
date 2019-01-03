@@ -660,11 +660,9 @@ app.init.localStorage = function() {
                             app.config.sessionToken = token;
                             app.setLoggedInClass(true);
                             if (permissions) {
-                                
                                 app.permission_keys.forEach(function(k){
                                     app.setPermissionClass(k, permissions[k]===true);
                                 });
-                                
                             }
                         } else {
                             // session extend faild - can't have been logged in, or has expired

@@ -42,9 +42,7 @@ module.exports = function(app,handlers){
          },
          
          // after the html has been rendered and displayed, after_template() is called
-         after_template : function () {
-             
-         },
+         after_template : function () {  },
          
          
          forms : [{
