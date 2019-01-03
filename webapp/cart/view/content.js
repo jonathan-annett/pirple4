@@ -39,7 +39,7 @@ module.exports = function(app,handlers){
                        vars.cart.push(item);
                    }
                    if (cart.total!==0) {
-                        app.shoppingCartButton.style.display = "list-item";
+                        app.shoppingCartButton.style.display = "inline-block";
                    } else {
                         app.shoppingCartButton.style.display = "none";
                    }

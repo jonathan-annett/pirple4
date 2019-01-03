@@ -666,7 +666,7 @@ app.init.localStorage = function() {
                             
                             app.api.cart.get(function(code,data){
                                 if (code===200 && data.total !== 0) {
-                                    app.shoppingCartButton.style.display = "list-item";
+                                    app.shoppingCartButton.style.display = "inline-block";
                                 } else {
                                     app.shoppingCartButton.style.display = "none";
                                 }
