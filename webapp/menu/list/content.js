@@ -112,9 +112,11 @@ module.exports = function(app,handlers){
                      delete app.config.searchTimer;
                      app.api.menu.get({description:formData.description},function(code,array){
                          var ids = ["none"];
-                         array.forEach(function(el){ids.push(el.id)});
+                         if (array) {
+                            array.forEach(function(el){ids.push(el.id)});
+                         }
                          document.getElementById("menuListTable").elements.forEach(function(el) {
-                             el.hidden = ids.indexOf(el.dataset.menuId)<0;
+                             el.hidden = array && ids.indexOf(el.dataset.menuId)<0;
                          });
                          
                      });
