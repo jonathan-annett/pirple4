@@ -20,7 +20,7 @@ module.exports = function(app,handlers){
         template : function(params,cb) {
            
              params.htmlOptions = page.htmlOptions;
-             page.htmlOptions.dataSources.menu = params.payloadIn.id;
+             page.htmlOptions.dataSources.menu = params.payloadIn.variables.id;
              return handlers.html.template(params,cb);
         },
 
