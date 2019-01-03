@@ -1,9 +1,12 @@
 {?:menu[]}{menu[]}{:else:}
  <h1>{description}</h1>
  <table>
+     
      <tr>
-          <img class="menuViewImage" src="{image_url}" alt="{description}" />
-     </tr>
+       <td>    
+       <img class="menuViewImage" src="{image_url}" alt="{description}" />
+     
+      </td>
      <td>
          <table>
              <tr>
@@ -17,15 +20,18 @@
                         <input type="hidden" name="quantity" value= "1" />
                     </form>
                 </td>
-                <td>
+                <td class="permissions">
+                    <div class="permissions_edit_menu">
                     <form id="menuListEdit" action="/api/menu" method="post">
                         <input class="menuEditButtonImage permissions_edit_menu" type="image"  src="/public/edit-button.svg" alt="Edit" />
                         <input type="hidden" name="id"  value= "{id}" />
                     </form>
+                    </div>
                 </td>
              </tr>
          </table>
      </td>
+     </tr>
  </table>
 
 
