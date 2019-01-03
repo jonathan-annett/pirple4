@@ -28,7 +28,7 @@ module.exports = function(app,handlers){
             app.api.menu.get({id : vars.menu.id},function(code,array){
                 
                 if (code===200) {
-                    vars.menu=array;
+                    vars.menu=array[0];
                 }
                
                 return cb(vars);
