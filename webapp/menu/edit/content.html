@@ -14,6 +14,11 @@
       <div class="inputLabel">Price</div>
       <input type="text" name="price" placeholder="0.0" value="{price}"/>
     </div>
+    <div class="inputWrapper">
+      <div class="inputLabel">Picture URL</div>
+      <input type="text" name="image_url" placeholder="/public/default.img" value="{image_url}"/>
+      <img class="menuViewImage" id="image_{id}" src="{image_url}" alt="{description}" />
+    </div>
     <div class="inputWrapper ctaWrapper">
       <button type="submit" class="cta green">Update</button>
     </div>
