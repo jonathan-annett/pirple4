@@ -44,7 +44,7 @@ module.exports = function(app,handlers){
                } else {
                    vars["cart"] = [];
                    vars["cart.total"] = 0;
-                   app.config.cart = { items:[] };
+                   app.config.cart = { total : 0 };
                }
             
                 cb(vars);
@@ -145,7 +145,7 @@ module.exports = function(app,handlers){
 
             before_submit : function (formData,cb) { 
                 document.getElementById("")
-                if (app.config.cart.items>0) {
+                if (app.config.cart.total != 0) {
                     app.templates["cart/checkout"]();
                 }
             },
