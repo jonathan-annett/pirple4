@@ -494,8 +494,6 @@ app.init.interceptFormSubmits = function() {
         }
         
     };
-    
-    
 
     var captureFormSubmit = function(form) {
         form.addEventListener("submit", onFormSubmit);
@@ -519,19 +517,18 @@ app.init.interceptFormSubmits = function() {
         
         var captureElementEvent = function(form) {
             var formId = form.getAttribute("id");
-            if (app["on_"+eventName][formId]){
+            if (app["on_"+eventName][formId] || app.prefix_detect(formId,app["on_"+eventName]._generic.prefixes)){
                 var element_keys = Object.keys(form.elements);
                 for(var i = 0; i < element_keys.length; i++) {
-                        var element_key = element_keys[i];
-                        form.elements[element_key].addEventListener(eventName, onElementEvent); 
-                    }
+                    var element_key = element_keys[i];
+                    form.elements[element_key].addEventListener(eventName, onElementEvent); 
+                }
             }
         };
         
         forms.forEach(captureElementEvent);
     };
-    
-    
+
     forms.forEach(captureFormSubmit);
     capture_element_events("change");
     capture_element_events("input");
