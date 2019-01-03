@@ -27,9 +27,17 @@ module.exports = function(app,handlers){
          
          
         forms : [{  
-            //before_submit : function (formData,cb) { cb(); },
             
-             
+            before_submit : function (formData,cb) { 
+                
+                app.helpers.validate.card(formData,function(card){
+                    if (card) {
+                        cb();     
+                    }
+                });
+
+            },
+            
             after_submit : function () {
                 app.clearTemplateCache("cartCheckout");
             }
