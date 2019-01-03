@@ -518,7 +518,7 @@ app.init.interceptFormSubmits = function() {
         };
         
         var captureElementEvent = function(form) {
-            var formId = this.getAttribute("id");
+            var formId = form.getAttribute("id");
             if (app["on_"+eventName][formId]){
                 var element_keys = Object.keys(form.elements);
                 for(var i = 0; i < element_keys.length; i++) {
