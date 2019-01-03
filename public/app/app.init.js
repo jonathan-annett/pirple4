@@ -460,7 +460,7 @@ app.init.interceptFormSubmits = function() {
         
                     
                     // Display an error on the form if needed
-                    if (code !== 200) {
+                    if ([200,204].indexOf(code) < 0) {
         
                         // if ([403, 401].indexOf(code) >= 0) {
                         // log the user out
