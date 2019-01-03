@@ -1,7 +1,7 @@
 <H1>Checkout</H1>
 <table>
     <tr>
-        <th>Description</th><th>Price</th><th>Quantity</th><th>Subtotal</th>
+        <th>Description</th><th>Price</th><th>Quantity</th><th>Subtotal</th><th></th>
     </tr>
 {?:cart[]}{cart[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven}">
@@ -9,6 +9,13 @@
         <td>{global.currencySymbol}{price}</td>
         <td>x {quantity}</td>
         <td>{global.currencySymbol}{subtotal}</td>
+        <td>
+            <form id="cartCheckoutDelete_{id}" action = "api/cart" >
+                <input type="hidden" name="_method" value="DELETE"/>
+                <input type="hidden" name="id" value="{id}"/>
+                <input class="cartDeleteImage" type="image" src="public/trash.svg" alt="Remove item(s) from cart"/>
+            </form>
+        </td>
     </tr>
 {:?}
     <tr>

@@ -144,7 +144,6 @@ module.exports = function(app,handlers){
             id: "cartGotoCheckout",
 
             before_submit : function (formData,cb) { 
-                document.getElementById("")
                 if (app.config.cart.total != 0) {
                     app.templates["cart/checkout"]();
                 }

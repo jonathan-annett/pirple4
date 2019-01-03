@@ -448,7 +448,7 @@ app.init.interceptFormSubmits = function() {
                 frmEls.formBusy.style.visibility = "visible";
             }
             
-            var okCallbackAt = Date.now() + 3000;
+            var okCallbackAt = Date.now() + 1500;
             
             // submit the form data using API
             app.submitFormData(

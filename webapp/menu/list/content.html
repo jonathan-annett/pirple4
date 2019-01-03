@@ -17,6 +17,7 @@
         <th>Price</th>
         <th></th>
         <th class="permissions_edit_menu"></th>
+        <th class="permissions_edit_menu"></th>
     </tr>
     {?:menu[]}{menu[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven}">
@@ -48,6 +49,13 @@
             </form>
         </td>
         
+        <td class="permissions_edit_menu">
+            <form id="menuEdit_{id}" action="/api/menu">
+                <input type="hidden" name="_method" value="DELETE" />
+                <input class="menuEditButtonImage" type="image"  src="/public/edit-button.svg" alt="Delete" />
+                <input type="hidden" name="id"  value= "{id}" />
+            </form>
+        </td>
     </tr>
     {:?}
 </table>
