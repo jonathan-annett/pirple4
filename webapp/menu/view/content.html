@@ -1,42 +1,34 @@
 {?:menu[]}{menu[]}{:else:}
  <h1>{description}</h1>
- <table>
-     
-     <tr>
-       <td>    
-       <img class="menuViewImage" src="{image_url}" alt="{description}" />
-     
-      </td>
-     <td>
-         <table>
-             <tr>
-                <td>
-                    {global.currencySymbol}{price}
-                </td>
-                <td>
-                    <form id="menuListAdd" action="/api/cart" method="post">
-                        <input class="menuAddToCartImage" type="image"  src="/public/add-to-cart.svg" alt="Add to cart" />
-                        <input type="hidden" name="id"  value= "{id}" />
-                        <input type="hidden" name="quantity" value= "1" />
-                    </form>
-                </td>
-                <td class="permissions">
-                    <div class="permissions_edit_menu">
-                    <form id="menuListEdit" action="/api/menu" method="post">
-                        <input class="menuEditButtonImage permissions_edit_menu" type="image"  src="/public/edit-button.svg" alt="Edit" />
-                        <input type="hidden" name="id"  value= "{id}" />
-                    </form>
-                    </div>
-                </td>
-             </tr>
-         </table>
-     </td>
-     </tr>
- </table>
 
-
-    
-    
-    
-
-{:?}
+<table>
+    <tr>
+        <td>
+            <img class="menuViewImage" src="{image_url}" alt="{description}" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>{global.currencySymbol}{price}</td>
+                    <td>
+                        <form id="menuListAdd" action="/api/cart" method="post">
+                            <input class="menuAddToCartImage" type="image" src="/public/add-to-cart.svg" alt="Add to cart" />
+                            <input type="hidden" name="id" value="{id}" />
+                            <input type="hidden" name="quantity" value="1" />
+                        </form>
+                    </td>
+                    <td class="permissions">
+                        <div class="permissions_edit_menu">
+                            <form id="menuListEdit" action="/api/menu" method="post">
+                                <input class="menuEditButtonImage permissions_edit_menu" type="image" src="/public/edit-button.svg" alt="Edit" />
+                                <input type="hidden" name="id" value="{id}" />
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>{:?}
