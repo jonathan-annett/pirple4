@@ -92,8 +92,27 @@ module.exports = function(app,handlers){
              id : "menuAddItem",
              before_submit : function (formData,cb) {
                  app.templates["menu/create"](formData);
-             },
-         }], 
+             }
+         },
+         
+         {
+             id : "menuSearch",
+             
+             on_input : function (formData,cb) {
+                 if (app.templates.menuList.searchTimer) {
+                     clearTimeout(app.templates.menuList.searchTimer);
+                 }
+                 app.templates.menuList.searchTimer = setTimeout(function(){
+                     delete app.templates.menuList.searchTimer;
+                     app.api.menu.get({description:formData.description},function(code,array){
+                         console.log(array);
+                     });
+                 },500);
+             }
+             
+             
+         }
+         ], 
          
         
     };

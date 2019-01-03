@@ -23,7 +23,12 @@
     
     <tr class="permissions">
         <th></th>
-        <th><input type="text" /><input class="menuAddToCartImage" type="image"  src="/public/search.svg" alt="search" /></th>
+        <th>
+            <form id="menuSearch" action="/api/menu">
+                <input type="text" name="description" />
+                <input class="menuAddToCartImage" type="image"  src="/public/search.svg" alt="search" />
+            </form>
+        </th>
         <th></th>
         <th></th>
         <th class="permissions_edit_menu"></th>
