@@ -448,7 +448,7 @@ app.init.interceptFormSubmits = function() {
                 frmEls.formBusy.style.visibility = "visible";
             }
             
-            var okCallbackAt = Date.getTime() + 3000;
+            var okCallbackAt = Date.now() + 3000;
             
             // submit the form data using API
             app.submitFormData(
@@ -500,7 +500,7 @@ app.init.interceptFormSubmits = function() {
                         
                         if(frmEls.formSuccess) {
                             
-                            var remain = okCallbackAt - Date.getTime();
+                            var remain = okCallbackAt - Date.now();
                             
                             if (remain>0) {
                                 setTimeout(okCallback,remain);
