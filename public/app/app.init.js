@@ -447,6 +447,9 @@ app.init.interceptFormSubmits = function() {
             if (frmEls.formBusy) {
                 frmEls.formBusy.style.visibility = "visible";
             }
+            
+            var okCallbackAt = Date.getTime() + 3000;
+            
             // submit the form data using API
             app.submitFormData(
                 formId,
@@ -455,9 +458,7 @@ app.init.interceptFormSubmits = function() {
         
                 function(code, responsePayload, payload) {
         
-                    if (frmEls.formBusy) {
-                        frmEls.formBusy.style.visibility = "hidden";
-                    }
+                    
                     // Display an error on the form if needed
                     if (code !== 200) {
         
@@ -477,14 +478,39 @@ app.init.interceptFormSubmits = function() {
                             // Show (unhide) the form error field on the form
                             frmEls.formError.style.display = 'block';
                         }
+                        
+                        if (frmEls.formBusy) {
+                            frmEls.formBusy.style.visibility = "hidden";
+                        }
                         //}
                     } else {
+                        
+                        var okCallback = function () {
+                            if (frmEls.formBusy) {
+                                frmEls.formBusy.style.visibility = "hidden";
+                            }
+                            
+                            if(frmEls.formSuccess) {
+                                frmEls.formSuccess.style.display = 'block';
+                            }
+                            // If successful, send to form response processor
+                            var processor = app.after_submit[formId] || app.after_submit._generic;
+                            processor(responsePayload, payload, formId);    
+                        };
+                        
                         if(frmEls.formSuccess) {
-                            frmEls.formSuccess.style.display = 'block';
+                            
+                            var remain = okCallbackAt - Date.getTime();
+                            
+                            if (remain>0) {
+                                setTimeout(okCallback,remain);
+                            }
+                            
+                        } else {
+                            
+                            okCallback();
                         }
-                        // If successful, send to form response processor
-                        var processor = app.after_submit[formId] || app.after_submit._generic;
-                        processor(responsePayload, payload, formId);
+                        
         
                     }
                 }
@@ -534,7 +560,9 @@ app.init.interceptFormSubmits = function() {
     };
 
     forms.forEach(captureFormSubmit);
+    
     capture_element_events("change");
+    
     capture_element_events("input");
 
     var unfocussed = true;
