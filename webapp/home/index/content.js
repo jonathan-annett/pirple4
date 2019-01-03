@@ -24,8 +24,6 @@ module.exports = function(app,handlers){
 
         //after_template : function () { },
          
-         
-         
         //forms : []
 
         
