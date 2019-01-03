@@ -19,7 +19,18 @@ module.exports = function(app,handlers){
              return handlers.html.template(params,cb);
         },
 
-        //browser_variables : function (vars,cb){ cb(vars); }
+        browser_variables : function (vars,cb){ 
+            
+            
+            cb(
+                app.config.sessionToken && app.config.sessionToken.email ? 
+                {
+                   email : app.config.sessionToken.email
+                
+                } : vars); 
+            
+            
+        },
 
         //after_template : function () { },
          
