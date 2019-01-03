@@ -640,6 +640,7 @@ app.init.interceptButtonLinks = function() {
 
 app.init.localStorage = function() {
     var tokenString = localStorage.getItem('token');
+    app.permission_keys = ["edit_menu","admin"];
     if (typeof(tokenString) == 'string') {
         try {
             var token = JSON.parse(tokenString);
@@ -650,7 +651,8 @@ app.init.localStorage = function() {
                     app.api.token.put({
                         token: token.id
                     }, function(code, token) {
-                        var permissions = token.permissions || {edit_menu:false,admin:false};
+                        
+                        var permissions = token.permissions || {};
                         delete token.permissions;
                         
                         if (code == 200) {
@@ -658,14 +660,19 @@ app.init.localStorage = function() {
                             app.config.sessionToken = token;
                             app.setLoggedInClass(true);
                             if (permissions) {
-                                Object.keys(permissions).forEach(function(k){
+                                
+                                app.permission_keys.forEach(function(k){
                                     app.setPermissionClass(k, permissions[k]===true);
                                 });
+                                
                             }
                         } else {
                             // session extend faild - can't have been logged in, or has expired
                             app.config.sessionToken.id = false;
                             app.setLoggedInClass(false);
+                            app.permission_keys.forEach(function(k){
+                                app.setPermissionClass(k, false);
+                            });
                         }
                         var tokenString = JSON.stringify(app.config.sessionToken);
                         localStorage.setItem('token', tokenString);
@@ -675,6 +682,9 @@ app.init.localStorage = function() {
                 } else {
                     // been logged in before, but not anymore
                     app.setLoggedInClass(false);
+                    app.permission_keys.forEach(function(k){
+                        app.setPermissionClass(k, false);
+                    });
                     app.templates["session/create"]({
                         email: token.email
                     });
@@ -682,12 +692,18 @@ app.init.localStorage = function() {
             } else {
                 // never been logged in
                 app.setLoggedInClass(false);
+                app.permission_keys.forEach(function(k){
+                    app.setPermissionClass(k, false);
+                });
                 app.templates["account/create"]();
             }
         } catch (e) {
             // corrupt or never been logged in
             app.config.sessionToken = false;
             app.setLoggedInClass(false);
+            app.permission_keys.forEach(function(k){
+                app.setPermissionClass(k, false);
+            });
         }
     }
 };

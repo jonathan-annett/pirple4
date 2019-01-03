@@ -50,6 +50,9 @@ app.logout = function(template,cb){
                    app.setToken(tok,function(){
                       // display logged out page
                       app.setLoggedInClass(false);
+                      app.permission_keys.forEach(function(k){
+                          app.setPermissionClass(k, false);
+                      });
                       next_template(cb);
                    });
                    
@@ -58,12 +61,18 @@ app.logout = function(template,cb){
             } else {
                 // user is currently logged out
                 app.setLoggedInClass(false);
+                app.permission_keys.forEach(function(k){
+                    app.setPermissionClass(k, false);
+                });
                 next_template(cb);
             }
             
         } else {
            // never has logged in - show signup page 
            app.setLoggedInClass(false);
+           app.permission_keys.forEach(function(k){
+               app.setPermissionClass(k, false);
+           });
            app.templates["account/create"](); 
         }
         
