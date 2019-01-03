@@ -258,6 +258,10 @@ height:300px;
     height : 24px;
 }
 
+.menuSearchText {
+    width:80%;
+}
+
 .menuRowEven {
    background-color: #d0efed; 
 }
