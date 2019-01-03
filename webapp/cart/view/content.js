@@ -39,12 +39,12 @@ module.exports = function(app,handlers){
                        vars.cart.push(item);
                    }
                    
-                   app.config.cartEmpty = false;
+                   app.config.cart = cart;
 
                } else {
                    vars["cart"] = [];
                    vars["cart.total"] = 0;
-                   app.config.cartEmpty = true;
+                   app.config.cart = { items:[] };
                }
             
                 cb(vars);
@@ -145,7 +145,7 @@ module.exports = function(app,handlers){
 
             before_submit : function (formData,cb) { 
                 document.getElementById("")
-                if (!app.config.cartEmpty) {
+                if (app.config.cart.items>0) {
                     app.templates["cart/checkout"]();
                 }
             },
