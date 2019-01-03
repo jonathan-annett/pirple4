@@ -99,10 +99,10 @@ module.exports = function(app,handlers){
              id : "menuSearch",
              
              on_input : function (formData,element) {
-                 if (app.templates.menuList.searchTimer) {
+                 if (app.templates["menu/list"].searchTimer) {
                      clearTimeout(app.templates.menuList.searchTimer);
                  }
-                 app.templates.menuList.searchTimer = setTimeout(function(){
+                 app.templates["menu/list"].searchTimer = setTimeout(function(){
                      delete app.templates.menuList.searchTimer;
                      app.api.menu.get({description:formData.description},function(code,array){
                          console.log(array);
