@@ -26,6 +26,7 @@ module.exports = function(app,handlers){
 
         browser_variables : function (vars,cb){ 
             app.api.menu.get({id : vars.id},function(code,array){
+                
                 if (code===200) {
                     vars.menu=array;
                 }
