@@ -173,7 +173,7 @@ app.init.generate_templates = function() {
         get_title_template(function(title_temp) {
 
             // render the document title using variables from page
-            pageInfo.variables["meta.handler"] = formId;
+            
             app.helpers.mergeVariables(title_temp, pageInfo.variables, '', function(title) {
 
                 // set the document title
@@ -352,6 +352,7 @@ app.init.generate_templates = function() {
                 var proceedWithTemplate=function(){
                     if (templateCache[link_path]) {
     
+                        if (variables) variables["meta.handler"] = link_path;
                         app.helpers.mergeVariables(templateCache[link_path].rawHtml, variables, '', function(html) {
     
                             exit_200(defFormId, {
