@@ -40,7 +40,7 @@ module.exports = function(app,handlers){
                    }
 
                } else {
-                   vars["cart[]"] = "";
+                   vars["cart"] = [];
                    vars["cart.total"] = 0;
                }
             
