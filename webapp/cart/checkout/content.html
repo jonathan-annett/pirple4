@@ -6,8 +6,8 @@
 {?:cart[]}{cart[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven}">
         <td>{description}</td>
-        <td>x {quantity}</td>
         <td>{global.currencySymbol}{price}</td>
+        <td>x {quantity}</td>
         <td>{global.currencySymbol}{subtotal}</td>
     </tr>
 {:?}
@@ -40,4 +40,5 @@
   <div class="inputWrapper ctaWrapper">
     <button type="submit" class="cta green">Pay</button>
   </div>
+  <img class="formBusy ctaWrapper" src="public/loading.gif" alt="loading..."  />
 </form>
