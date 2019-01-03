@@ -111,10 +111,9 @@ module.exports = function(app,handlers){
                  app.config.searchTimer = setTimeout(function(){
                      delete app.config.searchTimer;
                      app.api.menu.get({description:formData.description},function(code,array){
-                         var ids = []; 
-                         if (array) {
-                            array.forEach(function(el){ids.push(el.id)});
-                         }
+                         
+                         var ids = code===200 && array ? array.map(function(el){return el.id;}) : [];
+                         
                          var rows = document.getElementById("menuListTable").rows;
                          for(var i = 3; i <rows.length; i++) {
                              rows[i].hidden = array && ids.indexOf(rows[i].dataset.menuId)<0;
