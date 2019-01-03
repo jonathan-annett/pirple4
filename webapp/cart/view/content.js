@@ -38,10 +38,13 @@ module.exports = function(app,handlers){
                        item.id = item_key; 
                        vars.cart.push(item);
                    }
+                   
+                   page.cartEmpty = false;
 
                } else {
                    vars["cart"] = [];
                    vars["cart.total"] = 0;
+                   page.cartEmpty = true;
                }
             
                 cb(vars);
@@ -141,7 +144,8 @@ module.exports = function(app,handlers){
             id: "cartGotoCheckout",
 
             before_submit : function (formData,cb) { 
-                if (formData.items && formData.items.length>0) {
+                document.getElementById("")
+                if (!page.cartEmpty) {
                     app.templates["cart/checkout"]();
                 }
             },
