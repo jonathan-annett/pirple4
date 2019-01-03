@@ -25,7 +25,13 @@ module.exports = function(app,handlers){
         },
 
         browser_variables : function (vars,cb){ 
-            app.browser_variables["menu/view"](vars,cb) ;
+            app.api.menu.get({id : vars.id},function(code,array){
+                if (code===200) {
+                    vars.menu=array;
+                }
+               
+                return cb(vars);
+            });
         },
 
         //after_template : function () { },
