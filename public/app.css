@@ -67,15 +67,15 @@ body.loggedIn .header ul li.loggedOut{
   display: none;
 }
 
-.permissions_edit_user {
+.permissions_edit_menu {
    display : none;   
 }
 
-body.permissions_edit_user table tr th.permissions_edit_user{
+body.permissions_edit_menu table tr th.permissions_edit_menu{
   display: inline-block;
 }
 
-body.permissions_edit_user table tr td.permissions_edit_user{
+body.permissions_edit_menu table tr td.permissions_edit_menu{
   display: inline-block;
 }
 
