@@ -45,10 +45,7 @@ module.exports = function(app,handlers){
                 cb(vars);
                
            });
-           
-           
- 
-           
+
            
        },
 

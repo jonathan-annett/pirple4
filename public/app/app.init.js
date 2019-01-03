@@ -113,7 +113,7 @@ app.after_submit._generic.prefixes={};
 
 // auto generate the template generators
 app.init.generate_templates = function() {
-
+    app.browser_variables={};
     app.templates = {};
     var templateCache = {};
     var header_template_;
@@ -246,6 +246,7 @@ app.init.generate_templates = function() {
 
         if (typeof browser_variables === 'function') {
 
+            app.browser_variables[link_path]=browser_variables;
             app.templates[link_path] = function(variables, cb) {
 
                 switch (typeof variables) {

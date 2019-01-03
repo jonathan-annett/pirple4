@@ -1,4 +1,16 @@
 <H1>Checkout</H1>
+
+{?:cart[]}{cart[]}{:else:}
+<table>
+<tr class="menuRow{_meta.indexOddEven}">
+    <td>{description}</td>
+    <td>x {quantity}</td>
+    <td>{global.currencySymbol}{price}</td>
+    <td>{global.currencySymbol}{subtotal}</td>
+</tr>
+</table>
+{:?}
+
 <form id="cartCheckout" action="api/order" method="POST">
   <div class="formError"></div>
   <div class="inputWrapper">

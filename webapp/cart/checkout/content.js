@@ -21,7 +21,9 @@ module.exports = function(app,handlers){
              return handlers.html.template(params,cb);
         },
 
-        //browser_variables : function (vars,cb){ cb(vars); }
+        browser_variables : function (vars,cb){ 
+            app.browser_variables["cart/view"](vars,cb); 
+        },
 
         //after_template : function () { },
          
@@ -40,7 +42,7 @@ module.exports = function(app,handlers){
 
             },
             
-            after_submit : function () {  }
+            //after_submit : function () {  }
         }]
     };
     
