@@ -68,7 +68,7 @@ body.loggedIn .header ul li.loggedOut{
 }
 
 body tr.permissions th.permissions_edit_menu,
-body tr.permissions td.permissions_edit_menu {
+body td.permissions div.permissions_edit_menu {
    display : none;   
 }
 
@@ -76,7 +76,7 @@ body tr.permissions td.permissions_edit_menu {
 body.permissions_edit_menu tr.permissions th.permissions_edit_menu {
     display: table-cell;
 }
-body.permissions_edit_menu tr.permissions div.permissions_edit_menu {
+body.permissions_edit_menu td.permissions div.permissions_edit_menu {
   display: block;
 }
 
