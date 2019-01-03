@@ -113,7 +113,7 @@ module.exports = function(app,handlers){
                      app.api.menu.get({description:formData.description},function(code,array){
                          console.log(array);
                          app.config.searchResults=array;
-                         app.templates("menu/list")();
+                         app.templates["menu/list"]();
                      });
                  },500);
              }
