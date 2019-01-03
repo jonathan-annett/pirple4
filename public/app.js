@@ -32,7 +32,9 @@ app.logout = function(template,cb){
     if (typeof template==='function') {
         cb = template;
     } else {
-        next_template = app.templates[template];
+        if (template) {
+            next_template = app.templates[template];
+        }
     }
     
     // determine current login status
@@ -68,7 +70,7 @@ app.logout = function(template,cb){
 app.buttons = {};
 
 app.buttons.logoutButton = function (){
-    app.logout("session/create");
+    app.logout();
 };
 
 
