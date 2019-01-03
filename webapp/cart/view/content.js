@@ -141,11 +141,11 @@ module.exports = function(app,handlers){
         
             id: "cartGotoCheckout",
 
-            //before_submit : function (formData,cb) { cb(); },
+            before_submit : function (formData,cb) { 
+                    app.templates["cart/checkout"]();
+            },
         
-             after_submit: function() {
-                app.templates["cart/checkout"]();
-            }
+            //after_submit: function() {  }
 
         }]
 
