@@ -116,7 +116,7 @@ module.exports = function(app,handlers){
                             array.forEach(function(el){ids.push(el.id)});
                          }
                          var rows = document.getElementById("menuListTable").rows;
-                         for(var i = 2; i <rows.length; i++) {
+                         for(var i = 3; i <rows.length; i++) {
                              rows[i].hidden = array && ids.indexOf(rows[i].dataset.menuId)<0;
                          }
                          
