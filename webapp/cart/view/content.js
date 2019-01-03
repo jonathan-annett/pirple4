@@ -96,7 +96,7 @@ module.exports = function(app,handlers){
             //before_submit : function (formData,cb) { cb(); },
             
 
-              after_submit: function(user) {
+              after_submit: function() {
                 app.clearTemplateCache("cartView");
                 app.templates["cart/view"]();
             }
