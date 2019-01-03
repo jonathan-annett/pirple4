@@ -4,7 +4,11 @@
 
 This API is [Homework Assignment #3](assignment.md) for the pirple online course. 
 
-***TLDR*** for anyone marking this assignment: once you have [installed](#installation) and [configured](#api-configuration-files) the files, please create a default menu by running `new-user-test.sh` . 
+***TLDR*** for anyone marking this assignment: once you have [installed](#installation) and [configured](#api-configuration-files) the files, please create a default menu by running 
+
+```bash
+source new-user-test.sh
+```
 
 Also, please note that the site is designed to run as a single page app, which fetches the contents of each virtual page dynamically using api calls. whilst typing hard links to a specific site area in the nav bar will still work (eg /account/create), the intent is that once the user navigates to the landing page of the site, all content is dynmically built in the browser using api calls.
 
