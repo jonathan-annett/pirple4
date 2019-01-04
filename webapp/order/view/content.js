@@ -140,7 +140,7 @@ module.exports = function(app,handlers){
                                          var copy_item_loop = function (i) {
                                              if (i>= item_keys.length) {
                                                  
-                                                 
+                                                 app.templates["cart/checkout"]();
                                              } else {
                                                  
                                                  var item_id = item_keys[i],
