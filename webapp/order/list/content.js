@@ -56,7 +56,7 @@ module.exports = function(app,handlers){
         */
         browser_variables : function (vars,cb){
             
-            vars.display_order = vars.order.filter(function(el){
+            vars.display_order = vars.order.map(function(el){
                 return {
                     date     : new Date( el.when ).toString(),
                     order_id : el.order_id,
