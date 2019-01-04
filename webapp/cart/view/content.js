@@ -71,10 +71,10 @@ module.exports = function(app, handlers) {
 
                     app.config.cart = cart;
                     if (cart.total !== 0) {
-                        app.shoppingCartButton.style.display = "inline-block";
+                        app.showCartButtons("inline-block");
                     } else {
                         // we never show an empty cart.
-                        app.shoppingCartButton.style.display = "none";
+                        app.showCartButtons("none");
                         setTimeout(function(){
                             app.clearTemplateCache("menuList");
                             return app.templates["menu/list"]();   
@@ -86,7 +86,7 @@ module.exports = function(app, handlers) {
                 } else {
                     vars.cart = [];
                     vars["cart.total"] = 0;
-                    app.shoppingCartButton.style.display = "none";
+                    app.showCartButtons("none");
                     app.config.cart = {
                         total: 0
                     };

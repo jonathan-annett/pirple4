@@ -1,6 +1,12 @@
 /* global app */
 
 app.init = function() {
+    
+    ["shoppingCartButton","cartCheckoutButton","ordersButton"].forEach(
+    function(btn){
+        app[btn] = document.getElementById(btn); 
+    });
+    
     app.init.generate_api_stubs(["user", "token", "cart", "menu", "order", "html"]);
     app.init.generate_templates();
     app.init.interceptFormSubmits();
@@ -638,7 +644,8 @@ app.init.interceptButtonLinks = function() {
 
 app.init.localStorage = function() {
     var tokenString = localStorage.getItem('token'); 
-    app.shoppingCartButton = document.getElementById("shoppingCartButton");
+    
+
     app.permission_keys = ["edit_menu","admin"];
     if (typeof(tokenString) == 'string') {
         try {
@@ -664,13 +671,14 @@ app.init.localStorage = function() {
                                 });
                             }
                             
-                            app.api.cart.get(function(code,data){
-                                if (code===200 && data.total !== 0) {
-                                    app.shoppingCartButton.style.display = "inline-block";
-                                } else {
-                                    app.shoppingCartButton.style.display = "none";
+                            app.api.cart.get(
+                                function(code,data){
+                                
+                                    app.showCartButtons (
+                                        (code===200 && data.total !== 0) ? "inline-block" : "none"
+                                    );
                                 }
-                            });
+                            );
                             
                         } else {
                             // session extend faild - can't have been logged in, or has expired
@@ -679,7 +687,7 @@ app.init.localStorage = function() {
                             app.permission_keys.forEach(function(k){
                                 app.setPermissionClass(k, false);
                             });
-                            shoppingCartButton.style.display = "none";
+                            app.showCartButtons ("none");
                         }
                         var tokenString = JSON.stringify(app.config.sessionToken);
                         localStorage.setItem('token', tokenString);

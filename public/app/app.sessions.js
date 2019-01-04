@@ -62,3 +62,7 @@ app.setPermissionClass = function(perm,add){
     target.classList.remove("permissions_"+perm);
   }
 };
+
+app.showCartButtons = function (disp) {
+    app.shoppingCartButton.style.display = ( app.cartCheckoutButton.style.display = disp);
+};
