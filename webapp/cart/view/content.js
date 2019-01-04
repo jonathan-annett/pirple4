@@ -75,8 +75,11 @@ module.exports = function(app, handlers) {
                     } else {
                         // we never show an empty cart.
                         app.shoppingCartButton.style.display = "none";
-                        app.clearTemplateCache("menuList");
-                        return app.templates["menu/list"]();
+                        setTimeout(function(){
+                            app.clearTemplateCache("menuList");
+                            return app.templates["menu/list"]();   
+                        },1500);
+                        
                     }
 
 
@@ -87,6 +90,10 @@ module.exports = function(app, handlers) {
                     app.config.cart = {
                         total: 0
                     };
+                    setTimeout(function(){
+                        app.clearTemplateCache("menuList");
+                        return app.templates["menu/list"]();   
+                    },1500);
                 }
 
                 cb(vars);

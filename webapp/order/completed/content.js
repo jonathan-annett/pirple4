@@ -65,7 +65,7 @@ module.exports = function(app,handlers){
             }
             vars["order.total"]=vars.order.total;
             vars["order.order_id"]=vars.order.order_id;
-            
+            app.shoppingCartButton.style.display = "none";
             cb(vars); 
         },
 
