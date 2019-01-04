@@ -18,7 +18,7 @@ It is time to build a simple frontend for the Pizza-Delivery API you created in 
 
 1. Signup on the site
 
-2. View all the items available to order
+2. [View all](webapp/menu/list/content.js) the items available to order
 
 3. Fill up a shopping cart
 
