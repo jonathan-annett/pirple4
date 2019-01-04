@@ -629,11 +629,12 @@ app.init.interceptButtonLinks = function() {
                  if (typeof templateHandler === "function") {
                      
                      event.preventDefault();
-                     
-                     templateHandler(u?u.queryParams:{},function(code, html, info) {
-                             
-                    });
-                   
+                     if (u) {
+                       templateHandler(u.queryParams||{});  
+                     } else {
+                        templateHandler();
+                     }
+
                  }
             }    
         }

@@ -14,9 +14,8 @@ module.exports = function(app,handlers){
             */
             variables : { 
                  'head.title'   : 'View Previous Orders',
-                 'body.class'   : 'orderList',
-                 'meta.handler' : 'order.html.list'
-             },
+                 'body.class'   : 'orderList'
+              },
              dataSources : {
                  order : {list:{preload:true,flatten:true}}
              }
