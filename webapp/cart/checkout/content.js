@@ -126,7 +126,7 @@ module.exports = function(app, handlers) {
             id : "cartCheckout",
             
             on_input: function(formData, element) {
-                var valFn = element && typeof element.name === 'string' ? app.helpers.validate[element.name] : false;
+                var valFn = element && typeof element.name === 'string' ? app.helpers.validate.card[element.name] : false;
                 if (typeof valFn === 'function') {
                     valFn(formData, function(value) {
                         element.style.backgroundColor = (value === false ? "red" : "white");
