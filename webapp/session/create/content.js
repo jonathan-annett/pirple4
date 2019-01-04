@@ -10,7 +10,7 @@ module.exports = function(app,handlers){
             /* 
                page.htmlOptions.variables
                these are the default static variables used by this page
-               they are store in the node.js instance and used by handlers.html.template()
+               they are stored in the node.js instance and used by handlers.html.template()
                they are also sent to browser by handlers.html.post() 
             */
             variables : { 
