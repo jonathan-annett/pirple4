@@ -31,7 +31,33 @@ app.helpers.resolve_uri=function(url){
         return url;
     }
 };
-
+ 
+app.helpers.parse_url=function(url){
+    
+    var uri = app.helpers.resolve_uri (url);
+    var path=uri;
+    var params = {};
+    var query = "";
+    var i = uri.indexOf("?");
+    if (i>=0) {
+        query = uri.substr(i+1);
+        path  = uri.substr(0,i);
+        query.split("&").forEach(function(kv_pair){
+            var p = kv_pair.split("=");
+            var key = p.shift();
+            var value = p.join("=");
+            params[key]=value;
+        });
+    }
+    
+    if (path.charAt(0)==="/") path = path.substr(1);
+    return {
+        uri   : uri,
+        path  : path,
+        query : query,
+        queryParams : params
+    };
+};
 
 app.helpers.build_uri = function(path,queryParams,cb){
     var uri = Object.keys(queryParams).reduce(function(uri,key,index){

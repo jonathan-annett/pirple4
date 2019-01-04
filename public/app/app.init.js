@@ -595,7 +595,7 @@ app.init.interceptFormSubmits = function() {
 };
 
 
-// set 
+ 
 app.init.interceptButtonLinks = function() {
     
 
@@ -605,7 +605,8 @@ app.init.interceptButtonLinks = function() {
         var 
         el = event.target,
         buttonId = el.id,
-        uri = el.href ? app.helpers.resolve_uri(el.href) : false,
+        u   = el.href ? app.helpers.parse_url(el.href) : false,
+        uri = u ? u.path : false,
         clickHandler;
         
         
@@ -628,8 +629,8 @@ app.init.interceptButtonLinks = function() {
                  if (typeof templateHandler === "function") {
                      
                      event.preventDefault();
-              
-                     templateHandler(function(code, html, info) {
+                     
+                     templateHandler(u?u.queryParams:{},function(code, html, info) {
                              
                     });
                    
