@@ -62,12 +62,17 @@ module.exports = function(app,handlers){
                 var item = vars.order.items[item_key];
                 item.id = item_key;
                 vars.order_items.push(item);
-            }
-            vars["order.total"]=vars.order.total;
-            vars["order.order_id"]=vars.order.order_id;
+            } 
+            
+            var d = new Date( vars.order.when );
+            vars["order.date"]     = app.helpers.formatDate(d);
+            vars["order.time"]     = d.toTimeString().substr(0,5);
+            vars["order.total"]    = vars.order.total;
+            vars["order.order_id"] = vars.order.order_id;
             app.showCartButtons("none");
             cb(vars); 
         },
+        
 
         /* 
             page.after_template(code,payload,pageInfo) 
