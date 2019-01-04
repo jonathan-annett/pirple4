@@ -13,28 +13,28 @@
         <td id="quantity_{id}">
             <div class=cartButtons>
             
-            <form id="cartAdd_{id}" action = "api/cart" >
+            <form id="cartViewAdd_{id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="POST"/>
                 <input type="hidden" name="id" value="{id}"/>
                 <input type="hidden" name="quantity" value="1"/>
                 <input class="cartPlus" type="submit" value="+"/>
             </form>
             
-            <form id="cartQuantity_{id}" action = "api/cart">
+            <form id="cartViewQuantity_{id}" action = "api/cart">
                 <input type="hidden" name="_method" value="PUT"/>
                 <input type="hidden" name="id" value="{id}"/>
                 <input class="cartQuantity" type="text" name="quantity" id="edit_quantity_{id}" value="{quantity}"/>
                 <!-- input class="cartQuantityBtn" type="submit" value="update"/-->
             </form>
             
-            <form id="cartSubtract_{id}" action = "api/cart" >
+            <form id="cartViewSubtract_{id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="POST"/>
                 <input type="hidden" name="id" value="{id}"/>
                 <input type="hidden" name="quantity" value="-1"/>
                 <input class="cartMinus" type="submit" value="-"/>
             </form>
             
-            <form id="cartDelete_{id}" action = "api/cart" >
+            <form id="cartViewDelete_{id}" action = "api/cart" >
                 <input type="hidden" name="_method" value="DELETE"/>
                 <input type="hidden" name="id" value="{id}"/>
                 <input class="cartDeleteImage" type="image" src="public/trash.svg" alt="Remove item(s) from cart"/>
@@ -53,7 +53,7 @@
     </tr>
     <tr>
         <th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>
-            <form id="cartGotoCheckout" action = "api/checkout" >
+            <form id="cartViewGotoCheckout" action = "api/checkout" >
                 <input type="hidden" name="_method" value="POST"/>
                 <input class="goToCartImage" type="image" src="public/go-to-checkout.svg" alt="Remove item(s) from cart"/>
             </form>

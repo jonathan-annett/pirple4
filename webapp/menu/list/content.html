@@ -1,6 +1,7 @@
 <h1>Pizza 2 Go! Menu</h1>
 <table>
     <tbody id="menuListTable">
+        
     <tr class="permissions" data-menu-id="none">
         <td></td>
         <td></td>
@@ -8,11 +9,12 @@
         <td></td>
         <td class="permissions_edit_menu"></td>
         <td class="permissions_edit_menu">
-             <form id="menuAddItem" action="/api/menu" method="post">
+             <form id="menuListAddItem" action="/api/menu" method="post">
                  <input class="menuEditButtonImage" type="image"  src="/public/create-btn.svg" alt="Edit" />
              </form>
         </td>
     </tr>
+    
     <tr class="permissions" data-menu-id="none">
         <th>Picture</th>
         <th>Description</th>
@@ -25,7 +27,7 @@
     <tr class="permissions" data-menu-id="none">
         <th></th>
         <th>
-            <form id="menuSearch" action="/api/menu">
+            <form id="menuListSearch" action="/api/menu">
                 <input class="menuSearchText" type="text" name="description" />
                 <input class="menuEditButtonImage" type="image"  src="/public/search.svg" alt="search" />
             </form>
@@ -35,11 +37,12 @@
         <th class="permissions_edit_menu"></th>
         <th class="permissions_edit_menu"></th>
     </tr>
+    
     {?:menu[]}{menu[]}{:else:}
     <tr class="menuRow{_meta.indexOddEven} permissions" data-menu-id="{id}">
         
         <td>
-            <form id="menuView_{id}" action="/menu/view?id={id}" method="get">
+            <form id="menuListView_{id}" action="/menu/view?id={id}" method="get">
                 <input class="menuImage" type="image" src="{image_url}" alt="{description}" />
                 <input type="hidden" name="id"  value= "{id}" />
                 <input type="hidden" name="quantity" value= "1" />
@@ -51,7 +54,7 @@
         <td id="price_{id}">{global.currencySymbol}{price}</td>
         
         <td>
-            <form id="menuAdd_{id}" action="/api/cart" method="post">
+            <form id="menuListCartAdd_{id}" action="/api/cart" method="post">
                 <input class="menuAddToCartImage" type="image"  src="/public/add-to-cart.svg" alt="Add to cart" />
                 <input type="hidden" name="id"  value= "{id}" />
                 <input type="hidden" name="quantity" value= "1" />
@@ -59,7 +62,7 @@
         </td>
         
         <td class="permissions_edit_menu">
-                <form id="menuEdit_{id}" action="/api/menu" method="post">
+                <form id="menuListEdit_{id}" action="/api/menu" method="post">
                     <input class="menuEditButtonImage" type="image"  src="/public/edit-button.svg" alt="Edit" />
                     <input type="hidden" name="id"  value= "{id}" />
                 </form>

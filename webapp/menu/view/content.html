@@ -13,7 +13,7 @@
                 <tr class="permissions">
                     <td>{global.currencySymbol}{price}</td>
                     <td>
-                        <form id="menuListAdd" action="/api/cart" method="post">
+                        <form id="menuViewAddToCart" action="/api/cart" method="post">
                             <input class="menuAddToCartImage" type="image" src="/public/add-to-cart.svg" alt="Add to cart" />
                             <input type="hidden" name="id" value="{id}" />
                             <input type="hidden" name="quantity" value="1" />
@@ -21,10 +21,10 @@
                     </td>
                     <td class="permissions_edit_menu">
                         
-                            <form id="menuListEdit" action="/api/menu" method="post">
-                                <input class="menuEditButtonImage permissions_edit_menu" type="image" src="/public/edit-button.svg" alt="Edit" />
-                                <input type="hidden" name="id" value="{id}" />
-                            </form>
+                        <form id="menuViewEdit" action="/api/menu" method="post">
+                            <input class="menuEditButtonImage permissions_edit_menu" type="image" src="/public/edit-button.svg" alt="Edit" />
+                            <input type="hidden" name="id" value="{id}" />
+                        </form>
                         
                     </td>
                 </tr>
