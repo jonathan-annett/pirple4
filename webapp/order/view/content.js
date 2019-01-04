@@ -25,7 +25,10 @@ module.exports = function(app,handlers){
                                    - called to prior to loading a page template DYNAMICALLY
                                    - to prevent the template loading, don't call cb()
         */
-        // before_template : function (cb) {cb();},
+        before_template : function (cb) {
+            app.clearTemplateCache("orderView");
+            cb();
+        },
         
 
         
