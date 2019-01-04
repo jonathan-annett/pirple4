@@ -63,8 +63,7 @@ module.exports = function(app,handlers){
                     date     : app.helpers.formatDate(d),
                     time     : d.toTimeString().substr(0,5),
                     order_id : el.order_id,
-                    total    : el.total,
-                    description : el.order.items[0] + " ..."
+                    total    : el.total
                 };
             });
             
