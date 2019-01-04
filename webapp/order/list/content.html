@@ -3,11 +3,8 @@
 <table>
     {?:[display_order]}
     <tr>
-        <td></td>
         <td>{date}</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><a href="order/view?order_id={order_id}">{global.currencySymbol}{total}</a></td>
     </tr>
     {:?}
 </table>

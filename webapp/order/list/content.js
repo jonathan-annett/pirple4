@@ -55,10 +55,11 @@ module.exports = function(app,handlers){
                                      - to prevent the template loading, don't call cb()
         */
         browser_variables : function (vars,cb){
+             
             
             vars.display_order = vars.order.map(function(el){
                 return {
-                    date     : new Date( el.when ).toString(),
+                    date     : app.helpers.formatDate(new Date( el.when )),
                     order_id : el.order_id,
                     total    : el.total
                 };

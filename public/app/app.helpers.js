@@ -8,6 +8,21 @@ app.helpers.flatten = function (array,key) {
     return db;
 };
 
+app.helpers.formatDate = function(date) {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+};
+
 app.helpers.resolve_uri=function(url){
     if (url.substr(0,document.baseURI.length)===document.baseURI) {
         return url.substr(document.baseURI.length);         
