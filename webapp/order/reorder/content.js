@@ -39,6 +39,7 @@ module.exports = function(app,handlers){
         */
         template : function(params,cb) {
               params.htmlOptions = page.htmlOptions;
+              params.htmlOptions.dataSources.order = params.payloadIn.variables.order_id;
               return handlers.html.template(params,cb);
         },
 
