@@ -24,11 +24,11 @@
     <td></td>
     <td></td>
     <td>
-        <form id="orderViewReorder" action = "cart/reorder" >
+        <form id="orderViewReorder" action = "order/reorder" >
             <input type="hidden" name="_method"  value="POST"/>
             <input type="hidden" name="order_id" value="{order.order_id}" />
             <input class="goToCartImage" type="image" src="public/go-to-checkout.svg" alt="Make this order again"/><br/>
-            <a href="cart/reorder?order_id={order.order_id}">Make the same order again</a>
+            <a href="order/reorder?order_id={order.order_id}">Make the same order again</a>
         </form>
     </td>
 </tr>
