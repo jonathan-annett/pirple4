@@ -40,7 +40,6 @@ module.exports = function(app,handlers){
             
         */
         template : function(params,cb) {
-           
              params.htmlOptions = page.htmlOptions;
              page.htmlOptions.dataSources.order = params.payloadIn.variables.order_id;
              return handlers.html.template(params,cb);
@@ -53,9 +52,9 @@ module.exports = function(app,handlers){
                                      - vars (first parameter) is used to define variables for html rendering
                                      - to prevent the template loading, don't call cb()
         */
-        //browser_variables : function (vars,cb){ cb(vars); }
-
-
+        browser_variables : function (vars,cb){ 
+            app.browser_variables["order/completed"](vars,cb); 
+        },
 
         /* 
             page.after_template(code,payload,pageInfo) 

@@ -1,1 +1,23 @@
-<H1>{meta.handler} not implemented</H1>
+<H1>Order #:{order.order_id}</H1>
+<br/>
+<h2>Items Ordered</h2>
+<table>
+{?:[order_items]}
+    <tr>
+        <td>
+            {description}
+        </td>
+        <td>
+            x {quantity}
+        </td>
+        <td>
+            {global.currencySymbol}{price} 
+        </td>
+    </tr>
+{:?}
+<tr>
+    <td></td>
+    <td>Total:</td>
+    <td>{global.currencySymbol}{order.total}</td>
+</tr>
+</table>
