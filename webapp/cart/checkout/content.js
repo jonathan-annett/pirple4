@@ -134,30 +134,23 @@ module.exports = function(app, handlers) {
                 }
             },
             
-            on_number_change : function (formData, element,valFn) {
-                valFn(formData, function(value) {
-                    if (value) {
-                        element.value = 
-                            value.substr(0,4)+"-"
-                            value.substr(3,4)+"-"
-                            value.substr(7,4)+"-"
-                            value.substr(11,4);
-                        element.style.backgroundColor = "white";
-                    } else {
-                        element.style.backgroundColor = "red";
-                    }
-                });
-            },
+            
             
             on_change: function(formData, element) {
                 var valFn = element && typeof element.name === 'string' ? app.helpers.validate.card[element.name] : false;
                 if (typeof valFn === 'function') {
-                    var refactor = page.forms["on_"+element.name+"_change"];
-                    if (refactor) return refactor(formData, element,valFn);
-                
+
                     valFn(formData, function(value) {
-                        if (value) {
-                            element.value = value;
+                        if (value) { 
+                            if (element.name === 'number'){
+                                element.value = 
+                                    value.substr(0,4)+"-"
+                                    value.substr(3,4)+"-"
+                                    value.substr(7,4)+"-"
+                                    value.substr(11,4);
+                            } else {
+                                element.value = value;
+                            }
                             element.style.backgroundColor = "white";
                         } else {
                             element.style.backgroundColor = "red";
