@@ -64,7 +64,7 @@ module.exports = function(app,handlers){
                     time     : d.toTimeString().substr(0,5),
                     order_id : el.order_id,
                     total    : el.total,
-                    description : el.items[Object.keys(el.items)[0]]] + " ..."
+                    description : el.items[Object.keys(el.items)[0]] + " ..."
                 };
             });
             
