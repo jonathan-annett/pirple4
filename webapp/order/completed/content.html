@@ -1,4 +1,6 @@
 <H1>Payment Complete</H1>
+Order #:{order.order_id}<br/>
+<h2>Items Ordered</h2>
 <table>
 {?:[order_items]}
     <tr>
@@ -13,6 +15,9 @@
         </td>
     </tr>
 {:?}
+<tr>
+    <td></td>
+    <td>Total:</td>
+    <td>{global.currencySymbol}{order.total}</td>
+</tr>
 </table>
-
-   

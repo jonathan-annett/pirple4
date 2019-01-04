@@ -63,6 +63,8 @@ module.exports = function(app,handlers){
                 item.id = item_key;
                 vars.order_items.push(item);
             }
+            vars["order.total"]=vars.order.total;
+            vars["order.order_id"]=vars.order.order_id;
             
             cb(vars); 
         },
