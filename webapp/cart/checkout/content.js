@@ -129,7 +129,7 @@ module.exports = function(app, handlers) {
                 var valFn = element && typeof element.name === 'string' ? app.helpers.validate.card[element.name] : false;
                 if (typeof valFn === 'function') {
                     valFn(formData, function(value) {
-                        element.style.backgroundColor = (value === false ? "red" : "white");
+                        element.style.backgroundColor = (value === false ? "yellow" : "white");
                     });
                 }
             },
