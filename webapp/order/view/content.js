@@ -42,7 +42,7 @@ module.exports = function(app,handlers){
         template : function(params,cb) {
            
              params.htmlOptions = page.htmlOptions;
-             page.htmlOptions.dataSources.order = params.queryParams.id;
+             page.htmlOptions.dataSources.order = params.payloadIn.id;
              return handlers.html.template(params,cb);
         },
 
