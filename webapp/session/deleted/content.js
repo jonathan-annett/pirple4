@@ -127,13 +127,21 @@ module.exports = function(app,handlers){
 
         */
         forms : [{ 
+            
+            id : "sessionDeletedLogin",
          
-            after_submit : function (user) {
-                // store the token
-                app.setToken(user.token,function(){
-                   // display the full menu 
-                   app.templates["menu/list"]();
-                });
+            before_submit : function () {
+                app.templates["session/create"]();
+            }
+            
+        },
+        
+        { 
+            
+            id : "sessionDeletedNewAccount",
+         
+            before_submit : function () {
+                app.templates["account/create"]();
             }
             
         }]
