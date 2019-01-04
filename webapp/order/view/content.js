@@ -26,7 +26,7 @@ module.exports = function(app,handlers){
                                    - to prevent the template loading, don't call cb()
         */
         before_template : function (cb) {
-            app.clearTemplateCache("orderView");
+            app.clearTemplateCache("order/view");
             cb();
         },
         

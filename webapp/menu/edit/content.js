@@ -137,7 +137,7 @@ module.exports = function(app,handlers){
         forms : [{ 
             id : "menuEdit",
             after_submit : function () {
-                app.clearTemplateCache("menuEdit");
+                app.clearTemplateCache("menu/edit");
             }
             
         }]

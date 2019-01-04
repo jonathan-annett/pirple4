@@ -406,8 +406,8 @@ app.init.generate_templates = function() {
 
     };
     
-    app.clearTemplateCache = function(formId){
-        if (templateCache[formId]) delete templateCache[formId];  
+    app.clearTemplateCache = function(link_path){
+        if (templateCache[link_path]) delete templateCache[link_path];  
     };
 
     app.make_page_templates(make_template);

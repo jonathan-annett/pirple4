@@ -193,7 +193,7 @@ module.exports = function(app, handlers) {
 
             after_submit: function() {
 
-                app.clearTemplateCache("cartCheckout");
+                app.clearTemplateCache("cart/checkout");
                 app.templates["cart/checkout"]();
 
             }

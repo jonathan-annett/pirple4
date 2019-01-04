@@ -76,7 +76,7 @@ module.exports = function(app, handlers) {
                         // we never show an empty cart.
                         app.showCartButtons("none");
                         setTimeout(function(){
-                            app.clearTemplateCache("menuList");
+                            app.clearTemplateCache("menu/list");
                             return app.templates["menu/list"]();   
                         },1500);
                         
@@ -91,7 +91,7 @@ module.exports = function(app, handlers) {
                         total: 0
                     };
                     setTimeout(function(){
-                        app.clearTemplateCache("menuList");
+                        app.clearTemplateCache("menu/list");
                         return app.templates["menu/list"]();   
                     },1500);
                 }
@@ -170,8 +170,7 @@ module.exports = function(app, handlers) {
 
       
             after_submit: function() {
-                app.clearTemplateCache("cartView");
-                app.clearTemplateCache("menuList");
+                app.clearTemplateCache("cart/view");
                 app.templates["cart/view"]();
             }
 
@@ -189,8 +188,7 @@ module.exports = function(app, handlers) {
             },
 
             after_submit: function() {
-                app.clearTemplateCache("cartView");
-                app.clearTemplateCache("menuList");
+                app.clearTemplateCache("cart/view");
                 app.templates["cart/view"]();
             }
 
@@ -200,7 +198,7 @@ module.exports = function(app, handlers) {
             id_prefix: "cartViewDelete_",
 
             after_submit: function() {
-                app.clearTemplateCache("cartView");
+                app.clearTemplateCache("cart/view");
                 app.templates["cart/view"]();
             }
 
@@ -232,7 +230,7 @@ module.exports = function(app, handlers) {
             },
 
             after_submit: function(user) {
-                app.clearTemplateCache("cartView");
+                app.clearTemplateCache("cart/view");
                 app.templates["cart/view"]();
             }
 

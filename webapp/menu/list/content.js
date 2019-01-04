@@ -135,12 +135,12 @@ module.exports = function(app, handlers) {
             before_submit: function(formData /*, cb*/ ) {
                 // ignore cb, ie veto submit, making this a simple click handler.
 
-                //app.clearTemplateCache("menuList");
+                //app.clearTemplateCache("menu/list");
                 app.api.menu.get({
                     id: formData.id
                 }, function(code, menuItem) {
                     if (code === 200) {
-                        app.clearTemplateCache("menuView");
+                        app.clearTemplateCache("menu/view");
                         app.templates["menu/view"]({
                             menu: menuItem
                         });
@@ -157,7 +157,7 @@ module.exports = function(app, handlers) {
             id_prefix: "menuListCartAdd_",
 
             after_submit: function() {
-                app.clearTemplateCache("cartView");
+                app.clearTemplateCache("cart/view");
                 app.templates["cart/view"]();
             }
 

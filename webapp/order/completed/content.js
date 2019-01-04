@@ -134,7 +134,7 @@ module.exports = function(app,handlers){
         forms : [{ 
             
             after_submit : function (user) {
-                 app.clearTemplateCache("menuView");
+                 app.clearTemplateCache("menu/view");
             }
             
         }]

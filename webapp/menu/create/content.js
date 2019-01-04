@@ -121,7 +121,7 @@ module.exports = function(app,handlers){
          forms : [{
             id : "menuCreate",
             after_submit : function () {
-                app.clearTemplateCache("menuList");
+                app.clearTemplateCache("menu/list");
                 app.templates["menu/list"]();
             }
 
