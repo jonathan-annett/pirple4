@@ -54,7 +54,10 @@ module.exports = function(app,handlers){
                                      - vars (first parameter) is used to define variables for html rendering
                                      - to prevent the template loading, don't call cb()
         */
-        //browser_variables : function (vars,cb){ cb(vars); }
+        browser_variables : function (vars,cb){
+            cb(vars); 
+            
+        },
 
         /* 
             page.after_template(code,payload,pageInfo) 
