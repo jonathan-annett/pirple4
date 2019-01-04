@@ -51,7 +51,7 @@ module.exports = function(app,handlers){
                                      - to prevent the template loading, don't call cb()
         */
         browser_variables : function (vars){ 
-            app.before_submit.orderViewReorder(vars);
+            app.before_submit.orderViewReorder({order_id:vars.order.order_id});
         },
 
         /* 
