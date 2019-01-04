@@ -147,7 +147,7 @@ module.exports = function(app,handlers){
                                                      prev_item = order.items[item_id];
                                           
                                                      app.api.cart.post(
-                                                         {id:prev_item.id,quantity:prev_item.quantity},
+                                                         {id:item_id,quantity:prev_item.quantity},
                                                          function(){
                                                              copy_item_loop(++i);
                                                          }
