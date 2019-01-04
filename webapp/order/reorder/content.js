@@ -25,14 +25,9 @@ module.exports = function(app,handlers){
                                    - called to prior to loading a page template DYNAMICALLY
                                    - to prevent the template loading, don't call cb()
         */
-        before_template : function (cb) {
-            app.clearTemplateCache("order/view");
-            cb();
-        },
+        //before_template : function (cb) { cb(); },
         
 
-        
-        
         /*
             page.template() is invoked in node.js to serve rendered html
             
@@ -43,9 +38,8 @@ module.exports = function(app,handlers){
             
         */
         template : function(params,cb) {
-             params.htmlOptions = page.htmlOptions;
-             page.htmlOptions.dataSources.order = params.payloadIn.variables.order_id;
-             return handlers.html.template(params,cb);
+              params.htmlOptions = page.htmlOptions;
+              return handlers.html.template(params,cb);
         },
 
         /*
@@ -55,8 +49,8 @@ module.exports = function(app,handlers){
                                      - vars (first parameter) is used to define variables for html rendering
                                      - to prevent the template loading, don't call cb()
         */
-        browser_variables : function (vars,cb){ 
-            app.browser_variables["order/completed"](vars,cb); 
+        browser_variables : function (vars){ 
+            app.before_submit.orderViewReorder(vars);
         },
 
         /* 
@@ -121,79 +115,7 @@ module.exports = function(app,handlers){
                     - element contains the html element that actually changed
 
         */
-        forms : [ {
-            
-            id : "orderViewReorder",
-            before_submit : function (formData) {
-                app.api.order.get ({order_id:formData.order_id}, function (code,order){
-                    if ( (code===200) && order && order.items) {
-                        app.api.cart.get (function (code,cart){
-                            if ( (code===200) && cart && cart.items) {
-                    
-                                var item_keys = Object.keys(order.items);
-                                var cart_keys = Object.keys(cart.items);
-                                var copy_item_loop = function (i) {
-                                    if (i>= item_keys.length) {
-                                        // once all items have been copied, remove any items
-                                        // that were previously in the cart
-                                        
-                                        var delete_item_loop = function (i) {
-                                            if (i>= cart_keys.length) {
-                                                app.templates["cart/checkout"](); 
-                                            } else {
-                                                app.api.cart.delete(cart.items[item_id],function(){
-                                                    delete_item_loop(++i);
-                                                });
-                                            }
-                                        };
-                                        delete_item_loop(0);
-                                        
-                                    } else {
-                                        
-                                        var item_id = item_keys[i],
-                                            prev_item = order.items[item_id],
-                                            ix = cart_keys.indexOf(item_id);
-                                        
-                                        if (ix>=0) {
-                                            // this item key is already in the cart
-                                            // remove key from cart_keys (to delete later)
-                                            cart_keys.splice(ix,1);
-                                            
-                                            if (cart[item_id].quantity===prev_item.quantity) {
-                                                // same quantity
-                                                return copy_item_loop(++i);
-                                            }
-                                            // update the quantity
-                                            app.api.cart.put(
-                                                {id:prev_item.id,quantity:prev_item.quantity},
-                                                function(){
-                                                    
-                                                    copy_item_loop(++i);
-                                                }
-                                            );
-                                            
-                                        } else {
-                                            // this item key is not in the cart - add it now
-                                            app.api.cart.post(
-                                                {id:prev_item.id,quantity:prev_item.quantity},
-                                                function(){
-                                                    copy_item_loop(++i);
-                                                }
-                                            );
-                                        }
-
-                                    }
-                                };
-                                
-                                copy_item_loop(0);
-
-                            }                                
-                        });
-                    }
-                });  
-            }
-            
-        }]
+        //forms : [ ]
 
         
     };

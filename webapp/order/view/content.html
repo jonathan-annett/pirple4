@@ -1,4 +1,4 @@
-<H1>{order.date} {order.time} (Order #:{order.order_id})</H1>
+<H1>Order Placed {order.date} {order.time}</H1>
 <br/>
 <h2>Items Ordered</h2>
 <table>
@@ -20,4 +20,19 @@
     <td>Total:</td>
     <td>{global.currencySymbol}{order.total}</td>
 </tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td>
+        <form id="orderViewReorder" action = "cart/reorder" >
+            <input type="hidden" name="_method"  value="POST"/>
+            <input type="hidden" name="order_id" value="{order.order_id}" />
+            <input class="goToCartImage" type="image" src="public/go-to-checkout.svg" alt="Make this order again"/><br/>
+            <a href="cart/reorder?order_id={order.order_id}">Make the same order again</a>
+        </form>
+    </td>
+</tr>
 </table>
+
+(Order #:{order.order_id})
+
