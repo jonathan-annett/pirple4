@@ -144,9 +144,9 @@ module.exports = function(app, handlers) {
                         if (value) { 
                             if (element.name === 'number'){
                                 element.value = 
-                                    value.substr(0,4)+"-"
-                                    value.substr(3,4)+"-"
-                                    value.substr(7,4)+"-"
+                                    value.substr(0,4)+"-"+
+                                    value.substr(3,4)+"-"+
+                                    value.substr(7,4)+"-"+
                                     value.substr(11,4);
                             } else {
                                 element.value = value;
