@@ -16,9 +16,9 @@ The Assignment (Scenario):
 
 It is time to build a simple frontend for the Pizza-Delivery API you created in Homework Assignment #2. Please create a web app that allows customers to:
 
-1. Signup on the site
+1. [Signup](webapp/account/create/content.js#L60) on the site
 
-2. [View all](webapp/menu/list/content.js) the items available to order
+2. [View all](webapp/menu/list/content.js#L60) the items available to order
 
 3. Fill up a shopping cart
 
