@@ -133,6 +133,16 @@ module.exports = function(app, handlers) {
                     });
                 }
             },
+            
+            on_change: function(formData, element) {
+                var valFn = element && typeof element.name === 'string' ? app.helpers.validate.card[element.name] : false;
+                if (typeof valFn === 'function') {
+                    valFn(formData, function(value) {
+                        element.style.backgroundColor = (value === false ? "red" : "white");
+                        if (value) element.value = value;
+                    });
+                }
+            },
             before_submit: function(formData/*, cb*/ ) {
                 // ignore cb, ie veto submit, making this a simple click handler.
 
