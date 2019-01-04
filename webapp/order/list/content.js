@@ -58,8 +58,10 @@ module.exports = function(app,handlers){
              
             
             vars.display_order = vars.order.map(function(el){
+                var d = new Date( el.when );
                 return {
-                    date     : app.helpers.formatDate(new Date( el.when )),
+                    date     : app.helpers.formatDate(d),
+                    time     : d.toTimeString().substr(0,5),
                     order_id : el.order_id,
                     total    : el.total
                 };

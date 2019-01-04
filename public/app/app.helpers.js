@@ -23,6 +23,7 @@ app.helpers.formatDate = function(date) {
   return day + ' ' + monthNames[monthIndex] + ' ' + year;
 };
 
+ 
 app.helpers.resolve_uri=function(url){
     if (url.substr(0,document.baseURI.length)===document.baseURI) {
         return url.substr(document.baseURI.length);         
