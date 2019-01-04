@@ -1,1 +1,18 @@
 <H1>Payment Complete</H1>
+<table>
+{?:[order_items]}
+    <tr>
+        <td>
+            {description}
+        </td>
+        <td>
+            {quantity}
+        </td>
+        <td>
+            {global.currencySymbol}{price} 
+        </td>
+    </tr>
+{:?}
+</table>
+
+   

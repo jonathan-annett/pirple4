@@ -2,6 +2,12 @@
 
 app.helpers.validate.default_image_url = "/public/default.png";
 
+app.helpers.flatten = function (array,key) {
+    var db = {};
+    array.forEach(function(el){ db[ el[key] ] = el; });
+    return db;
+};
+
 app.helpers.resolve_uri=function(url){
     if (url.substr(0,document.baseURI.length)===document.baseURI) {
         return url.substr(document.baseURI.length);         

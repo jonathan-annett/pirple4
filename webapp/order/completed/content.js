@@ -55,9 +55,16 @@ module.exports = function(app,handlers){
                                      - to prevent the template loading, don't call cb()
         */
         browser_variables : function (vars,cb){
+            var item_keys = Object.keys(vars.order.items);
+            vars.order_items=[];
+            for(var i = 0; i < item_keys.length; i++) {
+                var item_key = item_keys[i];
+                var item = vars.order.items[item_key];
+                item.id = item_key;
+                vars.order_items.push(item);
+            }
             
             cb(vars); 
-            
         },
 
         /* 
