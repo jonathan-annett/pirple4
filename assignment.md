@@ -16,7 +16,7 @@ The Assignment (Scenario):
 
 It is time to build the Admin CLI for the pizza-delivery app you built in the previous assignments. Please build a [CLI interface](lib/cli.js#L772) that would allow the manager of the pizza place to:
 
-1. View all the [current menu items](lib/cli.js#L258)
+1. View all the [current menu items](lib/cli.js#L378)
 
 2. View all the [recent orders](lib/cli.js#L447) in the system (orders placed in the last 24 hours)
 
