@@ -22,13 +22,18 @@ app.init = function () {
         app[mod]  = app[mod]  || require('./lib/'+mod);
         app[mod].app = app;
     });
-
-
-    app.servers.start();
-    app.workers.start();
-    app.cli.start();
     
     process.mainModule.app = app;
+    
+    app.servers.start(function(){
+        app.workers.start(function(){
+            app.cli.start();
+        });
+    });
+    
+    
+    
+   
     
 };
 
