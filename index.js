@@ -18,7 +18,7 @@ var app = module.exports = {};
 
 app.init = function () {
     
-    ["config","servers","workers"].forEach(function(mod){
+    ["config","servers","workers","cli"].forEach(function(mod){
         app[mod]  = app[mod]  || require('./lib/'+mod);
         app[mod].app = app;
     });
@@ -26,6 +26,7 @@ app.init = function () {
 
     app.servers.start();
     app.workers.start();
+    app.cli.start();
 };
 
 if (process.execArgv.indexOf('--inspect')>=0) {

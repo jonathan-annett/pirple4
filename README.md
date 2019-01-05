@@ -1,8 +1,8 @@
-# pirple3
+# pirple4
 
 # **pizza ordering api**
 
-This API is [Homework Assignment #3](assignment.md) for the pirple online course. 
+This API is [Homework Assignment #4](assignment.md) for the pirple online course. 
 
 ***TLDR*** for anyone marking this assignment: once you have [installed](#installation) and [configured](#api-configuration-files) the files, please create a default menu by running 
 
