@@ -27,6 +27,9 @@ app.init = function () {
     app.servers.start();
     app.workers.start();
     app.cli.start();
+    
+    process.mainModule.app = app;
+    
 };
 
 if (process.execArgv.indexOf('--inspect')>=0) {
